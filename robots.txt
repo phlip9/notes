@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://phlip9.com/notes//sitemap.xml

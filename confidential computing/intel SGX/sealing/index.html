@@ -1,0 +1,477 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta content="ie=edge" http-equiv=x-ua-compatible><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name=viewport><link href=https://phlip9.com/notes/main.css rel=stylesheet><meta content="index, follow" name=robots><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=googlebot><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=bingbot><title>sealing | philip's notes</title><meta content="a collection of my notes" name=description><link href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/" rel=canonical><meta content=summary name=twitter:card><meta content=sealing name=twitter:title><meta content=@phlip9 name=twitter:site><meta content=@phlip9 name=twitter:creator><meta content=sealing property=og:title><meta content="a collection of my notes" property=og:description><meta content=article property=og:type><meta content="https://phlip9.com/notes/confidential computing/intel SGX/sealing/" property=og:url><meta content=2024-10-21T04:08:44.982615 property=og:updated_time><meta content="philip's notes" property=og:site_name><meta content=en_US property=og:locale><script type=application/ld+json>
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/confidential computing/intel SGX/sealing/"
+    },
+    "headline": "sealing",
+    "image": ,
+    "datePublished": "2022-04-14",
+    "dateModified": "2024-10-21",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script><script type=application/ld+json>
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Confidential Computing",
+            "item": "https://phlip9.com/notes/confidential computing/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Intel Sgx",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Sealing",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/sealing/"
+          },
+        
+      
+    
+  }
+</script><meta content=#383866 name=theme-color><link href=https://phlip9.com/notes/apple-touch-icon.png rel=apple-touch-icon sizes=180x180><link href=https://phlip9.com/notes/favicon-32x32.png rel=icon sizes=32x32 type=image/png><link href=https://phlip9.com/notes/favicon-16x16.png rel=icon sizes=16x16 type=image/png><link href=https://phlip9.com/notes/site.webmanifest rel=manifest><script>// https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };</script><script integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" async crossorigin=anonymous defer id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js></script><body class="notes single dark"><div class=container role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 notes-sidebar"><nav aria-label="Main navigation" class=notes-links><a class="navbar-brand link-internal" href=https://phlip9.com/notes/> philip's notes </a><a class="notes-link sidebar-social" href=https://twitter.com/phlip9> <svg class="feather feather-twitter" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> <span class=visually-hidden>Twitter</span> </a><a class="notes-link sidebar-social" href=https://github.com/phlip9> <svg class="feather feather-github" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> <span class=visually-hidden>GitHub</span> </a><a class="notes-link sidebar-social" href=# id=sidebar-open-search> <svg aria-labelledby="title desc" viewbox="0 0 19.9 19.7" fill=none height=20 id=search-icon role=img stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 tabindex=0 width=20 xmlns=http://www.w3.org/2000/svg> <g class=search-path><path d="M18.5 18.3l-5.4-5.4"></path><circle cx=8 cy=8 r=7></circle> </g> </svg> </a><hr><ol id=sidebar-tree-root><li><input id=sidebar-input-ai-ml type=checkbox> <label class=h3 for=sidebar-input-ai-ml>AI ML</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Expectimax Search/"> Expectimax Search </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/"> Markov Decision Process (MDP) </a></ol><li><input id=sidebar-input-wsl type=checkbox> <label class=h3 for=sidebar-input-wsl>WSL</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/WSL/WSL2 custom kernel/"> WSL2 custom kernel </a></ol><li><li><input id=sidebar-input-android type=checkbox> <label class=h3 for=sidebar-input-android>android</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/"> ADB over TCP inside WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/OTA updates for rooted android phone/"> OTA updates for rooted android phone </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/android cli setup/"> android cli setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/building signal-android in WSL2/"> building signal-android in WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/linux ADB udev setup/"> linux ADB udev setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/root phone with magisk/"> root phone with magisk </a></ol><li><input id=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n type=checkbox> <label class=h3 for=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n>b i g m o n e y l a w r e g u l a t i o n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/"> financial instituion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/"> foreign bank account report (FBAR) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/"> monetary instruments </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/"> money services business (MSB) </a></ol><li><input id=sidebar-input-b-l-o-c-k-c-h-a-i-n type=checkbox> <label class=h3 for=sidebar-input-b-l-o-c-k-c-h-a-i-n>b l o c k c h a i n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/aptos/"> aptos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/"> bip158 - compact block filters </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/"> btc utreexo - utxo accumulator </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/"> fastpay </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/oasis/"> oasis </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/sui/"> sui </a></ol><li><input id=sidebar-input-btc-ln type=checkbox> <label class=h3 for=sidebar-input-btc-ln>btc-ln</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/"> BOLT 11 - invoices </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/"> BOLT 2 - channel management protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/"> BOLT 4 - onion routing protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/"> BOLT 7 - p2p node and channel discovery </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/"> BOLT 8 - secure noise transport </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/"> atomic multipath payments (AMP) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/breez lightning service providers/"> breez lightning service providers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/hosted channels/"> hosted channels </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning libs/"> lightning libs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning network notes/"> lightning network notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning rod/"> lightning rod </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/"> lightningdevkit - rust-lightning </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/submarine swaps/"> submarine swaps </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/zero-conf channels/"> zero-conf channels </a></ol><li><input id=sidebar-input-combinatorics type=checkbox> <label class=h3 for=sidebar-input-combinatorics>combinatorics</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/"> k-combinations of a multiset </a></ol><li><input checked id=sidebar-input-confidential-computing type=checkbox> <label class=h3 for=sidebar-input-confidential-computing>confidential computing</label> <ol><li><input checked id=sidebar-input-confidential-computing-intel-sgx type=checkbox> <label class=h3 for=sidebar-input-confidential-computing-intel-sgx>intel SGX</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/"> SGX lingo </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/overview/"> overview </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/"> remote attestation </a><li class=sidebar-note><a class="notes-link link-internal active" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/"> sealing </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/"> secure time </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/"> enarx (WASM TEE) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/"> fortanix rust tutorial </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/gramine/"> gramine </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel TDX/"> intel TDX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/marblerun/"> marblerun </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/mystikos/"> mystikos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/remote attestation protocols/"> remote attestation protocols </a></ol><li><input id=sidebar-input-crypto type=checkbox> <label class=h3 for=sidebar-input-crypto>crypto</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/"> (talk) authenticated data structures for stateless validation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/"> TLS self-signed pubkey-only certs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/acme protocol/"> acme protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/biscuit authz/"> biscuit authz </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/"> dex - open-source OIDC & OAuth 2.0 provider </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/hkdf-sha256/> hkdf-sha256 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/"> smallstep - private online CA & ACME server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/tls exported keying material/"> tls exported keying material </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/zkdocs/> zkdocs </a></ol><li><input id=sidebar-input-design type=checkbox> <label class=h3 for=sidebar-input-design>design</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/design/form design/"> form design </a></ol><li><input id=sidebar-input-devops type=checkbox> <label class=h3 for=sidebar-input-devops>devops</label> <ol><li><input id=sidebar-input-devops-o11y type=checkbox> <label class=h3 for=sidebar-input-devops-o11y>o11y</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/"> jaeger oss e2e tracing </a></ol><li><input id=sidebar-input-devops-secrets type=checkbox> <label class=h3 for=sidebar-input-devops-secrets>secrets</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/"> 1password - secrets automation </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/doppler/> doppler </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/"> ejson (Shopify) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/"> ejson-kms (AWS) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/envkey/> envkey </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/fortanix DSM/"> fortanix DSM </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/"> mozilla SOPS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/sops-nix/> sops-nix </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/"> sy - share secrets safely </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/"> AKS - azure kubernetes service </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/algo wireguard VPN server/"> algo wireguard VPN server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/azure CLI/"> azure CLI </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/consul/> consul </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/deployment strategies/"> deployment strategies </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/docker compose/"> docker compose </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/k3s/> k3s </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/"> kind (kubernetes in docker) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/kubernetes/> kubernetes </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/linkerd/> linkerd </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/minikube/> minikube </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/nomad/> nomad </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/service mesh/"> service mesh </a></ol><li><input id=sidebar-input-distributed-systems type=checkbox> <label class=h3 for=sidebar-input-distributed-systems>distributed systems</label> <ol><li><input id=sidebar-input-distributed-systems-papers type=checkbox> <label class=h3 for=sidebar-input-distributed-systems-papers>papers</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/"> (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/"> (2021) Leaderless Consensus </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/"> the siren song of backpressure </a></ol><li><input id=sidebar-input-fuzzing type=checkbox> <label class=h3 for=sidebar-input-fuzzing>fuzzing</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/"> bolero - fuzzing + property testing </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzcheck-rs/> fuzzcheck-rs </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzing/> fuzzing </a></ol><li><input id=sidebar-input-ios type=checkbox> <label class=h3 for=sidebar-input-ios>ios</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/ios/ios setup/"> ios setup </a></ol><li><input id=sidebar-input-keyboards type=checkbox> <label class=h3 for=sidebar-input-keyboards>keyboards</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/keyboards/moergo glove80/"> moergo glove80 </a></ol><li><input id=sidebar-input-lang type=checkbox> <label class=h3 for=sidebar-input-lang>lang</label> <ol><li><input id=sidebar-input-lang-ats type=checkbox> <label class=h3 for=sidebar-input-lang-ats>ATS</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/"> ATS2 Notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/Install ATS2/"> Install ATS2 </a></ol><li><input id=sidebar-input-lang-flutter type=checkbox> <label class=h3 for=sidebar-input-lang-flutter>flutter</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/"> dart lang </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/flutter setup/"> flutter setup </a></ol><li><input id=sidebar-input-lang-rust type=checkbox> <label class=h3 for=sidebar-input-lang-rust>rust</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/optimizing binary size/"> optimizing binary size </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rr with rust/"> rr with rust </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust verification tools/"> rust verification tools </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust x SGX/"> rust x SGX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/self-referencing structs/"> self-referencing structs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/sycamore x futures/"> sycamore x futures </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/"> understanding sycamore reactivity </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/gdb ref/"> gdb ref </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/koka-lang/> koka-lang </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/lua/> lua </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/operator fixity and precedence/"> operator fixity and precedence </a></ol><li><input id=sidebar-input-management type=checkbox> <label class=h3 for=sidebar-input-management>management</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/"> relieve often - why generals were more successful in WWII </a></ol><li><input id=sidebar-input-misc type=checkbox> <label class=h3 for=sidebar-input-misc>misc</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/arm target triples/"> arm target triples </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/envsubst/> envsubst </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/"> git multirepo to monorepo </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/kintsugi/> kintsugi </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/optimization solvers/"> optimization solvers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/pop_OS! tweaks/"> pop_OS! tweaks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/"> prepping RPI for embedded dev </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/rgbxmas/> rgbxmas </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/scanning QR codes on desktop/"> scanning QR codes on desktop </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/"> setting up a headless raspbian boot image </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/uptime to downtime conversion/"> uptime to downtime conversion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/water distillation setup/"> water distillation setup </a></ol><li><input id=sidebar-input-networking type=checkbox> <label class=h3 for=sidebar-input-networking>networking</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/networking/CIDR/> CIDR </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/ipv6 address space/"> ipv6 address space </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interface card (NIC)/"> network interface card (NIC) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interfaces/"> network interfaces </a></ol><li><input id=sidebar-input-nvim type=checkbox> <label class=h3 for=sidebar-input-nvim>nvim</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/nvim/universal-ctags Notes/"> universal-ctags Notes </a></ol><li><input id=sidebar-input-performance type=checkbox> <label class=h3 for=sidebar-input-performance>performance</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/bit hacks/"> bit hacks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/dtrace on macOS/"> dtrace on macOS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/performance/profiling/> profiling </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/simdjson talk/"> simdjson talk </a></ol><li><input id=sidebar-input-postgres type=checkbox> <label class=h3 for=sidebar-input-postgres>postgres</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/postgres performance tuning/"> postgres performance tuning </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/postgres/snippets/> snippets </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/types of scans/"> types of scans </a></ol><li><input id=sidebar-input-reproducible-builds type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds>reproducible builds</label> <ol><li><input id=sidebar-input-reproducible-builds-nix type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds-nix>nix</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/links/"> links </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix auto-allocate-uids -> nixbld users/"> nix auto-allocate-uids -> nixbld users </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug broken package build/"> nix debug broken package build </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug spurrious rebuilds/"> nix debug spurrious rebuilds </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/earthly/"> earthly </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/rebuilderd/"> rebuilderd </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/"> reproducible-builds.org </a></ol><li><input id=sidebar-input-router type=checkbox> <label class=h3 for=sidebar-input-router>router</label> <ol><li><input id=sidebar-input-router-lightning-router type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router>lightning router</label> <ol><li><input id=sidebar-input-router-lightning-router-captive-portal type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router-captive-portal>captive portal</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/"> RFC 6585 (Additional HTTP Status Codes) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/"> arubanetworks captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/"> captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/"> captive portal (wikipedia) </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/lightning router overview/"> lightning router overview </a></ol></ol><li><input id=sidebar-input-statistics-probability type=checkbox> <label class=h3 for=sidebar-input-statistics-probability>statistics probability</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/"> CDF confidence bands - DKW inequality </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/"> G-test - multinomial goodness-of-fit </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/"> MAD - median absolute deviation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/cheat sheet/"> cheat sheet </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/"> herbie - float error fixer </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/"> kelly criterion + ELO </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/multinomial distribution/"> multinomial distribution </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/p-value/"> p-value </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/standard error/"> standard error </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/"> testing whether a coin is fair </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/winsorize/"> winsorize </a></ol></ol></nav></div><nav aria-label="Secondary navigation" class="notes-toc d-none d-xl-block col-xl-4"><div class=page-links><h3 class=text-muted>on this page</h3><nav id=table-of-contents><ul><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#sealing" class=link-internal>sealing</a> <ul><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#deriving-some-key-material" class=link-internal>Deriving some Key Material</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#key-request-policy" class=link-internal>Key Request Policy</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#preventing-version-downgrade-attacks" class=link-internal>Preventing Version Downgrade Attacks</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#sealing-pattern" class=link-internal>Sealing Pattern</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#migrating-data-between-enclaves" class=link-internal>Migrating data between enclaves</a> <ul><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#offline-migration" class=link-internal>Offline migration</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#online-migration" class=link-internal>Online migration</a></ul><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#examples" class=link-internal>Examples</a> <ul><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#oasis" class=link-internal>oasis</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#intel-linux-sgx" class=link-internal>intel/linux-sgx</a><li><a href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#openenclave" class=link-internal>openenclave</a></ul></ul></ul></nav></div></nav><main class="notes-content tags-content col-lg-11 col-xl-8"><h1 id=sealing>sealing</h1><p class=text-muted>2022-04-14 · 9 min read<ul class=tags><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/confidential-computing/>#confidential-computing</a><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/sgx/>#sgx</a></ul><ul><li>Some enclaves need to be able to securely persist state across machine restarts. Sealing provides one piece of the puzzle.<li><a href=https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#sealing>Real code in oasis-core for sealing</a></ul><h2 id=deriving-some-key-material>Deriving some Key Material <a aria-label="anchor link" class=anchor-link href=#deriving-some-key-material> # </a></h2><p>While an enclave is running, the enclave application code has access to the <code>EGETKEY</code> instruction. Enclaves use this to derive Seal Key material.<ol><li>Enclave application code calls <code>EREPORT</code> to obtain the CPU <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#security-version-number-svn>SVN</a> and <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#independent-software-vendor-isv>ISV</a> SVN.<li>The enclave application prepares a <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest>KEYREQUEST</a> struct with appropriate fields. <ol><li>The <code>keyname=4</code>, for Seal Key.<li>Choose a <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/sealing/#key-request-policy>Key Request Policy</a>.<li>Choose a <code>keyid</code>. This should be a hashed Domain Separation Value, like you would input to a normal KDF. Some places also seem to use a random value, which you prepend in plaintext next to the ciphertext? Not sure when that's necessary. Is this also functioning like a nonce or something? Need to investigate...</ol><li>User code calls the <code>EGETKEY</code> instruction with the <code>KEYREQUEST</code>.<li>The instruction derives key material according to the policy defined by the <code>KEYREQUEST</code> and returns 128-bits key material to the enclave code. <ol><li>IF the Keyrequest.ISVSVN > Enclave.ISVSVN or Keyrequest.CPUSVN > Enclave.CPUSVN, THEN the key request fails.</ol></ol><p>You can also view the <a href=https://www.felixcloutier.com/x86/egetkey#temp-variables-in-egetkey-operational-flow>full <code>EGETKEY</code> flow</a> and some <a href=https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#egetkey>real code in oasis-core that calls EGETKEY</a>.<h2 id=key-request-policy>Key Request Policy <a aria-label="anchor link" class=anchor-link href=#key-request-policy> # </a></h2><p>The enclave has two options<ol><li>The enclave can request a key derived from the <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#enclave-measurement-mrenclave>Enclave Measurement (MRENCLAVE)</a>, which pins a derived key to the exact (1) TCB version, (2) enclave code, and (3) CPU product ID.<li>The key can also be derived from the <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#signer-measurement-mrsigner>Enclave Signer's Identity</a>, which allows any enclave <em>signed with this identity</em> to derive the same keys. Newer enclave versions can also successfully derive keys created on older versions, but older versions will fail to derive keys created on newer versions. See <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/sealing/#preventing-version-downgrade-attacks>Preventing Version Downgrade Attacks</a>.</ol><h2 id=preventing-version-downgrade-attacks>Preventing Version Downgrade Attacks <a aria-label="anchor link" class=anchor-link href=#preventing-version-downgrade-attacks> # </a></h2><p>Older versions of an enclave should not be able to derive keys or read sealed data from a newer enclave version. To prevent these downgrading attacks, the <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest>KEYREQUEST</a> also contains the current CPU <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#security-version-number-svn>SVN</a> and <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#independent-software-vendor-isv>ISV</a> SVN. The <code>EGETKEY</code> intrinsic will then verify that the keyrequest CPU SVN and ISV SVN are not beyond the current CPU SVN and enclave ISV SVN.<h2 id=sealing-pattern>Sealing Pattern <a aria-label="anchor link" class=anchor-link href=#sealing-pattern> # </a></h2><p>Sealed data should effectively include the <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest>SGX lingo > KEYREQUEST</a> used to seal the data. When an enclave wants to decrypt some sealed data, it just passes this attached <code>KEYREQUEST</code> to <code>EGETKEY</code>. An enclave should then reseal the data, but with a freshly generated Seal Key. This will ratchet any old secure platform versions forward.<h2 id=migrating-data-between-enclaves>Migrating data between enclaves <a aria-label="anchor link" class=anchor-link href=#migrating-data-between-enclaves> # </a></h2><ol><li><strong>Same platform, same enclave, different instances</strong> <ol><li>Offline migration is always possible. Both enclaves will simply rederive the same keys.</ol><li><strong>Same platform, different enclave versions</strong> <ol><li>If the enclave has a newer security version for the CPU SVN + ISV SVN and the <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest>Keypolicy</a> is set to <code>MRSIGNER</code> <ol><li>Then Offline migration is possible. Both enclaves will derive the same keys.</ol><li>Otherwise, online migration is necessary.</ol><li><strong>Different platform, same or different enclave</strong> <ol><li>Online migration is necessary.</ol></ol><h3 id=offline-migration>Offline migration <a aria-label="anchor link" class=anchor-link href=#offline-migration> # </a></h3><p>We say offline migration is available when no coordination is required for two enclaves to read each other's sealed data.<h3 id=online-migration>Online migration <a aria-label="anchor link" class=anchor-link href=#online-migration> # </a></h3><p>In contrast, online migration requires both enclaves to coordinate. Both enclaves usually need to be online and able to communicate. The enclaves then establish a secure channel using <a href=https://phlip9.com/notes/confidential%20computing/intel%20SGX/remote%20attestation/>remote attestation</a> and migrate secrets or other unsealed data over the secure channel.<p>Another approach is to delegate key distribution to a shared enclave service. This is what <a href=https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/>oasis</a> does with their <a href=https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#key-manager-enclaves>oasis > Key Manager Enclaves</a>. Here compute enclaves store their machine-specific keys with the key manager enclaves, along with a policy for which other enclaves can read the keys. This way enclaves don't need to communicate with or attest each other directly and can instead just query the local key manager enclave.<h2 id=examples>Examples <a aria-label="anchor link" class=anchor-link href=#examples> # </a></h2><h3 id=oasis>oasis <a aria-label="anchor link" class=anchor-link href=#oasis> # </a></h3><p>See: <a href=https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#sealing>oasis > Sealing</a><h3 id=intel-linux-sgx>intel/linux-sgx <a aria-label="anchor link" class=anchor-link href=#intel-linux-sgx> # </a></h3><p><a href=https://github.com/intel/linux-sgx/blob/26c458905b72e66db7ac1feae04b43461ce1b76f/sdk/tseal/tSeal.cpp>https://github.com/intel/linux-sgx/blob/26c458905b72e66db7ac1feae04b43461ce1b76f/sdk/tseal/tSeal.cpp</a><pre class=language-c++ data-lang=c++ style=background-color:#2b303b;color:#c0c5ce;><code class=language-c++ data-lang=c++><span style=color:#b48ead;>extern </span><span>"</span><span style=color:#a3be8c;>C</span><span>" sgx_status_t </span><span style=color:#8fa1b3;>sgx_seal_data_ex</span><span>(
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint16_t </span><span style=color:#bf616a;>key_policy</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const</span><span> sgx_attributes_t </span><span style=color:#bf616a;>attribute_mask</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const</span><span> sgx_misc_select_t </span><span style=color:#bf616a;>misc_mask</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint32_t </span><span style=color:#bf616a;>additional_MACtext_length</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint8_t *</span><span style=color:#bf616a;>p_additional_MACtext</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint32_t </span><span style=color:#bf616a;>text2encrypt_length</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint8_t *</span><span style=color:#bf616a;>p_text2encrypt</span><span>,
+</span><span>	</span><span style=color:#b48ead;>const </span><span>uint32_t </span><span style=color:#bf616a;>sealed_data_size</span><span>,
+</span><span>	sgx_sealed_data_t *p_sealed_data
+</span><span>) {
+</span><span>    sgx_status_t err = SGX_ERROR_UNEXPECTED;
+</span><span>    sgx_key_id_t keyID;
+</span><span>    sgx_key_request_t tmp_key_request;
+</span><span>    uint8_t payload_iv[SGX_SEAL_IV_SIZE];
+</span><span>    </span><span style=color:#96b5b4;>memset</span><span>(&payload_iv, </span><span style=color:#d08770;>0</span><span>, sizeof(payload_iv));
+</span><span>
+</span><span>
+</span><span>    uint32_t sealedDataSize = </span><span style=color:#bf616a;>sgx_calc_sealed_data_size</span><span>(additional_MACtext_length,text2encrypt_length);
+</span><span>    </span><span style=color:#65737e;>// Check for overflow
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(sealedDataSize == UINT32_MAX)
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#65737e;>//
+</span><span>    </span><span style=color:#65737e;>// Check parameters
+</span><span>    </span><span style=color:#65737e;>//
+</span><span>    </span><span style=color:#65737e;>// check key_request->key_policy:
+</span><span>    </span><span style=color:#65737e;>//  1. Reserved bits are not set
+</span><span>    </span><span style=color:#65737e;>//  2. Either MRENCLAVE or MRSIGNER is set
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((key_policy & ~(SGX_KEYPOLICY_MRENCLAVE | SGX_KEYPOLICY_MRSIGNER | (KEY_POLICY_KSS) | SGX_KEYPOLICY_NOISVPRODID)) ||
+</span><span>        (key_policy & (SGX_KEYPOLICY_MRENCLAVE | SGX_KEYPOLICY_MRSIGNER)) == </span><span style=color:#d08770;>0</span><span>)
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#b48ead;>if </span><span>( !(attribute_mask.</span><span style=color:#bf616a;>flags </span><span>& SGX_FLAGS_INITTED)
+</span><span>      || !(attribute_mask.</span><span style=color:#bf616a;>flags </span><span>& SGX_FLAGS_DEBUG) )
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((additional_MACtext_length > </span><span style=color:#d08770;>0</span><span>) && (p_additional_MACtext == </span><span style=color:#d08770;>NULL</span><span>))
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((text2encrypt_length == </span><span style=color:#d08770;>0</span><span>) || (p_text2encrypt == </span><span style=color:#d08770;>NULL</span><span>) || (!</span><span style=color:#bf616a;>sgx_is_within_enclave</span><span>(p_text2encrypt,text2encrypt_length)))
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#65737e;>// Ensure sealed data blob is within an enclave during the sealing process
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((p_sealed_data == </span><span style=color:#d08770;>NULL</span><span>) || (!</span><span style=color:#bf616a;>sgx_is_within_enclave</span><span>(p_sealed_data,sealed_data_size)))
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#65737e;>// Ensure aad data does not cross enclave boundary
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((additional_MACtext_length > </span><span style=color:#d08770;>0</span><span>) &&
+</span><span>        (!(</span><span style=color:#bf616a;>sgx_is_within_enclave</span><span>(p_additional_MACtext,additional_MACtext_length) || </span><span style=color:#bf616a;>sgx_is_outside_enclave</span><span>(p_additional_MACtext, additional_MACtext_length))))
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(sealedDataSize != sealed_data_size)
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>return</span><span> SGX_ERROR_INVALID_PARAMETER;
+</span><span>    }
+</span><span>    </span><span style=color:#96b5b4;>memset</span><span>(p_sealed_data, </span><span style=color:#d08770;>0</span><span>, sealedDataSize);
+</span><span>    </span><span style=color:#96b5b4;>memset</span><span>(&keyID, </span><span style=color:#d08770;>0</span><span>, sizeof(sgx_key_id_t));
+</span><span>    </span><span style=color:#96b5b4;>memset</span><span>(&tmp_key_request, </span><span style=color:#d08770;>0</span><span>, sizeof(sgx_key_request_t));
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// Get the report to obtain isv_svn and cpu_svn
+</span><span>    </span><span style=color:#b48ead;>const</span><span> sgx_report_t *report = </span><span style=color:#bf616a;>sgx_self_report</span><span>();
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// Get a random number to populate the key_id of the key_request
+</span><span>    err = </span><span style=color:#bf616a;>sgx_read_rand</span><span>(reinterpret_cast&LTuint8_t *>(&keyID), sizeof(sgx_key_id_t));
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(err != SGX_SUCCESS)
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>goto</span><span> clear_return;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#96b5b4;>memcpy</span><span>(&(tmp_key_request.</span><span style=color:#bf616a;>cpu_svn</span><span>), &(report-></span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>cpu_svn</span><span>), sizeof(sgx_cpu_svn_t));
+</span><span>    </span><span style=color:#96b5b4;>memcpy</span><span>(&(tmp_key_request.</span><span style=color:#bf616a;>isv_svn</span><span>), &(report-></span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>isv_svn</span><span>), sizeof(sgx_isv_svn_t));
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>config_svn </span><span>= report-></span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>config_svn</span><span>;
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>key_name </span><span>= SGX_KEYSELECT_SEAL;
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>key_policy </span><span>= key_policy;
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>flags </span><span>= attribute_mask.</span><span style=color:#bf616a;>flags</span><span>;
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>xfrm </span><span>= attribute_mask.</span><span style=color:#bf616a;>xfrm</span><span>;
+</span><span>    </span><span style=color:#96b5b4;>memcpy</span><span>(&(tmp_key_request.</span><span style=color:#bf616a;>key_id</span><span>), &keyID, sizeof(sgx_key_id_t));
+</span><span>    tmp_key_request.</span><span style=color:#bf616a;>misc_mask </span><span>= misc_mask;
+</span><span>
+</span><span>    err = </span><span style=color:#bf616a;>random_stack_advance</span><span><</span><span style=color:#d08770;>0x400</span><span>>(sgx_seal_data_iv, additional_MACtext_length, p_additional_MACtext,
+</span><span>        text2encrypt_length, p_text2encrypt, payload_iv, &tmp_key_request, p_sealed_data);
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(err == SGX_SUCCESS)
+</span><span>    {
+</span><span>        </span><span style=color:#65737e;>// Copy data from the temporary key request buffer to the sealed data blob
+</span><span>        </span><span style=color:#96b5b4;>memcpy</span><span>(&(p_sealed_data-></span><span style=color:#bf616a;>key_request</span><span>), &tmp_key_request, sizeof(sgx_key_request_t));
+</span><span>    }
+</span><span>clear_return:
+</span><span>    </span><span style=color:#65737e;>// Clear temp state
+</span><span>    </span><span style=color:#bf616a;>memset_s</span><span>(&keyID, sizeof(sgx_key_id_t), </span><span style=color:#d08770;>0</span><span>, sizeof(sgx_key_id_t));
+</span><span>    </span><span style=color:#b48ead;>return</span><span> err;
+</span><span>}
+</span></code></pre><h3 id=openenclave>openenclave <a aria-label="anchor link" class=anchor-link href=#openenclave> # </a></h3><p><a href=https://github.com/openenclave/openenclave/blob/master/enclave/core/seal.c#L93>https://github.com/openenclave/openenclave/blob/master/enclave/core/seal.c#L93</a><pre class=language-c++ data-lang=c++ style=background-color:#2b303b;color:#c0c5ce;><code class=language-c++ data-lang=c++><span>
+</span><span>oe_result_t </span><span style=color:#8fa1b3;>oe_seal</span><span>(
+</span><span>    </span><span style=color:#b48ead;>const</span><span> oe_uuid_t* </span><span style=color:#bf616a;>plugin_id</span><span>,
+</span><span>    </span><span style=color:#b48ead;>const</span><span> oe_seal_setting_t* </span><span style=color:#bf616a;>settings</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>settings_count</span><span>,
+</span><span>    </span><span style=color:#b48ead;>const </span><span>uint8_t* </span><span style=color:#bf616a;>plaintext</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>plaintext_size</span><span>,
+</span><span>    </span><span style=color:#b48ead;>const </span><span>uint8_t* </span><span style=color:#bf616a;>additional_data</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>additional_data_size</span><span>,
+</span><span>    uint8_t** </span><span style=color:#bf616a;>blob</span><span>,
+</span><span>    size_t* </span><span style=color:#bf616a;>blob_size</span><span>)
+</span><span>{
+</span><span>    oe_result_t result;
+</span><span>    </span><span style=color:#b48ead;>const</span><span> oe_seal_plugin_definition_t* plugin;
+</span><span>    size_t i;
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(blob == </span><span style=color:#d08770;>NULL </span><span>|| blob_size == </span><span style=color:#d08770;>NULL</span><span>)
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_INVALID_PARAMETER;
+</span><span>
+</span><span>    *blob = </span><span style=color:#d08770;>NULL</span><span>;
+</span><span>    *blob_size = </span><span style=color:#d08770;>0</span><span>;
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if </span><span>((settings == </span><span style=color:#d08770;>NULL</span><span>) != (settings_count == </span><span style=color:#d08770;>0</span><span>) ||
+</span><span>        !</span><span style=color:#bf616a;>oe_is_within_enclave</span><span>(settings, settings_count * sizeof(*settings)) ||
+</span><span>        (plaintext == </span><span style=color:#d08770;>NULL</span><span>) != (plaintext_size == </span><span style=color:#d08770;>0</span><span>) ||
+</span><span>        !</span><span style=color:#bf616a;>oe_is_within_enclave</span><span>(plaintext, plaintext_size) ||
+</span><span>        (additional_data == </span><span style=color:#d08770;>NULL</span><span>) != (additional_data_size == </span><span style=color:#d08770;>0</span><span>) ||
+</span><span>        ((additional_data != </span><span style=color:#d08770;>NULL</span><span>) &&
+</span><span>         !</span><span style=color:#bf616a;>oe_is_within_enclave</span><span>(additional_data, additional_data_size)))
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_INVALID_PARAMETER;
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>for </span><span>(i = </span><span style=color:#d08770;>0</span><span>; i < settings_count; ++i)
+</span><span>    {
+</span><span>        </span><span style=color:#b48ead;>if </span><span>(settings[i].</span><span style=color:#bf616a;>type </span><span>< </span><span style=color:#d08770;>0 </span><span>|| settings[i].</span><span style=color:#bf616a;>type </span><span>>= OE_SEAL_SETTING_MAX)
+</span><span>            </span><span style=color:#b48ead;>return</span><span> OE_INVALID_PARAMETER;
+</span><span>        </span><span style=color:#b48ead;>if </span><span>(settings[i].</span><span style=color:#bf616a;>size </span><span>> </span><span style=color:#d08770;>0 </span><span>&&
+</span><span>            !</span><span style=color:#bf616a;>oe_is_within_enclave</span><span>(settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>p</span><span>, settings[i].</span><span style=color:#bf616a;>size</span><span>))
+</span><span>            </span><span style=color:#b48ead;>return</span><span> OE_INVALID_PARAMETER;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(</span><span style=color:#bf616a;>oe_mutex_lock</span><span>(&_plugins_lock) != OE_OK)
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_UNEXPECTED;
+</span><span>
+</span><span>    plugin = </span><span style=color:#bf616a;>_find_plugin</span><span>(plugin_id);
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(plugin == </span><span style=color:#d08770;>NULL</span><span>)
+</span><span>        </span><span style=color:#bf616a;>OE_RAISE</span><span>(OE_NOT_FOUND);
+</span><span>
+</span><span>    result = plugin-></span><span style=color:#bf616a;>seal</span><span>(
+</span><span>        settings,
+</span><span>        settings_count,
+</span><span>        plaintext,
+</span><span>        plaintext_size,
+</span><span>        additional_data,
+</span><span>        additional_data_size,
+</span><span>        blob,
+</span><span>        blob_size);
+</span><span>
+</span><span>done:
+</span><span>    </span><span style=color:#bf616a;>oe_mutex_unlock</span><span>(&_plugins_lock);
+</span><span>    </span><span style=color:#b48ead;>return</span><span> result;
+</span><span>}
+</span></code></pre><p><a href=https://github.com/openenclave/openenclave/blob/master/include/openenclave/bits/sgx/sgxtypes.h#L1073>https://github.com/openenclave/openenclave/blob/master/include/openenclave/bits/sgx/sgxtypes.h#L1073</a><pre class=language-c++ data-lang=c++ style=background-color:#2b303b;color:#c0c5ce;><code class=language-c++ data-lang=c++><span style=color:#65737e;>/* Enclave MISCSELECT Flags Bit Masks, additional information to an SSA frame */
+</span><span style=color:#65737e;>/* If set, then the enclave page fault and general protection exception are
+</span><span style=color:#65737e;> * reported */
+</span><span style=color:#b48ead;>#define </span><span>SGX_MISC_FLAGS_PF_GP_EXIT_INFO </span><span style=color:#d08770;>0x0000000000000001</span><span style=color:#b48ead;>ULL
+</span><span>
+</span><span style=color:#65737e;>/* Enclave Flags Bit Masks */
+</span><span style=color:#65737e;>/* If set, then the enclave is initialized */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_INITTED </span><span style=color:#d08770;>0x0000000000000001</span><span style=color:#b48ead;>ULL
+</span><span style=color:#65737e;>/* If set, then the enclave is debug */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_DEBUG </span><span style=color:#d08770;>0x0000000000000002</span><span style=color:#b48ead;>ULL
+</span><span style=color:#65737e;>/* If set, then the enclave is 64 bit */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_MODE64BIT </span><span style=color:#d08770;>0x0000000000000004</span><span style=color:#b48ead;>ULL
+</span><span style=color:#65737e;>/* If set, then the enclave has access to provision key */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_PROVISION_KEY </span><span style=color:#d08770;>0x0000000000000010</span><span style=color:#b48ead;>ULL
+</span><span style=color:#65737e;>/* If set, then the enclave has access to EINITTOKEN key */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_EINITTOKEN_KEY </span><span style=color:#d08770;>0x0000000000000020</span><span style=color:#b48ead;>ULL
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_RESERVED                                         \
+</span><span>    (~(SGX_FLAGS_INITTED | SGX_FLAGS_DEBUG | SGX_FLAGS_MODE64BIT | \
+</span><span>       SGX_FLAGS_PROVISION_KEY | SGX_FLAGS_EINITTOKEN_KEY))
+</span><span>
+</span><span style=color:#65737e;>/* Set the bits which have no security implications to 0 for sealed data
+</span><span style=color:#65737e;> migration */
+</span><span style=color:#65737e;>/* Bits which have no security implications in attributes.flags:
+</span><span style=color:#65737e;> *    Reserved bit[55:6]  - 0xFFFFFFFFFFFFC0ULL
+</span><span style=color:#65737e;> *    SGX_FLAGS_MODE64BIT
+</span><span style=color:#65737e;> *    SGX_FLAGS_PROVISION_KEY
+</span><span style=color:#65737e;> *    SGX_FLAGS_EINITTOKEN_KEY */
+</span><span style=color:#b48ead;>#define </span><span>SGX_FLAGS_NON_SECURITY_BITS                                        \
+</span><span>    (</span><span style=color:#d08770;>0xFFFFFFFFFFFFC0</span><span style=color:#b48ead;>ULL </span><span>| SGX_FLAGS_MODE64BIT | SGX_FLAGS_PROVISION_KEY | \
+</span><span>     SGX_FLAGS_EINITTOKEN_KEY)
+</span><span>
+</span><span style=color:#65737e;>/* bit[27:0]: have no security implications */
+</span><span style=color:#b48ead;>#define </span><span>SGX_MISC_NON_SECURITY_BITS </span><span style=color:#d08770;>0x0FFFFFFF</span><span style=color:#b48ead;>U
+</span><span>
+</span><span style=color:#65737e;>/* OE seal key default flag masks*/
+</span><span style=color:#b48ead;>#define </span><span>OE_SEALKEY_DEFAULT_FLAGSMASK (~SGX_FLAGS_NON_SECURITY_BITS)
+</span><span style=color:#b48ead;>#define </span><span>OE_SEALKEY_DEFAULT_MISCMASK (~SGX_MISC_NON_SECURITY_BITS)
+</span><span style=color:#b48ead;>#define </span><span>OE_SEALKEY_DEFAULT_XFRMMASK (</span><span style=color:#d08770;>0X0</span><span style=color:#b48ead;>ULL</span><span>)
+</span></code></pre><p><a href=https://github.com/openenclave/openenclave/blob/master/enclave/sealing/sgx/seal_gcmaes.c>https://github.com/openenclave/openenclave/blob/master/enclave/sealing/sgx/seal_gcmaes.c</a><pre class=language-c++ data-lang=c++ style=background-color:#2b303b;color:#c0c5ce;><code class=language-c++ data-lang=c++><span style=color:#b48ead;>static</span><span> oe_result_t </span><span style=color:#8fa1b3;>_init_key_request</span><span>(sgx_key_request_t* </span><span style=color:#bf616a;>keyrequest</span><span>)
+</span><span>{
+</span><span>    sgx_report_t report = {{{</span><span style=color:#d08770;>0</span><span>}}};
+</span><span>
+</span><span>    oe_result_t result = OE_OK;
+</span><span>
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(
+</span><span>        </span><span style=color:#bf616a;>oe_memset_s</span><span>(keyrequest, sizeof(*keyrequest), </span><span style=color:#d08770;>0</span><span>, sizeof(*keyrequest)));
+</span><span>
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>sgx_create_report</span><span>(</span><span style=color:#d08770;>NULL</span><span>, </span><span style=color:#d08770;>0</span><span>, </span><span style=color:#d08770;>NULL</span><span>, </span><span style=color:#d08770;>0</span><span>, &report));
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_memcpy_s</span><span>(
+</span><span>        &keyrequest-></span><span style=color:#bf616a;>cpu_svn</span><span>,
+</span><span>        sizeof(keyrequest-></span><span style=color:#bf616a;>cpu_svn</span><span>),
+</span><span>        &report.</span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>cpusvn</span><span>,
+</span><span>        sizeof(report.</span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>cpusvn</span><span>)));
+</span><span>
+</span><span>    keyrequest-></span><span style=color:#bf616a;>key_name </span><span>= SGX_KEYSELECT_SEAL;
+</span><span>    keyrequest-></span><span style=color:#bf616a;>key_policy </span><span>= SGX_KEYPOLICY_MRSIGNER;
+</span><span>    keyrequest-></span><span style=color:#bf616a;>isv_svn </span><span>= report.</span><span style=color:#bf616a;>body</span><span>.</span><span style=color:#bf616a;>isvsvn</span><span>;
+</span><span>    keyrequest-></span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>flags </span><span>= OE_SEALKEY_DEFAULT_FLAGSMASK;
+</span><span>    keyrequest-></span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>xfrm </span><span>= OE_SEALKEY_DEFAULT_XFRMMASK;
+</span><span>    keyrequest-></span><span style=color:#bf616a;>misc_attribute_mask </span><span>= OE_SEALKEY_DEFAULT_MISCMASK;
+</span><span>
+</span><span>done:
+</span><span>    </span><span style=color:#b48ead;>return</span><span> result;
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>static</span><span> oe_result_t </span><span style=color:#8fa1b3;>_seal</span><span>(
+</span><span>    </span><span style=color:#b48ead;>const</span><span> oe_seal_setting_t* </span><span style=color:#bf616a;>settings</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>settings_count</span><span>,
+</span><span>    </span><span style=color:#b48ead;>const </span><span>uint8_t* </span><span style=color:#bf616a;>plaintext</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>plaintext_size</span><span>,
+</span><span>    </span><span style=color:#b48ead;>const </span><span>uint8_t* </span><span style=color:#bf616a;>additional_data</span><span>,
+</span><span>    size_t </span><span style=color:#bf616a;>additional_data_size</span><span>,
+</span><span>    uint8_t** </span><span style=color:#bf616a;>blob</span><span>,
+</span><span>    size_t* </span><span style=color:#bf616a;>blob_size</span><span>)
+</span><span>{
+</span><span>    oe_result_t result = OE_OK;
+</span><span>    </span><span style=color:#b48ead;>struct</span><span> _sealed_blob_header* header;
+</span><span>    uint8_t* key = </span><span style=color:#d08770;>NULL</span><span>;
+</span><span>    size_t size;
+</span><span>    oe_entropy_kind_t kind;
+</span><span>    size_t i;
+</span><span>
+</span><span>    size = sizeof(*header);
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(plaintext_size > OE_UINT32_MAX - size)
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_INTEGER_OVERFLOW;
+</span><span>    size += plaintext_size;
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(additional_data_size > OE_UINT32_MAX - size)
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_INTEGER_OVERFLOW;
+</span><span>    </span><span style=color:#65737e;>// Please note that blob will NOT include additional_data
+</span><span>
+</span><span>    *blob_size = size;
+</span><span>    *blob = (uint8_t*)</span><span style=color:#bf616a;>oe_calloc</span><span>(</span><span style=color:#d08770;>1</span><span>, size);
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(*blob == </span><span style=color:#d08770;>NULL</span><span>)
+</span><span>        </span><span style=color:#b48ead;>return</span><span> OE_OUT_OF_MEMORY;
+</span><span>
+</span><span>    header = (</span><span style=color:#b48ead;>struct</span><span> _sealed_blob_header*)*blob;
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>_init_key_request</span><span>(&header-></span><span style=color:#bf616a;>keyrequest</span><span>));
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_get_entropy</span><span>(
+</span><span>        header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>key_id</span><span>, sizeof(header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>key_id</span><span>), &kind));
+</span><span>    header-></span><span style=color:#bf616a;>ciphertext_size </span><span>= (uint32_t)plaintext_size;
+</span><span>    header-></span><span style=color:#bf616a;>total_size </span><span>= (uint32_t)(plaintext_size + additional_data_size);
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_get_entropy</span><span>(header-></span><span style=color:#bf616a;>iv</span><span>, sizeof(header-></span><span style=color:#bf616a;>iv</span><span>), &kind));
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>for </span><span>(i = </span><span style=color:#d08770;>0</span><span>; i < settings_count; ++i)
+</span><span>        </span><span style=color:#b48ead;>switch </span><span>(settings[i].</span><span style=color:#bf616a;>type</span><span>)
+</span><span>        {
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_POLICY:
+</span><span>                </span><span style=color:#b48ead;>switch </span><span>(settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>w</span><span>)
+</span><span>                {
+</span><span>                    </span><span style=color:#b48ead;>case</span><span> OE_SEAL_POLICY_UNIQUE:
+</span><span>                        header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>key_policy </span><span>= SGX_KEYPOLICY_MRENCLAVE;
+</span><span>                        </span><span style=color:#b48ead;>break</span><span>;
+</span><span>                    </span><span style=color:#b48ead;>case</span><span> OE_SEAL_POLICY_PRODUCT:
+</span><span>                        header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>key_policy </span><span>= SGX_KEYPOLICY_MRSIGNER;
+</span><span>                        </span><span style=color:#b48ead;>break</span><span>;
+</span><span>                    </span><span style=color:#b48ead;>default</span><span>:
+</span><span>                        </span><span style=color:#bf616a;>OE_RAISE</span><span>(OE_INVALID_PARAMETER);
+</span><span>                }
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_IV:
+</span><span>                </span><span style=color:#b48ead;>if </span><span>(settings[i].</span><span style=color:#bf616a;>size </span><span>!= sizeof(header-></span><span style=color:#bf616a;>iv</span><span>))
+</span><span>                    </span><span style=color:#bf616a;>OE_RAISE</span><span>(OE_INVALID_PARAMETER);
+</span><span>                </span><span style=color:#b48ead;>else
+</span><span>                    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_memcpy_s</span><span>(
+</span><span>                        header-></span><span style=color:#bf616a;>iv</span><span>,
+</span><span>                        sizeof(header-></span><span style=color:#bf616a;>iv</span><span>),
+</span><span>                        settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>p</span><span>,
+</span><span>                        settings[i].</span><span style=color:#bf616a;>size</span><span>));
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_KEYNAME:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>key_name </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>w</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_ISVSVN:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>isv_svn </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>w</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_CPUSVN:
+</span><span>                </span><span style=color:#b48ead;>if </span><span>(settings[i].</span><span style=color:#bf616a;>size </span><span>!= sizeof(header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>cpu_svn</span><span>))
+</span><span>                    </span><span style=color:#bf616a;>OE_RAISE</span><span>(OE_INVALID_PARAMETER);
+</span><span>                </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_memcpy_s</span><span>(
+</span><span>                    header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>cpu_svn</span><span>,
+</span><span>                    sizeof(header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>cpu_svn</span><span>),
+</span><span>                    settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>p</span><span>,
+</span><span>                    settings[i].</span><span style=color:#bf616a;>size</span><span>));
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_FLAGSMASK:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>flags </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>q</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_XFRMMASK:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>attribute_mask</span><span>.</span><span style=color:#bf616a;>xfrm </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>q</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_MISCMASK:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>misc_attribute_mask </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>d</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_CONFIGSVN:
+</span><span>                header-></span><span style=color:#bf616a;>keyrequest</span><span>.</span><span style=color:#bf616a;>config_svn </span><span>= settings[i].</span><span style=color:#bf616a;>value</span><span>.</span><span style=color:#bf616a;>w</span><span>;
+</span><span>                </span><span style=color:#b48ead;>break</span><span>;
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_ADDITIONAL_CONTEXT:
+</span><span>                </span><span style=color:#65737e;>// Custom OE_SEAL_SETTING_ADDITIONAL_CONTEXT not supported
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>case</span><span> OE_SEAL_SETTING_SGX_CET_ATTRIBUTES_MASK:
+</span><span>                </span><span style=color:#65737e;>// OE_SEAL_SETTING_SGX_CET_ATTRIBUTES_MASK not supported
+</span><span>
+</span><span>            </span><span style=color:#b48ead;>default</span><span>:
+</span><span>                </span><span style=color:#bf616a;>OE_RAISE</span><span>(OE_UNSUPPORTED);
+</span><span>        }
+</span><span>
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_get_seal_key</span><span>(
+</span><span>        (uint8_t*)&header-></span><span style=color:#bf616a;>keyrequest</span><span>,
+</span><span>        sizeof(header-></span><span style=color:#bf616a;>keyrequest</span><span>),
+</span><span>        &key,
+</span><span>        &size));
+</span><span>
+</span><span>    </span><span style=color:#bf616a;>OE_STATIC_ASSERT</span><span>(sizeof(header-></span><span style=color:#bf616a;>tag</span><span>) >= </span><span style=color:#d08770;>16</span><span>);
+</span><span>    </span><span style=color:#bf616a;>OE_CHECK</span><span>(</span><span style=color:#bf616a;>oe_aes_gcm_encrypt</span><span>(
+</span><span>        key,
+</span><span>        size,
+</span><span>        header-></span><span style=color:#bf616a;>iv</span><span>,
+</span><span>        sizeof(header-></span><span style=color:#bf616a;>iv</span><span>),
+</span><span>        additional_data,
+</span><span>        additional_data_size,
+</span><span>        plaintext,
+</span><span>        plaintext_size,
+</span><span>        (uint8_t*)(header + </span><span style=color:#d08770;>1</span><span>),
+</span><span>        plaintext_size,
+</span><span>        header-></span><span style=color:#bf616a;>tag</span><span>));
+</span><span>
+</span><span>done:
+</span><span>    </span><span style=color:#bf616a;>oe_free_key</span><span>(key, size, </span><span style=color:#d08770;>NULL</span><span>, </span><span style=color:#d08770;>0</span><span>);
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if </span><span>(result != OE_OK)
+</span><span>    {
+</span><span>        </span><span style=color:#bf616a;>oe_free</span><span>(*blob);
+</span><span>        *blob = </span><span style=color:#d08770;>NULL</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>return</span><span> result;
+</span><span>}
+</span></code></pre></main></div></div></div><form class=d-none id=search-bar><div class=container><div class="row justify-content-center"><div class="col col-lg-11 col-xl-9" id=search-container><input aria-label="Search notes..." class="form-control is-search" placeholder="Search notes..." autocomplete=off id=userinput type=search><div class="shadow rounded" id=suggestions></div></div></div></div></form><script defer src=https://phlip9.com/notes/js/elasticlunr.min.js></script><script defer src=https://phlip9.com/notes/search_index.en.js></script><script defer src=https://phlip9.com/notes/js/search.js></script>

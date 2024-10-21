@@ -1,0 +1,370 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta content="ie=edge" http-equiv=x-ua-compatible><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name=viewport><link href=https://phlip9.com/notes/main.css rel=stylesheet><meta content="index, follow" name=robots><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=googlebot><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=bingbot><title>fortanix rust tutorial | philip's notes</title><meta content="a collection of my notes" name=description><link href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/" rel=canonical><meta content=summary name=twitter:card><meta content="fortanix rust tutorial" name=twitter:title><meta content=@phlip9 name=twitter:site><meta content=@phlip9 name=twitter:creator><meta content="fortanix rust tutorial" property=og:title><meta content="a collection of my notes" property=og:description><meta content=article property=og:type><meta content="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/" property=og:url><meta content=2024-10-21T04:08:44.982615 property=og:updated_time><meta content="philip's notes" property=og:site_name><meta content=en_US property=og:locale><script type=application/ld+json>
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/confidential computing/fortanix rust tutorial/"
+    },
+    "headline": "fortanix rust tutorial",
+    "image": ,
+    "datePublished": "2022-02-17",
+    "dateModified": "2024-10-21",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script><script type=application/ld+json>
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Confidential Computing",
+            "item": "https://phlip9.com/notes/confidential computing/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Fortanix Rust Tutorial",
+            "item": "https://phlip9.com/notes/confidential computing/fortanix rust tutorial/"
+          },
+        
+      
+    
+  }
+</script><meta content=#383866 name=theme-color><link href=https://phlip9.com/notes/apple-touch-icon.png rel=apple-touch-icon sizes=180x180><link href=https://phlip9.com/notes/favicon-32x32.png rel=icon sizes=32x32 type=image/png><link href=https://phlip9.com/notes/favicon-16x16.png rel=icon sizes=16x16 type=image/png><link href=https://phlip9.com/notes/site.webmanifest rel=manifest><script>// https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };</script><script integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" async crossorigin=anonymous defer id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js></script><body class="notes single dark"><div class=container role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 notes-sidebar"><nav aria-label="Main navigation" class=notes-links><a class="navbar-brand link-internal" href=https://phlip9.com/notes/> philip's notes </a><a class="notes-link sidebar-social" href=https://twitter.com/phlip9> <svg class="feather feather-twitter" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> <span class=visually-hidden>Twitter</span> </a><a class="notes-link sidebar-social" href=https://github.com/phlip9> <svg class="feather feather-github" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> <span class=visually-hidden>GitHub</span> </a><a class="notes-link sidebar-social" href=# id=sidebar-open-search> <svg aria-labelledby="title desc" viewbox="0 0 19.9 19.7" fill=none height=20 id=search-icon role=img stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 tabindex=0 width=20 xmlns=http://www.w3.org/2000/svg> <g class=search-path><path d="M18.5 18.3l-5.4-5.4"></path><circle cx=8 cy=8 r=7></circle> </g> </svg> </a><hr><ol id=sidebar-tree-root><li><input id=sidebar-input-ai-ml type=checkbox> <label class=h3 for=sidebar-input-ai-ml>AI ML</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Expectimax Search/"> Expectimax Search </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/"> Markov Decision Process (MDP) </a></ol><li><input id=sidebar-input-wsl type=checkbox> <label class=h3 for=sidebar-input-wsl>WSL</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/WSL/WSL2 custom kernel/"> WSL2 custom kernel </a></ol><li><li><input id=sidebar-input-android type=checkbox> <label class=h3 for=sidebar-input-android>android</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/"> ADB over TCP inside WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/OTA updates for rooted android phone/"> OTA updates for rooted android phone </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/android cli setup/"> android cli setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/building signal-android in WSL2/"> building signal-android in WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/linux ADB udev setup/"> linux ADB udev setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/root phone with magisk/"> root phone with magisk </a></ol><li><input id=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n type=checkbox> <label class=h3 for=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n>b i g m o n e y l a w r e g u l a t i o n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/"> financial instituion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/"> foreign bank account report (FBAR) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/"> monetary instruments </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/"> money services business (MSB) </a></ol><li><input id=sidebar-input-b-l-o-c-k-c-h-a-i-n type=checkbox> <label class=h3 for=sidebar-input-b-l-o-c-k-c-h-a-i-n>b l o c k c h a i n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/aptos/"> aptos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/"> bip158 - compact block filters </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/"> btc utreexo - utxo accumulator </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/"> fastpay </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/oasis/"> oasis </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/sui/"> sui </a></ol><li><input id=sidebar-input-btc-ln type=checkbox> <label class=h3 for=sidebar-input-btc-ln>btc-ln</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/"> BOLT 11 - invoices </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/"> BOLT 2 - channel management protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/"> BOLT 4 - onion routing protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/"> BOLT 7 - p2p node and channel discovery </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/"> BOLT 8 - secure noise transport </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/"> atomic multipath payments (AMP) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/breez lightning service providers/"> breez lightning service providers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/hosted channels/"> hosted channels </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning libs/"> lightning libs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning network notes/"> lightning network notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning rod/"> lightning rod </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/"> lightningdevkit - rust-lightning </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/submarine swaps/"> submarine swaps </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/zero-conf channels/"> zero-conf channels </a></ol><li><input id=sidebar-input-combinatorics type=checkbox> <label class=h3 for=sidebar-input-combinatorics>combinatorics</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/"> k-combinations of a multiset </a></ol><li><input checked id=sidebar-input-confidential-computing type=checkbox> <label class=h3 for=sidebar-input-confidential-computing>confidential computing</label> <ol><li><input id=sidebar-input-confidential-computing-intel-sgx type=checkbox> <label class=h3 for=sidebar-input-confidential-computing-intel-sgx>intel SGX</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/"> SGX lingo </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/overview/"> overview </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/"> remote attestation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/"> sealing </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/"> secure time </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/"> enarx (WASM TEE) </a><li class=sidebar-note><a class="notes-link link-internal active" href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/"> fortanix rust tutorial </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/gramine/"> gramine </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel TDX/"> intel TDX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/marblerun/"> marblerun </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/mystikos/"> mystikos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/remote attestation protocols/"> remote attestation protocols </a></ol><li><input id=sidebar-input-crypto type=checkbox> <label class=h3 for=sidebar-input-crypto>crypto</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/"> (talk) authenticated data structures for stateless validation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/"> TLS self-signed pubkey-only certs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/acme protocol/"> acme protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/biscuit authz/"> biscuit authz </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/"> dex - open-source OIDC & OAuth 2.0 provider </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/hkdf-sha256/> hkdf-sha256 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/"> smallstep - private online CA & ACME server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/tls exported keying material/"> tls exported keying material </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/zkdocs/> zkdocs </a></ol><li><input id=sidebar-input-design type=checkbox> <label class=h3 for=sidebar-input-design>design</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/design/form design/"> form design </a></ol><li><input id=sidebar-input-devops type=checkbox> <label class=h3 for=sidebar-input-devops>devops</label> <ol><li><input id=sidebar-input-devops-o11y type=checkbox> <label class=h3 for=sidebar-input-devops-o11y>o11y</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/"> jaeger oss e2e tracing </a></ol><li><input id=sidebar-input-devops-secrets type=checkbox> <label class=h3 for=sidebar-input-devops-secrets>secrets</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/"> 1password - secrets automation </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/doppler/> doppler </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/"> ejson (Shopify) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/"> ejson-kms (AWS) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/envkey/> envkey </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/fortanix DSM/"> fortanix DSM </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/"> mozilla SOPS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/sops-nix/> sops-nix </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/"> sy - share secrets safely </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/"> AKS - azure kubernetes service </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/algo wireguard VPN server/"> algo wireguard VPN server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/azure CLI/"> azure CLI </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/consul/> consul </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/deployment strategies/"> deployment strategies </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/docker compose/"> docker compose </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/k3s/> k3s </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/"> kind (kubernetes in docker) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/kubernetes/> kubernetes </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/linkerd/> linkerd </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/minikube/> minikube </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/nomad/> nomad </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/service mesh/"> service mesh </a></ol><li><input id=sidebar-input-distributed-systems type=checkbox> <label class=h3 for=sidebar-input-distributed-systems>distributed systems</label> <ol><li><input id=sidebar-input-distributed-systems-papers type=checkbox> <label class=h3 for=sidebar-input-distributed-systems-papers>papers</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/"> (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/"> (2021) Leaderless Consensus </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/"> the siren song of backpressure </a></ol><li><input id=sidebar-input-fuzzing type=checkbox> <label class=h3 for=sidebar-input-fuzzing>fuzzing</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/"> bolero - fuzzing + property testing </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzcheck-rs/> fuzzcheck-rs </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzing/> fuzzing </a></ol><li><input id=sidebar-input-ios type=checkbox> <label class=h3 for=sidebar-input-ios>ios</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/ios/ios setup/"> ios setup </a></ol><li><input id=sidebar-input-keyboards type=checkbox> <label class=h3 for=sidebar-input-keyboards>keyboards</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/keyboards/moergo glove80/"> moergo glove80 </a></ol><li><input id=sidebar-input-lang type=checkbox> <label class=h3 for=sidebar-input-lang>lang</label> <ol><li><input id=sidebar-input-lang-ats type=checkbox> <label class=h3 for=sidebar-input-lang-ats>ATS</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/"> ATS2 Notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/Install ATS2/"> Install ATS2 </a></ol><li><input id=sidebar-input-lang-flutter type=checkbox> <label class=h3 for=sidebar-input-lang-flutter>flutter</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/"> dart lang </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/flutter setup/"> flutter setup </a></ol><li><input id=sidebar-input-lang-rust type=checkbox> <label class=h3 for=sidebar-input-lang-rust>rust</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/optimizing binary size/"> optimizing binary size </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rr with rust/"> rr with rust </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust verification tools/"> rust verification tools </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust x SGX/"> rust x SGX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/self-referencing structs/"> self-referencing structs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/sycamore x futures/"> sycamore x futures </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/"> understanding sycamore reactivity </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/gdb ref/"> gdb ref </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/koka-lang/> koka-lang </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/lua/> lua </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/operator fixity and precedence/"> operator fixity and precedence </a></ol><li><input id=sidebar-input-management type=checkbox> <label class=h3 for=sidebar-input-management>management</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/"> relieve often - why generals were more successful in WWII </a></ol><li><input id=sidebar-input-misc type=checkbox> <label class=h3 for=sidebar-input-misc>misc</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/arm target triples/"> arm target triples </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/envsubst/> envsubst </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/"> git multirepo to monorepo </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/kintsugi/> kintsugi </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/optimization solvers/"> optimization solvers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/pop_OS! tweaks/"> pop_OS! tweaks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/"> prepping RPI for embedded dev </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/rgbxmas/> rgbxmas </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/scanning QR codes on desktop/"> scanning QR codes on desktop </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/"> setting up a headless raspbian boot image </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/uptime to downtime conversion/"> uptime to downtime conversion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/water distillation setup/"> water distillation setup </a></ol><li><input id=sidebar-input-networking type=checkbox> <label class=h3 for=sidebar-input-networking>networking</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/networking/CIDR/> CIDR </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/ipv6 address space/"> ipv6 address space </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interface card (NIC)/"> network interface card (NIC) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interfaces/"> network interfaces </a></ol><li><input id=sidebar-input-nvim type=checkbox> <label class=h3 for=sidebar-input-nvim>nvim</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/nvim/universal-ctags Notes/"> universal-ctags Notes </a></ol><li><input id=sidebar-input-performance type=checkbox> <label class=h3 for=sidebar-input-performance>performance</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/bit hacks/"> bit hacks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/dtrace on macOS/"> dtrace on macOS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/performance/profiling/> profiling </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/simdjson talk/"> simdjson talk </a></ol><li><input id=sidebar-input-postgres type=checkbox> <label class=h3 for=sidebar-input-postgres>postgres</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/postgres performance tuning/"> postgres performance tuning </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/postgres/snippets/> snippets </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/types of scans/"> types of scans </a></ol><li><input id=sidebar-input-reproducible-builds type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds>reproducible builds</label> <ol><li><input id=sidebar-input-reproducible-builds-nix type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds-nix>nix</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/links/"> links </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix auto-allocate-uids -> nixbld users/"> nix auto-allocate-uids -> nixbld users </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug broken package build/"> nix debug broken package build </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug spurrious rebuilds/"> nix debug spurrious rebuilds </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/earthly/"> earthly </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/rebuilderd/"> rebuilderd </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/"> reproducible-builds.org </a></ol><li><input id=sidebar-input-router type=checkbox> <label class=h3 for=sidebar-input-router>router</label> <ol><li><input id=sidebar-input-router-lightning-router type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router>lightning router</label> <ol><li><input id=sidebar-input-router-lightning-router-captive-portal type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router-captive-portal>captive portal</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/"> RFC 6585 (Additional HTTP Status Codes) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/"> arubanetworks captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/"> captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/"> captive portal (wikipedia) </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/lightning router overview/"> lightning router overview </a></ol></ol><li><input id=sidebar-input-statistics-probability type=checkbox> <label class=h3 for=sidebar-input-statistics-probability>statistics probability</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/"> CDF confidence bands - DKW inequality </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/"> G-test - multinomial goodness-of-fit </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/"> MAD - median absolute deviation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/cheat sheet/"> cheat sheet </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/"> herbie - float error fixer </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/"> kelly criterion + ELO </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/multinomial distribution/"> multinomial distribution </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/p-value/"> p-value </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/standard error/"> standard error </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/"> testing whether a coin is fair </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/winsorize/"> winsorize </a></ol></ol></nav></div><nav aria-label="Secondary navigation" class="notes-toc d-none d-xl-block col-xl-4"><div class=page-links><h3 class=text-muted>on this page</h3><nav id=table-of-contents><ul><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#fortanix-rust-tutorial" class=link-internal>fortanix rust tutorial</a> <ul><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#fortanix-on-azure-dcsv3-vm" class=link-internal>Fortanix on Azure DCsv3 VM</a> <ul><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#create-our-vm" class=link-internal>Create our VM</a><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#sanity-check-for-sgx-support" class=link-internal>Sanity check for SGX support</a><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#ubuntu-debian-install-sgx-libraries-via-apt" class=link-internal>(Ubuntu/Debian) Install SGX libraries via APT</a><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#macos-build-only-install-sgx-deps-via-homebrew" class=link-internal>(macOS, build-only) Install SGX deps via Homebrew</a><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#build-and-run-fortanix-sgx-detect-tools" class=link-internal>Build and run Fortanix sgx-detect tools</a></ul><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#failed-attempt-at-sgx-inside-wsl2" class=link-internal>(Failed) Attempt at SGX inside WSL2</a><li><a href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/#attempt-in-win11" class=link-internal>Attempt in Win11</a></ul></ul></nav></div></nav><main class="notes-content tags-content col-lg-11 col-xl-8"><h1 id=fortanix-rust-tutorial>fortanix rust tutorial</h1><p class=text-muted>2022-02-17 · 12 min read<ul class=tags><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/confidential-computing/>#confidential-computing</a><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/sgx/>#sgx</a><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/fortanix-edp/>#fortanix-edp</a></ul><p>Source: <a href=https://edp.fortanix.com/docs/installation/guide/>https://edp.fortanix.com/docs/installation/guide/</a><p>Next time, also check out: <a href=https://docs.conclave.net/machine-setup.html>https://docs.conclave.net/machine-setup.html</a><p>Windows SGX setup: <a href=https://dqdongg.com/windows/2020/05/31/Windows-sgx.html>https://dqdongg.com/windows/2020/05/31/Windows-sgx.html</a><h2 id=fortanix-on-azure-dcsv3-vm>Fortanix on Azure DCsv3 VM <a aria-label="anchor link" class=anchor-link href=#fortanix-on-azure-dcsv3-vm> # </a></h2><p>If you don't have a recent Intel CPU that supports SGX, you'll need to develop on a remote machine.<p>This tutorial will show you how to get the basic toolchain set up for developing Fortanix <code>rust-sgx</code> applications on a remote Azure VM that supports SGX confidential compute.<h3 id=create-our-vm>Create our VM <a aria-label="anchor link" class=anchor-link href=#create-our-vm> # </a></h3><p>We're using Ubuntu 20.04 LTS here. If you use an older Ubuntu version, <strong>you will experience problems</strong>.<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> az vm create \
+</span><span style=color:#bf616a;>	--name</span><span> sgx-test \
+</span><span style=color:#bf616a;>	--resource-group</span><span> sgx-test_group \
+</span><span style=color:#bf616a;>	--size</span><span> Standard_DC1s_v3 \
+</span><span style=color:#bf616a;>	--image</span><span> Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest
+</span><span>
+</span><span>{
+</span><span>  "</span><span style=color:#a3be8c;>fqdns</span><span>"</span><span style=color:#bf616a;>: </span><span>"",
+</span><span>  "</span><span style=color:#a3be8c;>id</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>/subscriptions/XXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXX/resourceGroups/sgx-test_group/providers/Microsoft.Compute/virtualMachines/sgx-test</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>location</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>westus</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>macAddress</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>..</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>powerState</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>VM running</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>privateIpAddress</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>10.0.0.4</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>publicIpAddress</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>..</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>resourceGroup</span><span>"</span><span style=color:#bf616a;>: </span><span>"</span><span style=color:#a3be8c;>sgx-test_group</span><span>",
+</span><span>  "</span><span style=color:#a3be8c;>zones</span><span>"</span><span style=color:#bf616a;>: </span><span>""
+</span><span>}
+</span></code></pre><h3 id=sanity-check-for-sgx-support>Sanity check for SGX support <a aria-label="anchor link" class=anchor-link href=#sanity-check-for-sgx-support> # </a></h3><pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> ssh phlip9@XX.XX.XX.XX
+</span><span>
+</span><span style=color:#65737e;># The SGX kernel device should be available
+</span><span style=color:#bf616a;>sgx-test:~$</span><span> ls</span><span style=color:#bf616a;> -la</span><span> /dev | </span><span style=color:#bf616a;>grep</span><span> sgx
+</span><span style=color:#bf616a;>drwxr-xr-x</span><span>  2 root root          80 Apr 26 20:10 sgx
+</span><span style=color:#bf616a;>crw-rw-rw-</span><span>  1 root root     10, 125 Apr 26 20:10 sgx_enclave
+</span><span style=color:#bf616a;>crw-rw----</span><span>  1 root sgx_prv  10, 126 Apr 26 20:10 sgx_provision
+</span><span>
+</span><span style=color:#65737e;># Kernel log should say something about SGX
+</span><span style=color:#bf616a;>sgx-test:~$</span><span> sudo dmesg | </span><span style=color:#bf616a;>grep -i</span><span> sgx
+</span><span style=color:#96b5b4;>[</span><span>    0.543687] sgx: EPC section 0x2c0000000-0x3bfffffff
+</span></code></pre><p>If you've built the <code>sgx-detect</code> fortanix tool locally (targetting <code>x86_64-unknown-linux</code>) you can try <code>scp</code>'ing that over. It won't work just yet, since don't all SGX system libs installed.<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#65737e;># Try copying over a pre-built sgx-detect
+</span><span style=color:#bf616a;>$</span><span> scp </span><span style=color:#bf616a;>~</span><span>/dev/fortanix-rust-sgx/target/release/sgx-detect phlip9@XX.XX.XX.XX:</span><span style=color:#bf616a;>~</span><span>/
+</span><span>
+</span><span style=color:#bf616a;>sgx-test:~$</span><span> ./sgx-detect
+</span><span style=color:#bf616a;>./sgx-detect:</span><span> error while loading shared libraries: libsgx_dcap_ql.so.1: cannot open shared object file: No such file or directory
+</span></code></pre><h3 id=ubuntu-debian-install-sgx-libraries-via-apt>(Ubuntu/Debian) Install SGX libraries via APT <a aria-label="anchor link" class=anchor-link href=#ubuntu-debian-install-sgx-libraries-via-apt> # </a></h3><p>Adding deb repos with SGX dependencies.<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#65737e;># For the Intel `libsgx-` dependencies.
+</span><span style=color:#bf616a;>$</span><span> echo '</span><span style=color:#a3be8c;>deb [arch=amd64] https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main</span><span>' | </span><span style=color:#bf616a;>sudo</span><span> tee /etc/apt/sources.list.d/intel-sgx.list
+</span><span style=color:#bf616a;>$</span><span> wget</span><span style=color:#bf616a;> -qO</span><span> - https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | </span><span style=color:#bf616a;>sudo</span><span> apt-key add -
+</span><span>
+</span><span style=color:#65737e;># (Optional) If you need `clang`.
+</span><span style=color:#65737e;># $ echo "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-10 main" | sudo tee /etc/apt/sources.list.d/llvm-toolchain-focal-10.list
+</span><span style=color:#65737e;># $ wget -qO - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+</span><span>
+</span><span style=color:#65737e;># (Optional) If you're using the Azure DCAP client, `az-dcap-client`.
+</span><span style=color:#65737e;># $ echo "deb [arch=amd64] https://packages.microsoft.com/ubuntu/20.04/prod focal main" | sudo tee /etc/apt/sources.list.d/msprod.list
+</span><span style=color:#65737e;># $ wget -qO - https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+</span></code></pre><pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> sudo apt update
+</span><span>
+</span><span style=color:#65737e;># You should see libsgx things here now.
+</span><span style=color:#bf616a;>$</span><span> apt search libsgx
+</span><span style=color:#bf616a;>libsgx-ae-epid/unknown</span><span> 2.15.101.1-bionic1 amd64
+</span><span>  </span><span style=color:#bf616a;>Intel</span><span>(R) </span><span style=color:#bf616a;>Software</span><span> Guard Extensions QE and PvE
+</span><span style=color:#65737e;># ..
+</span><span style=color:#bf616a;>libsgx-urts-dbgsym/unknown</span><span> 2.15.101.1-bionic1 amd64
+</span><span>  </span><span style=color:#bf616a;>debug</span><span> symbols for libsgx-urts
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> sudo apt upgrade
+</span><span>
+</span><span style=color:#65737e;># You may need these if you're doing more than just running `sgx-detect`.
+</span><span style=color:#65737e;># $ sudo apt install \
+</span><span style=color:#65737e;># 	clang-10 libssl-dev gdb libsgx-enclave-common libsgx-quote-ex \
+</span><span style=color:#65737e;># 	libprotobuf17 libsgx-dcap-ql libsgx-dcap-ql-dev az-dcap-client \
+</span><span style=color:#65737e;># 	open-enclave ninja-build
+</span><span>
+</span><span style=color:#65737e;># SGX dependencies
+</span><span style=color:#bf616a;>$</span><span> sudo apt install libsgx-enclave-common libsgx-quote-ex libsgx-dcap-ql libsgx-dcap-ql-dev
+</span><span>
+</span><span style=color:#65737e;># Standard dev tools
+</span><span style=color:#bf616a;>$</span><span> sudo apt install build-essential libssl-dev pkg-config
+</span><span>
+</span><span style=color:#65737e;># Fortanix needs protoc for the AESM client
+</span><span style=color:#bf616a;>$</span><span> sudo apt install protobuf-compiler
+</span><span>
+</span><span style=color:#65737e;># Install rust
+</span><span style=color:#bf616a;>$</span><span> curl</span><span style=color:#bf616a;> --proto </span><span>'</span><span style=color:#a3be8c;>=https</span><span>'</span><span style=color:#bf616a;> --tlsv1</span><span>.2</span><span style=color:#bf616a;> -sSf</span><span> https://sh.rustup.rs | </span><span style=color:#bf616a;>sh
+</span><span>
+</span><span style=color:#65737e;># Add SGX target
+</span><span style=color:#bf616a;>$</span><span> rustup target add x86_64-fortanix-unknown-sgx
+</span></code></pre><h3 id=macos-build-only-install-sgx-deps-via-homebrew>(macOS, build-only) Install SGX deps via Homebrew <a aria-label="anchor link" class=anchor-link href=#macos-build-only-install-sgx-deps-via-homebrew> # </a></h3><pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> brew install protobuf
+</span><span>
+</span><span style=color:#65737e;># Install rust
+</span><span style=color:#bf616a;>$</span><span> curl</span><span style=color:#bf616a;> --proto </span><span>'</span><span style=color:#a3be8c;>=https</span><span>'</span><span style=color:#bf616a;> --tlsv1</span><span>.2</span><span style=color:#bf616a;> -sSf</span><span> https://sh.rustup.rs | </span><span style=color:#bf616a;>sh
+</span><span>
+</span><span style=color:#65737e;># Add SGX target
+</span><span style=color:#bf616a;>$</span><span> rustup target add x86_64-fortanix-unknown-sgx
+</span></code></pre><h3 id=build-and-run-fortanix-sgx-detect-tools>Build and run Fortanix <code>sgx-detect</code> tools <a aria-label="anchor link" class=anchor-link href=#build-and-run-fortanix-sgx-detect-tools> # </a></h3><p>Let's verify our install with <code>sgx-detect</code>.<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span>
+</span><span>
+</span><span style=color:#65737e;># # Install fortanix SGX tools (via crates.io)
+</span><span style=color:#65737e;># $ cargo install fortanix-sgx-tools sgxs-tools
+</span><span style=color:#65737e;># # Failed b/c published crates are 4 mo out-of-date and need weird nightly
+</span><span style=color:#65737e;># # version to compile.
+</span><span>
+</span><span style=color:#65737e;># Install fortanix SGX tools (via git repo) since the crates.io version
+</span><span style=color:#65737e;># is very out-of-date.
+</span><span style=color:#bf616a;>$</span><span> git clone https://github.com/fortanix/rust-sgx.git</span><span style=color:#bf616a;> --depth</span><span>=1
+</span><span style=color:#bf616a;>$</span><span> cargo install</span><span style=color:#bf616a;> --path</span><span> ./intel-sgx/fortanix-sgx-tools
+</span><span style=color:#bf616a;>$</span><span> cargo install</span><span style=color:#bf616a;> --path</span><span> ./intel-sgx/sgxs-tools
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> sgx-detect
+</span><span style=color:#bf616a;>Detecting</span><span> SGX, this may take a minute...
+</span><span style=color:#bf616a;>✔</span><span>  SGX instruction set
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  CPU support
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  CPU configuration
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  Enclave attributes
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  Enclave Page Cache
+</span><span>  </span><span style=color:#bf616a;>SGX</span><span> features
+</span><span>    </span><span style=color:#bf616a;>✔</span><span>  SGX2  ✔  EXINFO  ✘  ENCLV  ✘  OVERSUB  ✔  KSS
+</span><span>    </span><span style=color:#bf616a;>Total</span><span> EPC size: 4.0GiB
+</span><span style=color:#bf616a;>✔</span><span>  Flexible launch control
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  CPU support
+</span><span>  </span><span style=color:#bf616a;>？</span><span> CPU configuration
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  Able to launch production mode enclave
+</span><span style=color:#bf616a;>✔</span><span>  SGX system software
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  SGX kernel device (/dev/sgx_enclave)
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  libsgx_enclave_common
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  AESM service
+</span><span>  </span><span style=color:#bf616a;>✔</span><span>  Able to launch enclaves
+</span><span>    </span><span style=color:#bf616a;>✔</span><span>  Debug mode
+</span><span>    </span><span style=color:#bf616a;>✔</span><span>  Production mode
+</span><span>    </span><span style=color:#bf616a;>✔</span><span>  Production mode (Intel whitelisted)
+</span><span>
+</span><span style=color:#bf616a;>You</span><span>'</span><span style=color:#a3be8c;>re all set to start running SGX programs!
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>$ echo >> ~/.cargo/config -e </span><span>'</span><span style=color:#bf616a;>[target.x86_64-fortanix-unknown-sgx]</span><span style=color:#96b5b4;>\n</span><span style=color:#bf616a;>runner</span><span> = "</span><span style=color:#a3be8c;>ftxsgx-runner-cargo</span><span>"'
+</span></code></pre><h2 id=failed-attempt-at-sgx-inside-wsl2>(Failed) Attempt at SGX inside WSL2 <a aria-label="anchor link" class=anchor-link href=#failed-attempt-at-sgx-inside-wsl2> # </a></h2><p>Install protobuf compiler<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#65737e;># Ubuntu/Debian/WSL
+</span><span style=color:#bf616a;>$</span><span> sudo apt install protobuf-compiler
+</span><span style=color:#bf616a;>$</span><span> protoc</span><span style=color:#bf616a;> --version
+</span><span>
+</span><span style=color:#bf616a;>libprotoc</span><span> 3.6.1
+</span></code></pre><p>Installing <code>libsgx-dcap-ql-dev</code><pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#65737e;># make sure we're running on focal Ubuntu release
+</span><span style=color:#bf616a;>$</span><span> lsb_release</span><span style=color:#bf616a;> -a
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> echo "</span><span style=color:#a3be8c;>deb https://download.01.org/intel-sgx/sgx_repo/ubuntu focal main</span><span>" | </span><span style=color:#bf616a;>sudo</span><span> tee</span><span style=color:#bf616a;> -a</span><span> /etc/apt/sources.list.d/fortanix.list >/dev/null
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> curl</span><span style=color:#bf616a;> -sSL</span><span> https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key | </span><span style=color:#bf616a;>sudo -E</span><span> apt-key add -
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> sudo apt update
+</span><span style=color:#bf616a;>$</span><span> sudo apt install libsgx-dcap-ql-dev
+</span></code></pre><p>Installing Linux SGX drivers<blockquote><p>On <a href=https://01.org/intel-software-guard-extensions/downloads>Intel's website</a>, find the latest “Intel SGX Linux Release” (<em>not</em> “Intel SGX DCAP Linux Release”) and download the “Intel (R) SGX Installers” for your platform. The package will have <code>driver</code> in the name.</blockquote><p>Ubuntu 20.04 Drivers: <a href=https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu20.04-server/>https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu20.04-server/</a><p>Installation Guide: <a href=https://download.01.org/intel-sgx/sgx-dcap/1.12.1/linux/docs/Intel_SGX_SW_Installation_Guide_for_Linux.pdf>https://download.01.org/intel-sgx/sgx-dcap/1.12.1/linux/docs/Intel_SGX_SW_Installation_Guide_for_Linux.pdf</a><pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> sudo apt install build-essential ocaml automake autoconf libtool libssl-dev dkms
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> wget https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu20.04-server/sgx_linux_x64_driver_1.41.bin
+</span><span>
+</span><span style=color:#bf616a;>$</span><span> chmod a+x sgx_linux_x64_driver_1.41.bin
+</span><span style=color:#bf616a;>$</span><span> sudo ./sgx_linux_x64_driver_1.41.bin
+</span></code></pre><p>Error<pre style=background-color:#2b303b;color:#c0c5ce;><code><span>Error! Your kernel headers for kernel 5.10.93.2-microsoft-standard-WSL2 cannot be found.
+</span><span>Please install the linux-headers-5.10.93.2-microsoft-standard-WSL2 package,
+</span><span>or use the --kernelsourcedir option to tell DKMS where it's located
+</span></code></pre><p>I conveniently already have this kernel pulled : )<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>$</span><span> sudo ./sgx_linux_x64_driver_1.41.bin</span><span style=color:#bf616a;> --kernelsourcedir
+</span></code></pre><p>Unfortunately, seems like it won't recognize the path... My guess is that SGX inside WSL2 is probably a dead end. :(<h2 id=attempt-in-win11>Attempt in Win11 <a aria-label="anchor link" class=anchor-link href=#attempt-in-win11> # </a></h2><pre class=language-powershell data-lang=powershell style=background-color:#2b303b;color:#c0c5ce;><code class=language-powershell data-lang=powershell><span>PS > git config --global http.sslCAinfo "</span><span style=color:#a3be8c;>C:\Users\phlip9\scoop\apps\mingit-busybox\current\mingw64\ssl\certs\ca-bundle.crt</span><span>"
+</span><span>PS > scoop update
+</span><span>
+</span><span>PS > scoop install openssl
+</span><span>
+</span><span>PS > scoop bucket add extras
+</span><span>PS > scoop install protobuf
+</span></code></pre><pre class=language-powershell data-lang=powershell style=background-color:#2b303b;color:#c0c5ce;><code class=language-powershell data-lang=powershell><span style=color:#65737e;># make sure our nightly compiler is recent
+</span><span>PS > rustup toolchain install nightly-</span><span style=color:#d08770;>2021</span><span>-</span><span style=color:#d08770;>12</span><span>-</span><span style=color:#d08770;>15
+</span><span>
+</span><span style=color:#65737e;># install the SGX toolchain
+</span><span>PS > rustup target add x86_64-fortanix-unknown-sgx --toolchain nightly-</span><span style=color:#d08770;>2021</span><span>-</span><span style=color:#d08770;>12</span><span>-</span><span style=color:#d08770;>15
+</span><span>
+</span><span style=color:#65737e;># install the SGX tools
+</span><span>PS > cargo +nightly-</span><span style=color:#d08770;>2021</span><span>-</span><span style=color:#d08770;>12</span><span>-</span><span style=color:#d08770;>15</span><span> install fortanix-sgx-tools sgxs-tools
+</span></code></pre><p>Didn't detect OpenSSL library...<p>EDIT: nvm had to restart whole Windows Terminal app, not just open a new shell... pretty fuckin annoying tbh...<p>OK, it picked up the OpenSSL library and protobuf compiler. Unfortunately it now fails b/c some file is hard depending on <code>std::os::unix</code> which doesn't exist on windows...<pre class=language-powershell data-lang=powershell style=background-color:#2b303b;color:#c0c5ce;><code class=language-powershell data-lang=powershell><span>PS > git clone git@</span><span style=color:#bf616a;>github.com</span><span>:fortanix/rust-sgx.git
+</span><span>
+</span><span>PS > cargo +nightly-</span><span style=color:#d08770;>2021</span><span>-</span><span style=color:#d08770;>12</span><span>-</span><span style=color:#d08770;>15</span><span> build -p fortanix-sgx-tools -p sgxs-tools
+</span></code></pre><p>Error<pre style=background-color:#2b303b;color:#c0c5ce;><code><span>error[E0433]: failed to resolve: could not find `unix` in `os`
+</span><span> --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\info.rs:7:9
+</span><span>  |
+</span><span>7 |     os::unix::ffi::OsStringExt,
+</span><span>  |         ^^^^ could not find `unix` in `os`
+</span><span>
+</span><span>error[E0433]: failed to resolve: could not find `unix` in `os`
+</span><span> --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\list.rs:4:9
+</span><span>  |
+</span><span>4 |     os::unix::ffi::OsStrExt,
+</span><span>  |         ^^^^ could not find `unix` in `os`
+</span><span>
+</span><span>error[E0433]: failed to resolve: could not find `unix` in `os`
+</span><span> --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\swaps.rs:7:9
+</span><span>  |
+</span><span>7 |     os::unix::ffi::OsStringExt,
+</span><span>  |         ^^^^ could not find `unix` in `os`
+</span><span>
+</span><span>error[E0599]: no function or associated item named `from_vec` found for struct `OsString` in the current scope
+</span><span>   --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\info.rs:130:22
+</span><span>    |
+</span><span>130 |         Ok(OsString::from_vec(ret))
+</span><span>    |                      ^^^^^^^^ function or associated item not found in `OsString`
+</span><span>
+</span><span>error[E0599]: no method named `as_bytes` found for reference `&OsStr` in the current scope
+</span><span>  --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\list.rs:55:43
+</span><span>   |
+</span><span>55 |         self.starts_with(path.as_os_str().as_bytes(), |m| &m.source)
+</span><span>   |                                           ^^^^^^^^ method not found in `&OsStr`
+</span><span>
+</span><span>error[E0599]: no method named `as_bytes` found for reference `&OsStr` in the current scope
+</span><span>  --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\list.rs:63:43
+</span><span>   |
+</span><span>63 |         self.starts_with(path.as_os_str().as_bytes(), |m| &m.dest)
+</span><span>   |                                           ^^^^^^^^ method not found in `&OsStr`
+</span><span>
+</span><span>error[E0599]: no method named `as_bytes` found for reference `&OsStr` in the current scope
+</span><span>  --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\mounts\list.rs:72:49
+</span><span>   |
+</span><span>72 |             let input = func(mount).as_os_str().as_bytes();
+</span><span>   |                                                 ^^^^^^^^ method not found in `&OsStr`
+</span><span>
+</span><span>error[E0599]: no function or associated item named `from_vec` found for struct `OsString` in the current scope
+</span><span>   --> C:\Users\phlip9\.cargo\registry\src\github.com-1ecc6299db9ec823\proc-mounts-0.2.4\src\swaps.rs:106:22
+</span><span>    |
+</span><span>106 |         Ok(OsString::from_vec(ret))
+</span><span>    |                      ^^^^^^^^ function or associated item not found in `OsString`
+</span></code></pre><p>OK with some fixes (hacks) I got it to build<p>Running <code>sgx-detect</code><pre class=language-powershell data-lang=powershell style=background-color:#2b303b;color:#c0c5ce;><code class=language-powershell data-lang=powershell><span>PS > .\target\release\</span><span style=color:#96b5b4;>sgx-detect.exe
+</span><span>
+</span><span>Detecting SGX, this may take a minute...
+</span><span>thread '</span><span style=color:#a3be8c;>main</span><span>' panicked at '</span><span style=color:#a3be8c;>Couldn</span><span>'t find sgx_uae_service.dll: Os { code: </span><span style=color:#d08770;>126</span><span>, kind: Uncategorized, message: "</span><span style=color:#a3be8c;>The specified module could not be found.</span><span>" }'</span><span style=color:#a3be8c;>, intel-sgx\aesm-client\src\imp\windows.rs:67:18
+</span><span style=color:#a3be8c;>note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+</span></code></pre><p>I think I'm missing some stuff installed?<p>Let's have a look at the Intel SGX SDK for Windows guide: <a href="https://cdrdv2.intel.com/v1/dl/getContent/671222?explicitVersion=true">https://cdrdv2.intel.com/v1/dl/getContent/671222?explicitVersion=true</a><p>Installing Intel Management Engine Driver (for Win 10 (though I'm on Win 11 loe))<p>In the installer.zip > Cons (for consumer) > MEI-Only Installer MSI (don't want other BS) > MEISetup.exe<p>Verifying we have SGX not disabled in the BIOS. Under <code>Advanced/CPU Config/SW Guard Extensions (SGX)</code>, select <code>SW Controlled</code> and not <code>Disabled</code>. Curiously no direct <code>Enabled</code> option?<p>Note: "Trusted Computing" refers to TPM (Trusted Platform Module) and not SGX. I believe it's used for UEFI secure boot or something.<p>Now let's try to get the SGX platform software and drivers installed.<p>(One thing that makes me nervous, is that many docs suggest that the SGX platform software should be pre-installed via Windows Update if SGX is supported. However, <code>ls /mnt/c/Windows/System32 | grep -i sgx</code> doesn't show anything...)<p>Just saw this note here (<a href=https://www.intel.com/content/www/us/en/developer/articles/guide/sgx-sdk-installation-guide.html>https://www.intel.com/content/www/us/en/developer/articles/guide/sgx-sdk-installation-guide.html</a>)<blockquote><p><strong>Note:</strong> You can’t install Intel® SGX PSW installer when Windows OS is installed in Legacy mode and Intel® SGX is configured as “Software Controlled” in BIOS. You need to configure Intel® SGX as “Enabled” in BIOS before installing Intel® SGX PSW.</blockquote><p>Does this mean Legacy AND SW Controlled or Legacy OR SW Controlled???<p>Something to look into? <a href=https://github.com/intel/sgx-software-enable>https://github.com/intel/sgx-software-enable</a> Would need to live-boot into a linux distro in UEFI boot mode, then compile and run this I guess.<p>useful command <code>msinfo32</code><blockquote><p>BIOS Mode: UEFI Secure Boot State: Off (Why??) Total RAM: 16 GB Available RAM: 9.85 GB (??)</blockquote><p>Booted into my Pop!-OS live USB. Pulled and built the <code>sgx_enable</code> program. Looks like it ran successfully!!<p>Booting into the BIOS still shows <code>Software Controlled</code> but I don't know if that's just 'cus the BIOS can't show it properly.<p>Booting back into Win11, I notice something's changed in <code>msinfo32</code>. Under System Summary > Hardware Resources > Memory, there's a new entry!<table><thead><tr><th>Resource<th>Device<th>Status<tbody><tr><td>0xa0200000-0xa5f7ffff<td>Intel Software Guard Extensions Device<td>OK</table><p>Opened Windows Update and checked for updates. A "Intel Software Component" looks like it installed? Going to restart just to be sure these things actually installed lmao.<p>AYYYYY<pre class=language-bash data-lang=bash style=background-color:#2b303b;color:#c0c5ce;><code class=language-bash data-lang=bash><span style=color:#bf616a;>λ</span><span> ls /c/Windows/System32/ | </span><span style=color:#bf616a;>grep -i</span><span> sgx
+</span><span style=color:#bf616a;>sgx_dcap_ql.dll*
+</span><span style=color:#bf616a;>sgx_dcap_quoteverify.dll*
+</span><span style=color:#bf616a;>sgx_enclave_common.dll*
+</span><span style=color:#bf616a;>sgx_epid.dll*
+</span><span style=color:#bf616a;>sgx_launch.dll*
+</span><span style=color:#bf616a;>sgx_platform.dll*
+</span><span style=color:#bf616a;>sgx_quote_ex.dll*
+</span><span style=color:#bf616a;>sgx_uae_service.dll*
+</span><span style=color:#bf616a;>sgx_urts.dll*
+</span></code></pre><p>Running <code>sgx-detect</code> again<pre class=language-powershell data-lang=powershell style=background-color:#2b303b;color:#c0c5ce;><code class=language-powershell data-lang=powershell><span>PS > .\target\release\</span><span style=color:#96b5b4;>sgx-detect.exe </span><span>-v
+</span><span>
+</span><span>Detecting SGX, this may take a minute...
+</span><span>✔  SGX instruction set
+</span><span>  ✔  CPU support
+</span><span>  ✔  CPU configuration
+</span><span>  ✔  Enclave attributes
+</span><span>  ✔  Enclave Page Cache
+</span><span>  SGX features
+</span><span>    ✘  SGX2  ✘  EXINFO  ✘  ENCLV  ✘  OVERSUB  ✘  KSS
+</span><span>    Total EPC size: </span><span style=color:#d08770;>93.</span><span>5MiB
+</span><span>✘  Flexible launch control
+</span><span>  ✔  CPU support
+</span><span>  ？ CPU configuration
+</span><span>  ✘  Able to launch production mode enclave
+</span><span>✔  SGX system software
+</span><span>  ✘  SGX kernel device
+</span><span>  ✔  libsgx_enclave_common
+</span><span>  ✔  AESM service
+</span><span>  ✔  Able to launch enclaves
+</span><span>    ✔  Debug mode
+</span><span>    ✘  Production mode
+</span><span>    ✔  Production mode (Intel whitelisted)
+</span><span>
+</span><span>🕮   Flexible launch control > CPU configuration
+</span><span>Your hardware supports Flexible Launch Control, but whether it'</span><span style=color:#a3be8c;>s enabled could not be determined. More information might be available by re-running this program with sudo. Would you like to do that?
+</span><span style=color:#a3be8c;>(not supported yet)
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>debug: Error reading MSR 3Ah: RDMSR not implemented on Windows
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>More information: https://edp.fortanix.com/docs/installation/help/#flc-cpu-configuration
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>🕮   SGX system software > SGX kernel device
+</span><span style=color:#a3be8c;>The SGX device (/dev/sgx/enclave, /dev/sgx or /dev/isgx) is not present.
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>It could not be detected whether you have an SGX driver installed. Please make sure the SGX driver is installed and loaded correctly.
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>debug: Error opening device: Device Driver Path not supported in Windows
+</span><span style=color:#a3be8c;>debug: Error checking module status: KMOD Status not implemented on Windows
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>More information: https://edp.fortanix.com/docs/installation/help/#sgx-driver
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>🕮   SGX system software > Able to launch enclaves > Production mode
+</span><span style=color:#a3be8c;>The enclave could not be launched. This might indicate a problem with FLC.
+</span><span style=color:#a3be8c;>
+</span><span style=color:#a3be8c;>debug: failed to load report enclave
+</span><span style=color:#a3be8c;>debug: cause: The EINITTOKEN provider didn</span><span>'t provide a token
+</span><span>debug: cause: aesm error code Unknown(</span><span style=color:#d08770;>16388</span><span>)
+</span><span>
+</span><span>More information: https://</span><span style=color:#96b5b4;>edp.fortanix.com</span><span>/docs/installation/help/</span><span style=color:#65737e;>#run-enclave-prod
+</span><span>
+</span><span>You'</span><span style=color:#a3be8c;>re all set to start running SGX programs!
+</span></code></pre><p>I think this is OK? I'm pretty sure our CPU isn't recent enough to support FLC (Flexible Launch Control). I also didn't see anything relevant in the BIOS settings. It looks like it was able to launch an enclave in debug mode at least?<p>Will need to buy newer Intel CPU for more serious development.</main></div></div></div><form class=d-none id=search-bar><div class=container><div class="row justify-content-center"><div class="col col-lg-11 col-xl-9" id=search-container><input aria-label="Search notes..." class="form-control is-search" placeholder="Search notes..." autocomplete=off id=userinput type=search><div class="shadow rounded" id=suggestions></div></div></div></div></form><script defer src=https://phlip9.com/notes/js/elasticlunr.min.js></script><script defer src=https://phlip9.com/notes/search_index.en.js></script><script defer src=https://phlip9.com/notes/js/search.js></script>

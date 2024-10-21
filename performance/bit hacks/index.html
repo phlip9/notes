@@ -1,0 +1,579 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta content="ie=edge" http-equiv=x-ua-compatible><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name=viewport><link href=https://phlip9.com/notes/main.css rel=stylesheet><meta content="index, follow" name=robots><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=googlebot><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name=bingbot><title>bit hacks | philip's notes</title><meta content="a collection of my notes" name=description><link href="https://phlip9.com/notes/performance/bit hacks/" rel=canonical><meta content=summary name=twitter:card><meta content="bit hacks" name=twitter:title><meta content=@phlip9 name=twitter:site><meta content=@phlip9 name=twitter:creator><meta content="bit hacks" property=og:title><meta content="a collection of my notes" property=og:description><meta content=article property=og:type><meta content="https://phlip9.com/notes/performance/bit hacks/" property=og:url><meta content=2024-10-21T04:08:44.994615 property=og:updated_time><meta content="philip's notes" property=og:site_name><meta content=en_US property=og:locale><script type=application/ld+json>
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/performance/bit hacks/"
+    },
+    "headline": "bit hacks",
+    "image": ,
+    "datePublished": "2022-02-10",
+    "dateModified": "2024-10-21",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script><script type=application/ld+json>
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Performance",
+            "item": "https://phlip9.com/notes/performance/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Bit Hacks",
+            "item": "https://phlip9.com/notes/performance/bit hacks/"
+          },
+        
+      
+    
+  }
+</script><meta content=#383866 name=theme-color><link href=https://phlip9.com/notes/apple-touch-icon.png rel=apple-touch-icon sizes=180x180><link href=https://phlip9.com/notes/favicon-32x32.png rel=icon sizes=32x32 type=image/png><link href=https://phlip9.com/notes/favicon-16x16.png rel=icon sizes=16x16 type=image/png><link href=https://phlip9.com/notes/site.webmanifest rel=manifest><script>// https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };</script><script integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" async crossorigin=anonymous defer id=MathJax-script src=https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js></script><body class="notes single dark"><div class=container role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 notes-sidebar"><nav aria-label="Main navigation" class=notes-links><a class="navbar-brand link-internal" href=https://phlip9.com/notes/> philip's notes </a><a class="notes-link sidebar-social" href=https://twitter.com/phlip9> <svg class="feather feather-twitter" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> <span class=visually-hidden>Twitter</span> </a><a class="notes-link sidebar-social" href=https://github.com/phlip9> <svg class="feather feather-github" viewbox="0 0 24 24" fill=none height=20 stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 width=20 xmlns=http://www.w3.org/2000/svg><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> <span class=visually-hidden>GitHub</span> </a><a class="notes-link sidebar-social" href=# id=sidebar-open-search> <svg aria-labelledby="title desc" viewbox="0 0 19.9 19.7" fill=none height=20 id=search-icon role=img stroke=currentColor stroke-linecap=round stroke-linejoin=round stroke-width=2 tabindex=0 width=20 xmlns=http://www.w3.org/2000/svg> <g class=search-path><path d="M18.5 18.3l-5.4-5.4"></path><circle cx=8 cy=8 r=7></circle> </g> </svg> </a><hr><ol id=sidebar-tree-root><li><input id=sidebar-input-ai-ml type=checkbox> <label class=h3 for=sidebar-input-ai-ml>AI ML</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Expectimax Search/"> Expectimax Search </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/"> Markov Decision Process (MDP) </a></ol><li><input id=sidebar-input-wsl type=checkbox> <label class=h3 for=sidebar-input-wsl>WSL</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/WSL/WSL2 custom kernel/"> WSL2 custom kernel </a></ol><li><li><input id=sidebar-input-android type=checkbox> <label class=h3 for=sidebar-input-android>android</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/"> ADB over TCP inside WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/OTA updates for rooted android phone/"> OTA updates for rooted android phone </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/android cli setup/"> android cli setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/building signal-android in WSL2/"> building signal-android in WSL2 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/linux ADB udev setup/"> linux ADB udev setup </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/android/root phone with magisk/"> root phone with magisk </a></ol><li><input id=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n type=checkbox> <label class=h3 for=sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n>b i g m o n e y l a w r e g u l a t i o n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/"> financial instituion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/"> foreign bank account report (FBAR) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/"> monetary instruments </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/"> money services business (MSB) </a></ol><li><input id=sidebar-input-b-l-o-c-k-c-h-a-i-n type=checkbox> <label class=h3 for=sidebar-input-b-l-o-c-k-c-h-a-i-n>b l o c k c h a i n</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/aptos/"> aptos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/"> bip158 - compact block filters </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/"> btc utreexo - utxo accumulator </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/"> fastpay </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/oasis/"> oasis </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/b l o c k c h a i n/sui/"> sui </a></ol><li><input id=sidebar-input-btc-ln type=checkbox> <label class=h3 for=sidebar-input-btc-ln>btc-ln</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/"> BOLT 11 - invoices </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/"> BOLT 2 - channel management protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/"> BOLT 4 - onion routing protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/"> BOLT 7 - p2p node and channel discovery </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/"> BOLT 8 - secure noise transport </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/"> atomic multipath payments (AMP) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/breez lightning service providers/"> breez lightning service providers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/hosted channels/"> hosted channels </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning libs/"> lightning libs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning network notes/"> lightning network notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightning rod/"> lightning rod </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/"> lightningdevkit - rust-lightning </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/submarine swaps/"> submarine swaps </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/btc-ln/zero-conf channels/"> zero-conf channels </a></ol><li><input id=sidebar-input-combinatorics type=checkbox> <label class=h3 for=sidebar-input-combinatorics>combinatorics</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/"> k-combinations of a multiset </a></ol><li><input id=sidebar-input-confidential-computing type=checkbox> <label class=h3 for=sidebar-input-confidential-computing>confidential computing</label> <ol><li><input id=sidebar-input-confidential-computing-intel-sgx type=checkbox> <label class=h3 for=sidebar-input-confidential-computing-intel-sgx>intel SGX</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/"> SGX lingo </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/overview/"> overview </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/"> remote attestation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/"> sealing </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/"> secure time </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/"> enarx (WASM TEE) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/"> fortanix rust tutorial </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/gramine/"> gramine </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/intel TDX/"> intel TDX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/marblerun/"> marblerun </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/mystikos/"> mystikos </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/confidential computing/remote attestation protocols/"> remote attestation protocols </a></ol><li><input id=sidebar-input-crypto type=checkbox> <label class=h3 for=sidebar-input-crypto>crypto</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/"> (talk) authenticated data structures for stateless validation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/"> TLS self-signed pubkey-only certs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/acme protocol/"> acme protocol </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/biscuit authz/"> biscuit authz </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/"> dex - open-source OIDC & OAuth 2.0 provider </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/hkdf-sha256/> hkdf-sha256 </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/"> smallstep - private online CA & ACME server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/crypto/tls exported keying material/"> tls exported keying material </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/crypto/zkdocs/> zkdocs </a></ol><li><input id=sidebar-input-design type=checkbox> <label class=h3 for=sidebar-input-design>design</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/design/form design/"> form design </a></ol><li><input id=sidebar-input-devops type=checkbox> <label class=h3 for=sidebar-input-devops>devops</label> <ol><li><input id=sidebar-input-devops-o11y type=checkbox> <label class=h3 for=sidebar-input-devops-o11y>o11y</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/"> jaeger oss e2e tracing </a></ol><li><input id=sidebar-input-devops-secrets type=checkbox> <label class=h3 for=sidebar-input-devops-secrets>secrets</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/"> 1password - secrets automation </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/doppler/> doppler </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/"> ejson (Shopify) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/"> ejson-kms (AWS) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/envkey/> envkey </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/fortanix DSM/"> fortanix DSM </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/"> mozilla SOPS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/secrets/sops-nix/> sops-nix </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/"> sy - share secrets safely </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/"> AKS - azure kubernetes service </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/algo wireguard VPN server/"> algo wireguard VPN server </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/azure CLI/"> azure CLI </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/consul/> consul </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/deployment strategies/"> deployment strategies </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/docker compose/"> docker compose </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/k3s/> k3s </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/"> kind (kubernetes in docker) </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/kubernetes/> kubernetes </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/linkerd/> linkerd </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/minikube/> minikube </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/devops/nomad/> nomad </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/devops/service mesh/"> service mesh </a></ol><li><input id=sidebar-input-distributed-systems type=checkbox> <label class=h3 for=sidebar-input-distributed-systems>distributed systems</label> <ol><li><input id=sidebar-input-distributed-systems-papers type=checkbox> <label class=h3 for=sidebar-input-distributed-systems-papers>papers</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/"> (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/"> (2021) Leaderless Consensus </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/"> the siren song of backpressure </a></ol><li><input id=sidebar-input-fuzzing type=checkbox> <label class=h3 for=sidebar-input-fuzzing>fuzzing</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/"> bolero - fuzzing + property testing </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzcheck-rs/> fuzzcheck-rs </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/fuzzing/fuzzing/> fuzzing </a></ol><li><input id=sidebar-input-ios type=checkbox> <label class=h3 for=sidebar-input-ios>ios</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/ios/ios setup/"> ios setup </a></ol><li><input id=sidebar-input-keyboards type=checkbox> <label class=h3 for=sidebar-input-keyboards>keyboards</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/keyboards/moergo glove80/"> moergo glove80 </a></ol><li><input id=sidebar-input-lang type=checkbox> <label class=h3 for=sidebar-input-lang>lang</label> <ol><li><input id=sidebar-input-lang-ats type=checkbox> <label class=h3 for=sidebar-input-lang-ats>ATS</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/"> ATS2 Notes </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/ATS/Install ATS2/"> Install ATS2 </a></ol><li><input id=sidebar-input-lang-flutter type=checkbox> <label class=h3 for=sidebar-input-lang-flutter>flutter</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/"> dart lang </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/flutter/flutter setup/"> flutter setup </a></ol><li><input id=sidebar-input-lang-rust type=checkbox> <label class=h3 for=sidebar-input-lang-rust>rust</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/optimizing binary size/"> optimizing binary size </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rr with rust/"> rr with rust </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust verification tools/"> rust verification tools </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/rust x SGX/"> rust x SGX </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/self-referencing structs/"> self-referencing structs </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/sycamore x futures/"> sycamore x futures </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/"> understanding sycamore reactivity </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/gdb ref/"> gdb ref </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/koka-lang/> koka-lang </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/lang/lua/> lua </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/lang/operator fixity and precedence/"> operator fixity and precedence </a></ol><li><input id=sidebar-input-management type=checkbox> <label class=h3 for=sidebar-input-management>management</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/"> relieve often - why generals were more successful in WWII </a></ol><li><input id=sidebar-input-misc type=checkbox> <label class=h3 for=sidebar-input-misc>misc</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/arm target triples/"> arm target triples </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/envsubst/> envsubst </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/"> git multirepo to monorepo </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/kintsugi/> kintsugi </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/optimization solvers/"> optimization solvers </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/pop_OS! tweaks/"> pop_OS! tweaks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/"> prepping RPI for embedded dev </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/misc/rgbxmas/> rgbxmas </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/scanning QR codes on desktop/"> scanning QR codes on desktop </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/"> setting up a headless raspbian boot image </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/uptime to downtime conversion/"> uptime to downtime conversion </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/misc/water distillation setup/"> water distillation setup </a></ol><li><input id=sidebar-input-networking type=checkbox> <label class=h3 for=sidebar-input-networking>networking</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/networking/CIDR/> CIDR </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/ipv6 address space/"> ipv6 address space </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interface card (NIC)/"> network interface card (NIC) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/networking/network interfaces/"> network interfaces </a></ol><li><input id=sidebar-input-nvim type=checkbox> <label class=h3 for=sidebar-input-nvim>nvim</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/nvim/universal-ctags Notes/"> universal-ctags Notes </a></ol><li><input checked id=sidebar-input-performance type=checkbox> <label class=h3 for=sidebar-input-performance>performance</label> <ol><li class=sidebar-note><a class="notes-link link-internal active" href="https://phlip9.com/notes/performance/bit hacks/"> bit hacks </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/dtrace on macOS/"> dtrace on macOS </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/performance/profiling/> profiling </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/performance/simdjson talk/"> simdjson talk </a></ol><li><input id=sidebar-input-postgres type=checkbox> <label class=h3 for=sidebar-input-postgres>postgres</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/postgres performance tuning/"> postgres performance tuning </a><li class=sidebar-note><a class="notes-link link-internal" href=https://phlip9.com/notes/postgres/snippets/> snippets </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/postgres/types of scans/"> types of scans </a></ol><li><input id=sidebar-input-reproducible-builds type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds>reproducible builds</label> <ol><li><input id=sidebar-input-reproducible-builds-nix type=checkbox> <label class=h3 for=sidebar-input-reproducible-builds-nix>nix</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/links/"> links </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix auto-allocate-uids -> nixbld users/"> nix auto-allocate-uids -> nixbld users </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug broken package build/"> nix debug broken package build </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/nix/nix debug spurrious rebuilds/"> nix debug spurrious rebuilds </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/earthly/"> earthly </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/rebuilderd/"> rebuilderd </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/"> reproducible-builds.org </a></ol><li><input id=sidebar-input-router type=checkbox> <label class=h3 for=sidebar-input-router>router</label> <ol><li><input id=sidebar-input-router-lightning-router type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router>lightning router</label> <ol><li><input id=sidebar-input-router-lightning-router-captive-portal type=checkbox> <label class=h3 for=sidebar-input-router-lightning-router-captive-portal>captive portal</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/"> RFC 6585 (Additional HTTP Status Codes) </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/"> arubanetworks captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/"> captive portal </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/"> captive portal (wikipedia) </a></ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/router/lightning router/lightning router overview/"> lightning router overview </a></ol></ol><li><input id=sidebar-input-statistics-probability type=checkbox> <label class=h3 for=sidebar-input-statistics-probability>statistics probability</label> <ol><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/"> CDF confidence bands - DKW inequality </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/"> G-test - multinomial goodness-of-fit </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/"> MAD - median absolute deviation </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/cheat sheet/"> cheat sheet </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/"> herbie - float error fixer </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/"> kelly criterion + ELO </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/multinomial distribution/"> multinomial distribution </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/p-value/"> p-value </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/standard error/"> standard error </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/"> testing whether a coin is fair </a><li class=sidebar-note><a class="notes-link link-internal" href="https://phlip9.com/notes/statistics probability/winsorize/"> winsorize </a></ol></ol></nav></div><nav aria-label="Secondary navigation" class="notes-toc d-none d-xl-block col-xl-4"><div class=page-links><h3 class=text-muted>on this page</h3><nav id=table-of-contents><ul><li><a href="https://phlip9.com/notes/performance/bit hacks/#bit-hacks" class=link-internal>bit hacks</a> <ul><li><a href="https://phlip9.com/notes/performance/bit hacks/#links" class=link-internal>Links</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#utils" class=link-internal>utils</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#next-k-bits-permutation-algorithm" class=link-internal>Next k-bits Permutation Algorithm</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#num-leading-trailing-zero-bytes" class=link-internal>Num leading/trailing zero bytes</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-byte-0" class=link-internal>Any byte == 0</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-nibble-0" class=link-internal>Any nibble == 0</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-specific-bytes-0" class=link-internal>Any specific bytes == 0</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-specific-nibbles-0" class=link-internal>Any specific nibbles == 0</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-byte-b-in-range-m-b-n" class=link-internal>Any byte b in range m < b < n</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-specific-bytes-b-in-range-m-b-n" class=link-internal>Any specific bytes b in range m < b < n</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#any-specific-nibbles-nb-in-range-m-nb-n" class=link-internal>Any specific nibbles nb in range m < nb < n</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#element-wise-bytes-less-than" class=link-internal>Element-wise bytes less-than</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#leading-byte-index-less-than" class=link-internal>Leading byte index less-than</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#trailing-byte-index-single-byte-less-than" class=link-internal>Trailing byte index single byte less-than</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#pdep-parallel-bit-deposit" class=link-internal>pdep - parallel bit deposit</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#select-get-the-index-of-the-i-th-1-bit-in-a-mask" class=link-internal>select - get the index of the i'th 1-bit in a mask</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#generate-all-possible-masks" class=link-internal>Generate all possible masks</a><li><a href="https://phlip9.com/notes/performance/bit hacks/#sum-all-nibbles" class=link-internal>Sum all nibbles</a></ul></ul></nav></div></nav><main class="notes-content tags-content col-lg-11 col-xl-8"><h1 id=bit-hacks>bit hacks</h1><p class=text-muted>2022-02-10 · 14 min read<ul class=tags><li><a class="btn btn-outline-primary btn-sm link-internal" href=https://phlip9.com/notes/tags/perf/>#perf</a></ul><p>Collection of bit twiddling hacks with helpful explanations : )<h3 id=links>Links <a aria-label="anchor link" class=anchor-link href=#links> # </a></h3><ol><li><a href=https://graphics.stanford.edu/%7Eseander/bithacks.html>Stanford Graphics Bit Twiddling Hacks - Sean Anderson</a><li><a href=https://web.archive.org/web/20190211212015/http://www.hackersdelight.org/hdcode.htm>Hacker's Delight Algorithms List - Hank Warren</a><li><a href=https://github.com/gnzlbg/bitwise/>github.com/gnzlbg/bitwise</a><li><a href=https://www.jjj.de/fxt/fxtbook.pdf>Matters Computational - Jörg Arndt</a><li><a href=https://jjj.de/bitwizardry/bitwizardrypage.html>Bit Wizardry Page - Jörg Arndt</a><li><a href=http://haroldbot.nl>haroldbot.nl - check equivalence of 32bit binary equations</a></ol><h3 id=utils>utils <a aria-label="anchor link" class=anchor-link href=#utils> # </a></h3><p>Just some convenient functions for debugging.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_into_nib_le</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> [</span><span style=color:#b48ead;>u8</span><span>; </span><span style=color:#d08770;>8</span><span>] {
+</span><span>	</span><span style=color:#b48ead;>let </span><span>[b0, b1, b2, b3] = x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>();
+</span><span>	[
+</span><span>		b0 & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		(b0 >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		b1 & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		(b1 >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		b2 & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		(b2 >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		b3 & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>		(b3 >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>0x0f</span><span>,
+</span><span>	]
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>dbg_u8</span><span>(</span><span style=color:#bf616a;>lbl</span><span>: &</span><span style=color:#b48ead;>str</span><span>, </span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u8</span><span>) -> </span><span style=color:#b48ead;>u8 </span><span>{
+</span><span>	println!("</span><span style=color:#a3be8c;>{:>12}  </span><span style=color:#d08770;>{:08b}</span><span>", lbl, x);
+</span><span>	x
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>dbg_u32</span><span>(</span><span style=color:#bf616a;>lbl</span><span>: &</span><span style=color:#b48ead;>str</span><span>, </span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	println!("</span><span style=color:#a3be8c;>{:>12}  {:032b}</span><span>", lbl, x);
+</span><span>	x
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>dbg_u32_byte</span><span>(</span><span style=color:#bf616a;>lbl</span><span>: &</span><span style=color:#b48ead;>str</span><span>, </span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	</span><span style=color:#b48ead;>let </span><span>[b0, b1, b2, b3] = x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>();
+</span><span>	println!("</span><span style=color:#a3be8c;>{:>12}  </span><span style=color:#d08770;>{:08b} {:08b} {:08b} {:08b}</span><span>", lbl, b3, b2, b1, b0);
+</span><span>	x
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>dbg_u32_nib</span><span>(</span><span style=color:#bf616a;>lbl</span><span>: &</span><span style=color:#b48ead;>str</span><span>, </span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	</span><span style=color:#b48ead;>let </span><span>[n0, n1, n2, n3, n4, n5, n6, n7] = </span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(x);
+</span><span>	println!(
+</span><span>		"</span><span style=color:#a3be8c;>{:>12}  </span><span style=color:#d08770;>{:04b} {:04b} {:04b} {:04b} {:04b} {:04b} {:04b} {:04b}</span><span>",
+</span><span>		lbl, n7, n6, n5, n4, n3, n2, n1, n0,
+</span><span>	);
+</span><span>	x
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>dbg_u64_byte</span><span>(</span><span style=color:#bf616a;>lbl</span><span>: &</span><span style=color:#b48ead;>str</span><span>, </span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u64 </span><span>{
+</span><span>    </span><span style=color:#b48ead;>let </span><span>[b0, b1, b2, b3, b4, b5, b6, b7] = x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>();
+</span><span>    println!(
+</span><span>        "</span><span style=color:#a3be8c;>{:>12}  </span><span style=color:#d08770;>{:08b} {:08b} {:08b} {:08b} {:08b} {:08b} {:08b} {:08b}</span><span>",
+</span><span>        lbl, b7, b6, b5, b4, b3, b2, b1, b0,
+</span><span>    );
+</span><span>    x
+</span><span>}
+</span></code></pre><h3 id=next-k-bits-permutation-algorithm>Next k-bits Permutation Algorithm <a aria-label="anchor link" class=anchor-link href=#next-k-bits-permutation-algorithm> # </a></h3><p>Suppose we have an integer with 4-bits, <code>xs = 00101101</code>. We can get the next lexicographic bitvec <code>next(xs) = 00101110</code> via the following algorithm:<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#65737e;>// given a k-bit vector `x` (i.e., `x.count_ones() == k`),
+</span><span style=color:#65737e;>// this fn returns the next k-bit vector permutation in
+</span><span style=color:#65737e;>// lexicographic order.
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// ex:
+</span><span style=color:#65737e;>//      00001111 -> 00010111
+</span><span style=color:#65737e;>// 		00110101 -> 00101110
+</span><span style=color:#65737e;>//      00101110 -> 00110011
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// notice that `x.count_ones() == next(x).count_ones()`
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>next_kbit_perm</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	</span><span style=color:#65737e;>// this is `x` but with trailing zeros set to ones
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// ex:
+</span><span>	</span><span style=color:#65737e;>// 		00101101 -> 00101101
+</span><span>	</span><span style=color:#65737e;>//      00101100 -> 00101111
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = x | x.</span><span style=color:#96b5b4;>wrapping_sub</span><span>(</span><span style=color:#d08770;>1</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#65737e;>// this selects only the trailing ones in `t`.
+</span><span>	</span><span style=color:#65737e;>// note: t always has at least one trailing one.
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// ex:
+</span><span>	</span><span style=color:#65737e;>//      00001111 -> 00001111
+</span><span>	</span><span style=color:#65737e;>// 	 	00101111 -> 00001111
+</span><span>	</span><span style=color:#65737e;>//      00101101 -> 00000001
+</span><span>	</span><span style=color:#65737e;>// alt. ((!t & (!t).wrapping_neg()).wrapping_sub(1))
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = (</span><span style=color:#d08770;>1_</span><span style=color:#b48ead;>u8 </span><span><< (t.</span><span style=color:#96b5b4;>trailing_ones</span><span>())).</span><span style=color:#96b5b4;>wrapping_sub</span><span>(</span><span style=color:#d08770;>1</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#65737e;>// this sets the most significant bit that needs to
+</span><span>	</span><span style=color:#65737e;>// change (but leaves some trailing zeros that we
+</span><span>	</span><span style=color:#65737e;>// need to fixup later).
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// ex:
+</span><span>	</span><span style=color:#65737e;>//      00001111 -> 00010000
+</span><span>	</span><span style=color:#65737e;>// 		00101011 -> 00101100
+</span><span>	</span><span style=color:#65737e;>//      00101111 -> 00110000
+</span><span>	</span><span style=color:#b48ead;>let</span><span> v = t.</span><span style=color:#96b5b4;>wrapping_add</span><span>(</span><span style=color:#d08770;>1</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#65737e;>// the ones we need to add back into v to "fix" it
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// ex:
+</span><span>	</span><span style=color:#65737e;>// 		x=00011101, u=00000001 -> 00000000
+</span><span>	</span><span style=color:#65737e;>//      x=00011110, u=00011111 -> 00000111
+</span><span>	</span><span style=color:#65737e;>// 		x=00101011, u=00000011 -> 00000001
+</span><span>	</span><span style=color:#b48ead;>let</span><span> w = u.</span><span style=color:#96b5b4;>wrapping_shr</span><span>(x.</span><span style=color:#96b5b4;>trailing_zeros</span><span>() + </span><span style=color:#d08770;>1</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#65737e;>// the next permutation
+</span><span>	(v | w)
+</span><span>}
+</span></code></pre><ul><li>we can use this to generate all k-combinations of a given set, by representing each element of the set <code>x_i</code> as bit <code>b_i</code>. + For example, let's say we have the set <code>{A,B,C}</code>. The combination <code>{A,C}</code> would be represented by the bitstring <code>101</code>. Applying <code>next_kbit_perm</code> would then give us the next 2-combination <code>110</code> or <code>{B,C}</code>.</ul><h3 id=num-leading-trailing-zero-bytes>Num leading/trailing zero bytes <a aria-label="anchor link" class=anchor-link href=#num-leading-trailing-zero-bytes> # </a></h3><pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_leading_zero_bytes_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	x.</span><span style=color:#96b5b4;>to_be_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>().</span><span style=color:#96b5b4;>take_while</span><span>(|&</span><span style=color:#bf616a;>b</span><span>| b == </span><span style=color:#d08770;>0</span><span>).</span><span style=color:#96b5b4;>count</span><span>() as </span><span style=color:#b48ead;>u32
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>/// Return the number of leading bytes == 0x00
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_leading_zero_bytes</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>    x.</span><span style=color:#96b5b4;>leading_zeros</span><span>() >> </span><span style=color:#d08770;>3
+</span><span>}
+</span></code></pre><pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_trailing_zero_bytes_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>().</span><span style=color:#96b5b4;>take_while</span><span>(|&</span><span style=color:#bf616a;>b</span><span>| b == </span><span style=color:#d08770;>0</span><span>).</span><span style=color:#96b5b4;>count</span><span>() as </span><span style=color:#b48ead;>u32
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>/// Return the number of trailing bytes == 0x00
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_trailing_zero_bytes</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>    x.</span><span style=color:#96b5b4;>trailing_zeros</span><span>() >> </span><span style=color:#d08770;>3
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/81a7E6f7M>https://godbolt.org/z/81a7E6f7M</a><h3 id=any-byte-0>Any byte == 0 <a aria-label="anchor link" class=anchor-link href=#any-byte-0> # </a></h3><p>Returns <code>true</code> if <em>any</em> byte in <code>x</code> is zero.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_byte_eqz_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	x.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|</span><span style=color:#bf616a;>b</span><span>| b == </span><span style=color:#d08770;>0</span><span>)
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_byte_eqz</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#65737e;>// subtract each individual byte by 1. if a byte is 0x00, this will
+</span><span>	</span><span style=color:#65737e;>// "underflow" to 0xff.
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// for reference:
+</span><span>	</span><span style=color:#65737e;>// 0x0101_0101  00000001 00000001 00000001 00000001
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = x.</span><span style=color:#96b5b4;>wrapping_sub</span><span>(</span><span style=color:#d08770;>0x0101_0101</span><span>);
+</span><span>	</span><span style=color:#65737e;>// for each byte in u, the upper bit is 1 if that corresponding bit
+</span><span>	</span><span style=color:#65737e;>// is 0 in x
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// ex:
+</span><span>	</span><span style=color:#65737e;>// 	         x	0XXXXXXX 1XXXXXXX 1XXXXXXX 0XXXXXXX
+</span><span>	</span><span style=color:#65737e;>// 0x8080_8080 	10000000 10000000 10000000 10000000
+</span><span>	</span><span style=color:#65737e;>//           u  00000000 10000000 10000000 00000000
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = !x & </span><span style=color:#d08770;>0x8080_8080</span><span>;
+</span><span>	</span><span style=color:#65737e;>// leave a 0x80 in a byte if the upper bit is 1
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// this can only happen if
+</span><span>	</span><span style=color:#65737e;>// 	 1. the value in the byte has its msb set (after subtracting 1)
+</span><span>	</span><span style=color:#65737e;>//   2. the msb was not already 1 before subtracting
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// (2.) implies the byte was in the range (0b00000000..=0b01111111).
+</span><span>	</span><span style=color:#65737e;>//
+</span><span>	</span><span style=color:#65737e;>// therefore the only value which will have its msb set after
+</span><span>	</span><span style=color:#65737e;>// subtracting is 0, since it will "underflow" to 0b11111111
+</span><span>	</span><span style=color:#b48ead;>let</span><span> v = t & u;
+</span><span>
+</span><span>	v != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/4Evq88seo>https://godbolt.org/z/4Evq88seo</a><h3 id=any-nibble-0>Any nibble == 0 <a aria-label="anchor link" class=anchor-link href=#any-nibble-0> # </a></h3><p>Returns <code>true</code> if <em>any</em> nibble in <code>x</code> is zero. This is just <a href=https://phlip9.com/notes/performance/bit%20hacks/#any-byte-0>Any byte 0</a> but with the constants adjusted to work on every nibble rather than every byte.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_nib_eqz_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(x)
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|</span><span style=color:#bf616a;>nb</span><span>| nb == </span><span style=color:#d08770;>0</span><span>)
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_nib_eqz</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#65737e;>// 0x1111_1111  0001 0001 0001 0001 0001 0001 0001 0001
+</span><span>	</span><span style=color:#65737e;>// 0x8888_8888  1000 1000 1000 1000 1000 1000 1000 1000
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = x.</span><span style=color:#96b5b4;>wrapping_sub</span><span>(</span><span style=color:#d08770;>0x1111_1111</span><span>);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = !x & </span><span style=color:#d08770;>0x8888_8888</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> v = t & u;
+</span><span>
+</span><span>	v != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/fnf78rKvz>https://godbolt.org/z/fnf78rKvz</a><h3 id=any-specific-bytes-0>Any specific bytes == 0 <a aria-label="anchor link" class=anchor-link href=#any-specific-bytes-0> # </a></h3><p>Returns <code>true</code> if <em>any</em> of a specific subset of the bytes in <code>x</code> are zero.<p><code>mask</code> is a bit-mask where each byte we want to select is equal to <code>0x01</code>, for example, <code>mask = 0x0100_0100</code> would select the 2nd and 4th bytes (1-indexed).<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_spec_nib_eqz_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	x.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(mask.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|(</span><span style=color:#bf616a;>b_x</span><span>, </span><span style=color:#bf616a;>b_mask</span><span>)| (b_mask == </span><span style=color:#d08770;>0x01</span><span>) && (b_x == </span><span style=color:#d08770;>0x00</span><span>))
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_spec_nib_eqz</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#65737e;>// this is just 0x8888_8888, but only 8 where mask has a 1-nibble
+</span><span>	</span><span style=color:#b48ead;>let</span><span> mask_hi = mask.</span><span style=color:#96b5b4;>wrapping_mul</span><span>(</span><span style=color:#d08770;>0x8</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = x.</span><span style=color:#96b5b4;>wrapping_sub</span><span>(mask);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = !x & mask_hi;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> v = t & u;
+</span><span>
+</span><span>	v != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><h3 id=any-specific-nibbles-0>Any specific nibbles == 0 <a aria-label="anchor link" class=anchor-link href=#any-specific-nibbles-0> # </a></h3><p>Returns <code>true</code> if <em>any</em> of a specific subset of the nibbles in <code>x</code> are zero.<p><code>mask</code> is a bit-mask where each nibble we want to select is equal to <code>0001</code>, for example, <code>mask = 0x1100_0010</code> would select the 2nd, 7th, and 8th nibbles (1-indexed).<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_spec_nib_eqz_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(x)
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(mask).</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|(</span><span style=color:#bf616a;>nb_x</span><span>, </span><span style=color:#bf616a;>nb_mask</span><span>)| (nb_mask == </span><span style=color:#d08770;>0x1</span><span>) && (nb_x == </span><span style=color:#d08770;>0x0</span><span>))
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_any_spec_nib_eqz</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	</span><span style=color:#65737e;>// this is just 0x8888_8888, but only 8 where mask has a 1-nibble
+</span><span>	</span><span style=color:#b48ead;>let</span><span> mask_hi = mask.</span><span style=color:#96b5b4;>wrapping_mul</span><span>(</span><span style=color:#d08770;>0x8</span><span>);
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = x.</span><span style=color:#96b5b4;>wrapping_sub</span><span>(mask);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = !x & mask_hi;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> v = t & u;
+</span><span>
+</span><span>	v != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/Tfn9fbKKG>https://godbolt.org/z/Tfn9fbKKG</a><h3 id=any-byte-b-in-range-m-b-n>Any byte b in range m < b < n <a aria-label="anchor link" class=anchor-link href=#any-byte-b-in-range-m-b-n> # </a></h3><p>where <code>0 <= m <= 127</code> and <code>0 <= n <= 128</code>.<p>Returns <code>true</code> if <em>any</em> byte <code>b</code> in <code>x</code> is in the range <code>m < b < n</code>.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_byte_between_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>127</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>128</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> m = m as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> n = n as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>
+</span><span>	x.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>().</span><span style=color:#96b5b4;>any</span><span>(|</span><span style=color:#bf616a;>b</span><span>| (m < b) && (b < n))
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_byte_between</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>127</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>128</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> mask = </span><span style=color:#d08770;>0x0101_0101</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> s = mask * </span><span style=color:#d08770;>127</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> y = mask * </span><span style=color:#d08770;>128</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> w = mask * (</span><span style=color:#d08770;>127 </span><span>+ n);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = mask * (</span><span style=color:#d08770;>127 </span><span>- m);
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = x & s;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> z = (w - u) & (!x) & (u + t) & y;
+</span><span>
+</span><span>	z != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/a5911ra73>https://godbolt.org/z/a5911ra73</a><h3 id=any-specific-bytes-b-in-range-m-b-n>Any specific bytes b in range m < b < n <a aria-label="anchor link" class=anchor-link href=#any-specific-bytes-b-in-range-m-b-n> # </a></h3><p>where <code>0 <= m <= 127</code> and <code>0 <= n <= 128</code>.<p>Returns <code>true</code> if <em>any</em> specific bytes <code>b</code> in <code>x</code> are in the range <code>m < b < n</code>, selected by a bit-mask <code>mask</code>.<p><code>mask</code> is a bit-mask where each byte we want to select is equal to <code>0x01</code>, for example, <code>mask = 0x0100_0100</code> would select the 2nd and 4th bytes (1-indexed).<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_spec_byte_between_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>127</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>128</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> m = m as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> n = n as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>
+</span><span>	x.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(mask.</span><span style=color:#96b5b4;>to_ne_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|(</span><span style=color:#bf616a;>b_x</span><span>, </span><span style=color:#bf616a;>b_mask</span><span>)| (b_mask == </span><span style=color:#d08770;>0x01</span><span>) && (m < b_x) && (b_x < n))
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_spec_byte_between</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>127</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>128</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> s = mask * </span><span style=color:#d08770;>127</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> y = mask * </span><span style=color:#d08770;>128</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> w = mask * (</span><span style=color:#d08770;>127 </span><span>+ n);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = mask * (</span><span style=color:#d08770;>127 </span><span>- m);
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = x & s;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> z = (w - u) & (!x) & (u + t) & y;
+</span><span>
+</span><span>	z != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/aq8T9seEs>https://godbolt.org/z/aq8T9seEs</a><h3 id=any-specific-nibbles-nb-in-range-m-nb-n>Any specific nibbles nb in range m < nb < n <a aria-label="anchor link" class=anchor-link href=#any-specific-nibbles-nb-in-range-m-nb-n> # </a></h3><p>where <code>0 <= m <= 7</code> and <code>0 <= n <= 8</code>.<p>Returns <code>true</code> if <em>any</em> specific nibbles <code>nb</code> in <code>x</code> are in the range <code>m < nb < n</code>, selected by a bit-mask <code>mask</code>.<p><code>mask</code> is a bit-mask where each nibble we want to select is equal to <code>0001</code>, for example, <code>mask = 0x1100_0010</code> would select the 2nd, 7th, and 8th nibbles (1-indexed).<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_spec_nib_between_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>7</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>8</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> m = m as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> n = n as </span><span style=color:#b48ead;>u8</span><span>;
+</span><span>
+</span><span>	</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(x)
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(mask).</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>any</span><span>(|(</span><span style=color:#bf616a;>nb_x</span><span>, </span><span style=color:#bf616a;>nb_mask</span><span>)| {
+</span><span>			(nb_mask == </span><span style=color:#d08770;>0x1</span><span>) && (m < nb_x) && (nb_x < n)
+</span><span>		})
+</span><span>}
+</span><span>
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_has_spec_nib_between</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>m</span><span>: </span><span style=color:#b48ead;>u32</span><span>, </span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>bool </span><span>{
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>7</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&m));
+</span><span>	assert!((</span><span style=color:#d08770;>0</span><span>..=</span><span style=color:#d08770;>8</span><span>).</span><span style=color:#96b5b4;>contains</span><span>(&n));
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> s = mask * </span><span style=color:#d08770;>7</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> y = mask * </span><span style=color:#d08770;>8</span><span>;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> w = mask * (</span><span style=color:#d08770;>7 </span><span>+ n);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> t = mask * (</span><span style=color:#d08770;>7 </span><span>- m);
+</span><span>
+</span><span>	</span><span style=color:#b48ead;>let</span><span> u = x & s;
+</span><span>	</span><span style=color:#b48ead;>let</span><span> z = (w - u) & (!x) & (u + t) & y;
+</span><span>
+</span><span>	z != </span><span style=color:#d08770;>0
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/PGfvT39z5>https://godbolt.org/z/PGfvT39z5</a><h3 id=element-wise-bytes-less-than>Element-wise bytes less-than <a aria-label="anchor link" class=anchor-link href=#element-wise-bytes-less-than> # </a></h3><pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_elementwise_bytes_lt_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u64 </span><span>{
+</span><span>	assert!(x & </span><span style=color:#d08770;>0x8080_8080_8080_8080_</span><span style=color:#b48ead;>u64 </span><span>== </span><span style=color:#d08770;>0</span><span>);
+</span><span>	</span><span style=color:#b48ead;>let</span><span> bytes = x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(y.</span><span style=color:#96b5b4;>to_le_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>map</span><span>(|(</span><span style=color:#bf616a;>bx</span><span>, </span><span style=color:#bf616a;>by</span><span>)| </span><span style=color:#b48ead;>if</span><span> bx < by { </span><span style=color:#d08770;>0x80_</span><span style=color:#b48ead;>u8 </span><span>} </span><span style=color:#b48ead;>else </span><span>{ </span><span style=color:#d08770;>0x00_</span><span style=color:#b48ead;>u8 </span><span>})
+</span><span>		.collect::&LTVec<_>>();
+</span><span>	</span><span style=color:#b48ead;>u64</span><span>::from_le_bytes(<[</span><span style=color:#b48ead;>u8</span><span>; </span><span style=color:#d08770;>8</span><span>]>::try_from(&bytes[..]).</span><span style=color:#96b5b4;>unwrap</span><span>())
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>/// Do an element-wise less-than comparison across each byte in `x` and `y`.
+</span><span style=color:#65737e;>/// Returns a mask where each byte is `0x80` if `bx < by` and `0x00` otherwise.
+</span><span style=color:#65737e;>/// Requires that each byte in `x` is in the range `0 <= bx <= 0x7f (127)`.
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_elementwise_bytes_lt</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> </span><span style=color:#b48ead;>u64 </span><span>{
+</span><span>    </span><span style=color:#65737e;>// ensure no elements in x are > 0x7f
+</span><span>    debug_assert!((x & </span><span style=color:#d08770;>0x8080_8080_8080_8080</span><span>) == </span><span style=color:#d08770;>0</span><span>);
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>let</span><span> a = </span><span style=color:#d08770;>0x7f7f_7f7f_7f7f_7f7f_</span><span style=color:#b48ead;>u64</span><span>;
+</span><span>    </span><span style=color:#b48ead;>let</span><span> b = </span><span style=color:#d08770;>0x8080_8080_8080_8080_</span><span style=color:#b48ead;>u64</span><span>;
+</span><span>    </span><span style=color:#b48ead;>let</span><span> c = a - x;
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// a = (0x7f << 56) + (0x7f << 48) + .. + (0x7f << 0)
+</span><span>    </span><span style=color:#65737e;>// x = (b7 << 56) + (b6 << 48) + .. + (b0 << 0)
+</span><span>    </span><span style=color:#65737e;>// c = ((0x7f - b7) << 56) + .. + ((0x7f - b0) << 0)
+</span><span>	</span><span style=color:#65737e;>//     iff. bi <= 0x7f forall i
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// (((by & 0x7f) + (0x7f - bx) > 0x7f) || (by > 0x7f)
+</span><span>    </span><span style=color:#65737e;>// by' + 0x7f - bx > 0x7f
+</span><span>    </span><span style=color:#65737e;>// by' - bx > 0x7f
+</span><span>    </span><span style=color:#65737e;>// (by' > bx) || (by > 0x7f)
+</span><span>
+</span><span>    ((y & a).</span><span style=color:#96b5b4;>wrapping_add</span><span>(c) | y) & b
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/fzGT4bonz>https://godbolt.org/z/fzGT4bonz</a><h3 id=leading-byte-index-less-than>Leading byte index less-than <a aria-label="anchor link" class=anchor-link href=#leading-byte-index-less-than> # </a></h3><pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_leading_byte_idx_lt_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> Option<</span><span style=color:#b48ead;>u8</span><span>> {
+</span><span>	x.</span><span style=color:#96b5b4;>to_le_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>zip</span><span>(y.</span><span style=color:#96b5b4;>to_le_bytes</span><span>().</span><span style=color:#96b5b4;>into_iter</span><span>())
+</span><span>		.</span><span style=color:#96b5b4;>rposition</span><span>(|(</span><span style=color:#bf616a;>bx</span><span>, </span><span style=color:#bf616a;>by</span><span>)| bx < by)
+</span><span>		.</span><span style=color:#96b5b4;>map</span><span>(|</span><span style=color:#bf616a;>idx</span><span>| idx as </span><span style=color:#b48ead;>u8</span><span>)
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>/// Given two u64's, `x` and `y`, where all bytes `bx` in `x` are in the range
+</span><span style=color:#65737e;>/// `0 <= bx <= 0x7f (127)`, return the _byte index_ (i.e., idx = 0 = least
+</span><span style=color:#65737e;>/// significant byte, idx = 7 = most-significant byte)  of the first leading byte
+</span><span style=color:#65737e;>/// `by` in `y` where `by > bx`. (i.e., starting from the most-significant byte).
+</span><span style=color:#65737e;>///
+</span><span style=color:#65737e;>/// Returns `None` if there are no bytes in `y` greater than their corresponding
+</span><span style=color:#65737e;>/// byte in `x`.
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_leading_byte_idx_lt</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u64</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> Option<</span><span style=color:#b48ead;>u8</span><span>> {
+</span><span>    </span><span style=color:#b48ead;>let</span><span> mask_0x80 = </span><span style=color:#96b5b4;>u64_elementwise_bytes_lt</span><span>(x, y);
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if</span><span> mask_0x80 != </span><span style=color:#d08770;>0 </span><span>{
+</span><span>        Some((</span><span style=color:#d08770;>7 </span><span>- </span><span style=color:#96b5b4;>u64_leading_zero_bytes</span><span>(mask_0x80)) as </span><span style=color:#b48ead;>u8</span><span>)
+</span><span>    } </span><span style=color:#b48ead;>else </span><span>{
+</span><span>        None
+</span><span>    }
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/aadbsqjve>https://godbolt.org/z/aadbsqjve</a><h3 id=trailing-byte-index-single-byte-less-than>Trailing byte index single byte less-than <a aria-label="anchor link" class=anchor-link href=#trailing-byte-index-single-byte-less-than> # </a></h3><pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_trailing_byte_idx_lt_ref</span><span>(</span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u8</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> Option<</span><span style=color:#b48ead;>u8</span><span>> {
+</span><span>	y.</span><span style=color:#96b5b4;>to_le_bytes</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>position</span><span>(|</span><span style=color:#bf616a;>by</span><span>| n < by)
+</span><span>		.</span><span style=color:#96b5b4;>map</span><span>(|</span><span style=color:#bf616a;>idx</span><span>| idx as </span><span style=color:#b48ead;>u8</span><span>)
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>/// Return the _byte index_ of the first _trailing_ byte `by` in `y` where
+</span><span style=color:#65737e;>/// `n < by`.
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u64_trailing_byte_idx_lt</span><span>(</span><span style=color:#bf616a;>n</span><span>: </span><span style=color:#b48ead;>u8</span><span>, </span><span style=color:#bf616a;>y</span><span>: </span><span style=color:#b48ead;>u64</span><span>) -> Option<</span><span style=color:#b48ead;>u8</span><span>> {
+</span><span>    </span><span style=color:#65737e;>// broadcast byte `n` across all bytes
+</span><span>    </span><span style=color:#b48ead;>let</span><span> x = </span><span style=color:#d08770;>0x0101_0101_0101_0101_</span><span style=color:#b48ead;>u64 </span><span>* (n as </span><span style=color:#b48ead;>u64</span><span>);
+</span><span>    </span><span style=color:#65737e;>// set 0x80 in all bytes where `n < by`
+</span><span>    </span><span style=color:#b48ead;>let</span><span> mask_0x80 = </span><span style=color:#96b5b4;>u64_elementwise_bytes_lt</span><span>(x, y);
+</span><span>
+</span><span>    </span><span style=color:#b48ead;>if</span><span> mask_0x80 != </span><span style=color:#d08770;>0 </span><span>{
+</span><span>        Some(</span><span style=color:#96b5b4;>u64_trailing_zero_bytes</span><span>(mask_0x80) as </span><span style=color:#b48ead;>u8</span><span>)
+</span><span>    } </span><span style=color:#b48ead;>else </span><span>{
+</span><span>        None
+</span><span>    }
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/3n5s1TMnW>https://godbolt.org/z/3n5s1TMnW</a><h3 id=pdep-parallel-bit-deposit>pdep - parallel bit deposit <a aria-label="anchor link" class=anchor-link href=#pdep-parallel-bit-deposit> # </a></h3><p>Like "spreading" out compact bits onto a mask.<p>See: <a href=https://github.com/phlip9/fastperm_benches/blob/master/src/select64.rs#L123>https://github.com/phlip9/fastperm_benches/blob/master/src/select64.rs#L123</a><h3 id=select-get-the-index-of-the-i-th-1-bit-in-a-mask>select - get the index of the i'th 1-bit in a mask <a aria-label="anchor link" class=anchor-link href=#select-get-the-index-of-the-i-th-1-bit-in-a-mask> # </a></h3><p>See: <a href=https://github.com/phlip9/fastperm_benches/blob/master/src/select64.rs#L19>https://github.com/phlip9/fastperm_benches/blob/master/src/select64.rs#L19</a><h3 id=generate-all-possible-masks>Generate all possible masks <a aria-label="anchor link" class=anchor-link href=#generate-all-possible-masks> # </a></h3><p>A <code>proptest</code> strategy for generating all possible combinations of bits, <code>mask</code> that match a "meta" mask. By "match" I mean <code>meta_mask & mask == mask</code>, i.e., <code>mask</code> is a subset of <code>meta_mask</code>.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_arb_mask</span><span>(</span><span style=color:#bf616a;>meta_mask</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> impl Strategy&LTValue = </span><span style=color:#b48ead;>u32</span><span>> {
+</span><span>	</span><span style=color:#b48ead;>let</span><span> nmasks: </span><span style=color:#b48ead;>u32 </span><span>= </span><span style=color:#d08770;>1 </span><span><< meta_mask.</span><span style=color:#96b5b4;>count_ones</span><span>();
+</span><span>
+</span><span>	(</span><span style=color:#d08770;>0</span><span>..=nmasks)
+</span><span>		.</span><span style=color:#96b5b4;>prop_map</span><span>(</span><span style=color:#b48ead;>move </span><span>|mask_idx| </span><span style=color:#96b5b4;>pdep32</span><span>(mask_idx, meta_mask))
+</span><span>}
+</span></code></pre><h3 id=sum-all-nibbles>Sum all nibbles <a aria-label="anchor link" class=anchor-link href=#sum-all-nibbles> # </a></h3><p>Given <code>x = AAAA BBBB CCCC DDDD  EEEE FFFF GGGG HHHH</code>, returns the sum <code>AAAA + BBBB + CCCC + DDDD + EEEE + FFFF + GGGG + HHHH</code>.<pre class=language-rust data-lang=rust style=background-color:#2b303b;color:#c0c5ce;><code class=language-rust data-lang=rust><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_sum_nibs_ref</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>	</span><span style=color:#96b5b4;>u32_into_nib_le</span><span>(x)
+</span><span>		.</span><span style=color:#96b5b4;>into_iter</span><span>()
+</span><span>		.</span><span style=color:#96b5b4;>map</span><span>(|</span><span style=color:#bf616a;>x</span><span>| x as </span><span style=color:#b48ead;>u32</span><span>)
+</span><span>		.</span><span style=color:#96b5b4;>sum</span><span>()
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>// this implementation is just a truncated popcnt/count_ones.
+</span><span style=color:#65737e;>// it's truncated in that we skip horizontal summing the bits and
+</span><span style=color:#65737e;>// half-nibbles and just dive right into horizontal summing the
+</span><span style=color:#65737e;>// nibbles.
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// visually:
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>//   x  AAAA BBBB CCCC DDDD EEEE FFFF GGGG HHHH
+</span><span style=color:#65737e;>//   y  000A BABA 000C DCDC 000E FEFE 000G HGHG  (1.)
+</span><span style=color:#65737e;>//   z  0000 0000 00AB CDAB 0000 0000 00EF GHEF  (2.)
+</span><span style=color:#65737e;>//   w  0000 0000 0000 0000 0000 0000 0ABC DEFG  (3.)
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// (1.) note that any horizontal sum AAAA + BBBB will fill at most
+</span><span style=color:#65737e;>//      _5_ bits. (log2(16 + 16) == 5)
+</span><span style=color:#65737e;>// (2.) each will fill at most _6_ bits. (log2(32 + 32) == 6)
+</span><span style=color:#65737e;>// (3.) the result will fill at most _7_ bits. (log2(64 + 64) == 7)
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_sum_nibs_simple</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>    </span><span style=color:#b48ead;>const </span><span style=color:#d08770;>NIBS_0246</span><span>: </span><span style=color:#b48ead;>u32 </span><span>= </span><span style=color:#d08770;>0x0f0f_0f0f</span><span>;
+</span><span>    </span><span style=color:#b48ead;>const </span><span style=color:#d08770;>NIBS_0145</span><span>: </span><span style=color:#b48ead;>u32 </span><span>= </span><span style=color:#d08770;>0x00ff_00ff</span><span>;
+</span><span>    </span><span style=color:#b48ead;>const </span><span style=color:#d08770;>NIBS_0123</span><span>: </span><span style=color:#b48ead;>u32 </span><span>= </span><span style=color:#d08770;>0x0000_ffff</span><span>;
+</span><span>
+</span><span>	</span><span style=color:#65737e;>// like taking each individual byte and replacing it with the sum
+</span><span>	</span><span style=color:#65737e;>// of its hi and lo nibbles.
+</span><span>    </span><span style=color:#b48ead;>let</span><span> y = (x & </span><span style=color:#d08770;>NIBS_0246</span><span>) + ((x >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>NIBS_0246</span><span>);
+</span><span>	</span><span style=color:#65737e;>// for each individual half-word, replace it with the sum of its
+</span><span>	</span><span style=color:#65737e;>// hi and lo bytes.
+</span><span>	</span><span style=color:#b48ead;>let</span><span> z = (y & </span><span style=color:#d08770;>NIBS_0145</span><span>) + ((y >> </span><span style=color:#d08770;>8</span><span>) & </span><span style=color:#d08770;>NIBS_0145</span><span>);
+</span><span>	</span><span style=color:#65737e;>// our result is then the sum of the remaining hi and lo
+</span><span>	</span><span style=color:#65737e;>// half-words!
+</span><span>    </span><span style=color:#b48ead;>let</span><span> w = (z & </span><span style=color:#d08770;>NIBS_0123</span><span>) + ((z >> </span><span style=color:#d08770;>16</span><span>) & </span><span style=color:#d08770;>NIBS_0123</span><span>);
+</span><span>
+</span><span>	w
+</span><span>}
+</span><span>
+</span><span style=color:#65737e;>// this one's pretty cool and compact : )
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// it starts off like the one before, horizontal summing the adjacent
+</span><span style=color:#65737e;>// nibbles in each byte.
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// the trick here is to somehow get the horizontal sum of all bytes
+</span><span style=color:#65737e;>// into the _last_ byte, then shift down so only the last byte is left.
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// we can decompose any 32-bit integer into base 256, where the
+</span><span style=color:#65737e;>// ith coefficient is the ith byte:
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// B = 2^8
+</span><span style=color:#65737e;>// y = (b3 * B^3) + (b2 * B^2) + (b1 * B^1) + (b0 * B^0)     (mod 2^32)
+</span><span style=color:#65737e;>//   = (b3 * 2^24) + (b2 * 2^16) + (b1 * 2^8) + (b0 * 2^0)   (mod 2^32)
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// we want to reach the following:
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// z = ((b3 + b2 + b1 + b0) * 2^24) + (XXX)   (mod 2^32)
+</span><span style=color:#65737e;>// 	   where 0 <= b0, b1, b2, b3 < 32
+</span><span style=color:#65737e;>//       and (XXX) < 0x00ff_ffff (so it doesn't overflow into the
+</span><span style=color:#65737e;>// 								  part care about)
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// consider one of the individual bytes multiplied by 0x0101_0101
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// y2 = b2 * 2^16
+</span><span style=color:#65737e;>// y2 * 0x0101_0101 = b2 * (0x0101_0101 * 2^16)
+</span><span style=color:#65737e;>// 					= b2 * (0x0101_0101 << 16)
+</span><span style=color:#65737e;>// 					= b2 * 0x0101_0000
+</span><span style=color:#65737e;>// 					= 0xb2b2_0000
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// then, expanding all byte sections
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// y0 = b0 * 2^0
+</span><span style=color:#65737e;>// y1 = b1 * 2^8
+</span><span style=color:#65737e;>// y2 = b2 * 2^16
+</span><span style=color:#65737e;>// y3 = b3 * 2^24
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// y = y0 + y1 + y2 + y3
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// y0 * 0x0101_0101 = b0 * (0x0101_0101 << 0)
+</span><span style=color:#65737e;>//					= b0 * 0x0101_0101
+</span><span style=color:#65737e;>//                  = 0xb0b0_b0b0
+</span><span style=color:#65737e;>// y1 * 0x0101_0101 = b1 * (0x0101_0101 << 8)
+</span><span style=color:#65737e;>//					= b1 * 0x0101_0100
+</span><span style=color:#65737e;>//                  = 0xb1b1_b100
+</span><span style=color:#65737e;>// y2 * 0x0101_0101 = b2 * (0x0101_0101 << 16)
+</span><span style=color:#65737e;>//					= b2 * 0x0101_0000
+</span><span style=color:#65737e;>//                  = 0xb2b2_0000
+</span><span style=color:#65737e;>// y3 * 0x0101_0101 = b3 * (0x0101_0101 << 24)
+</span><span style=color:#65737e;>//					= b3 * 0x0100_0000
+</span><span style=color:#65737e;>//                  = 0xb300_0000
+</span><span style=color:#65737e;>// y * 0x0101_0101 = (y0 + y1 + y2 + y3) * 0x0101_0101
+</span><span style=color:#65737e;>//                 = 0xb0b0_b0b0 + 0xb1b1_b100 +
+</span><span style=color:#65737e;>//	                 0xb2b2_0000 + 0xb300_0000
+</span><span style=color:#65737e;>//                 = [b0, b0+b1, b0+b1+b2, b0+b1+b2+b3]
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// which has exactly what we want, b0+b1+b2+b3 in the last byte!
+</span><span style=color:#65737e;>// (with some leftover junk in the lower bytes, but we can just
+</span><span style=color:#65737e;>// ignore that when we down shift).
+</span><span style=color:#65737e;>//
+</span><span style=color:#65737e;>// since we're doing a horizontal sum to get `y`, and each nibble
+</span><span style=color:#65737e;>// must be in the range 0 <= nb < 16, it follows that each byte
+</span><span style=color:#65737e;>// (which is a sum of two nibbles here) must be in the range:
+</span><span style=color:#65737e;>// 0 <= b < 32. this means none of the byte sums will overflow,
+</span><span style=color:#65737e;>// since 32 * 4 = 128 <= 256
+</span><span style=color:#b48ead;>fn </span><span style=color:#8fa1b3;>u32_sum_all_nibs</span><span>(</span><span style=color:#bf616a;>x</span><span>: </span><span style=color:#b48ead;>u32</span><span>) -> </span><span style=color:#b48ead;>u32 </span><span>{
+</span><span>    </span><span style=color:#65737e;>// a mask that selects the lo nibble in each byte.
+</span><span>    </span><span style=color:#b48ead;>const </span><span style=color:#d08770;>NIBS_0246</span><span>: </span><span style=color:#b48ead;>u32 </span><span>= </span><span style=color:#d08770;>0x0f0f_0f0f</span><span>;
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// horizontal sum hi and lo nibbles in each byte, placing in the
+</span><span>	</span><span style=color:#65737e;>// lo nibble.
+</span><span>    </span><span style=color:#b48ead;>let</span><span> y = (x & </span><span style=color:#d08770;>NIBS_0246</span><span>) + ((x >> </span><span style=color:#d08770;>4</span><span>) & </span><span style=color:#d08770;>NIBS_0246</span><span>);
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// if y = [y0, y1, y2, y3] bytes and each byte b is in the range
+</span><span>	</span><span style=color:#65737e;>// 0 <= b < 64, then multiplying by 0x0101_0101 will yield
+</span><span>    </span><span style=color:#65737e;>// z = [y0, y0 + y1, y0 + y1 + y2, y0 + y1 + y2 + y3] without
+</span><span>	</span><span style=color:#65737e;>// any overflows.
+</span><span>    </span><span style=color:#65737e;>//
+</span><span>    </span><span style=color:#65737e;>// since each byte in y is the sum of two nibbles nb where
+</span><span>	</span><span style=color:#65737e;>// 0 <= nb < 16, it follows that 0 <= b = nb_lo + nb_hi < 32 < 64
+</span><span>	</span><span style=color:#65737e;>// so we won't have any overflows
+</span><span>    </span><span style=color:#b48ead;>let</span><span> z = y.</span><span style=color:#96b5b4;>wrapping_mul</span><span>(</span><span style=color:#d08770;>0x0101_0101</span><span>);
+</span><span>
+</span><span>    </span><span style=color:#65737e;>// select the last byte in z, which contains our desired sum:
+</span><span>    </span><span style=color:#65737e;>// z3 = y0 + y1 + y2 + y3
+</span><span>    </span><span style=color:#65737e;>//    = (nb0 + nb1) + (nb2 + nb3) + (nb4 + nb5) + (nb6 + nb7)
+</span><span>    z >> </span><span style=color:#d08770;>24
+</span><span>}
+</span></code></pre><p>godbolt: <a href=https://godbolt.org/z/4EcYae1fj>https://godbolt.org/z/4EcYae1fj</a></main></div></div></div><form class=d-none id=search-bar><div class=container><div class="row justify-content-center"><div class="col col-lg-11 col-xl-9" id=search-container><input aria-label="Search notes..." class="form-control is-search" placeholder="Search notes..." autocomplete=off id=userinput type=search><div class="shadow rounded" id=suggestions></div></div></div></div></form><script defer src=https://phlip9.com/notes/js/elasticlunr.min.js></script><script defer src=https://phlip9.com/notes/search_index.en.js></script><script defer src=https://phlip9.com/notes/js/search.js></script>

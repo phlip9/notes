@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://phlip9.com/notes/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/AI ML/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/AI ML/Expectimax Search/</loc>
+        <lastmod>2024-10-21T04:08:44.786612</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/</loc>
+        <lastmod>2024-10-21T04:08:44.786612</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/WSL/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/WSL/WSL2 custom kernel/</loc>
+        <lastmod>2024-10-21T04:08:44.790612</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/__pub/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/ADB over TCP inside WSL2/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/OTA updates for rooted android phone/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/android cli setup/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/building signal-android in WSL2/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/linux ADB udev setup/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/android/root phone with magisk/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/aptos/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/fastpay/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/oasis/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/b l o c k c h a i n/sui/</loc>
+        <lastmod>2024-10-21T04:08:44.978615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/breez lightning service providers/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/hosted channels/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/lightning libs/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/lightning network notes/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/lightning rod/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/submarine swaps/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/btc-ln/zero-conf channels/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/combinatorics/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/combinatorics/k-combinations of a multiset/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/fortanix rust tutorial/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/gramine/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/overview/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/sealing/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel SGX/secure time/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/intel TDX/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/marblerun/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/mystikos/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/confidential computing/remote attestation protocols/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/acme protocol/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/biscuit authz/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/dex - open-source OIDC &amp; OAuth 2.0 provider/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/hkdf-sha256/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/smallstep - private online CA &amp; ACME server/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/tls exported keying material/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/crypto/zkdocs/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/design/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/design/form design/</loc>
+        <lastmod>2024-10-21T04:08:44.982615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/AKS - azure kubernetes service/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/algo wireguard VPN server/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/azure CLI/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/consul/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/deployment strategies/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/docker compose/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/k3s/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/kind (kubernetes in docker)/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/kubernetes/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/linkerd/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/minikube/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/nomad/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/o11y/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/1password - secrets automation/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/doppler/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/ejson (Shopify)/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/envkey/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/fortanix DSM/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/mozilla SOPS/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/sops-nix/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/secrets/sy - share secrets safely/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/devops/service mesh/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/distributed systems/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/distributed systems/papers/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/distributed systems/the siren song of backpressure/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/fuzzing/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/fuzzing/fuzzcheck-rs/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/fuzzing/fuzzing/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/ios/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/ios/ios setup/</loc>
+        <lastmod>2024-10-21T04:08:44.986615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/keyboards/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/keyboards/moergo glove80/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/ATS/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/ATS/ATS2 Notes/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/ATS/Install ATS2/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/flutter/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/flutter/dart lang/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/flutter/flutter setup/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/gdb ref/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/koka-lang/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/lua/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/operator fixity and precedence/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/optimizing binary size/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/rr with rust/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/rust verification tools/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/rust x SGX/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/self-referencing structs/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/sycamore x futures/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/management/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/</loc>
+        <lastmod>2024-10-21T04:08:44.990615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/arm target triples/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/envsubst/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/git multirepo to monorepo/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/kintsugi/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/optimization solvers/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/pop_OS! tweaks/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/prepping RPI for embedded dev/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/rgbxmas/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/scanning QR codes on desktop/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/setting up a headless raspbian boot image/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/uptime to downtime conversion/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/misc/water distillation setup/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/networking/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/networking/CIDR/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/networking/ipv6 address space/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/networking/network interface card (NIC)/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/networking/network interfaces/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/nvim/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/nvim/universal-ctags Notes/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/performance/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/performance/bit hacks/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/performance/dtrace on macOS/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/performance/profiling/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/performance/simdjson talk/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/postgres/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/postgres/postgres performance tuning/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/postgres/snippets/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/postgres/types of scans/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/earthly/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/nix/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/nix/links/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/nix/nix auto-allocate-uids -&gt; nixbld users/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/nix/nix debug broken package build/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/nix/nix debug spurrious rebuilds/</loc>
+        <lastmod>2024-10-21T04:08:44.994615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/rebuilderd/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/reproducible builds/reproducible-builds.org/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/captive portal/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/captive portal/captive portal/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/router/lightning router/lightning router overview/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/cheat sheet/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/herbie - float error fixer/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/kelly criterion + ELO/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/multinomial distribution/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/p-value/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/standard error/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/testing whether a coin is fair/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/statistics probability/winsorize/</loc>
+        <lastmod>2024-10-21T04:08:44.998615</lastmod>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/algebraic-effects/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/android/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/aptos/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/ats/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/azure/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/bash/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/blockchain/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/breez/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/btc/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/captive-portal/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/circuitpython/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/combinatorics/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/confidential-computing/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/containers/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/crypto/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/dart/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/devops/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/diem/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/distributed-systems/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/docker/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/earthly/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/fastpay/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/flutter/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/fortanix-edp/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/fuzzing/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/git/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/glove80/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/gramine/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/hashicorp/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/ios/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/ipv6/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/k3s/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/keyboards/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/kubernetes/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/ldk/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/libos/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/lightning/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/linkerd/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/lsp/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/marble-run/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/minikube/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/mysten/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/mystikos/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/networking/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/nix/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/noise/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/nomad/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/orchestration/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/perf/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/pki/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/postgres/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/property-testing/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/regulation/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/reproducible-builds/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/root/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/rust/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/service-mesh/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/sgx/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/simd/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/sql/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/ssh/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/sycamore/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/tax/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/tls/</loc>
+    </url>
+    <url>
+        <loc>https://phlip9.com/notes/tags/tracing/</loc>
+    </url>
+</urlset>
