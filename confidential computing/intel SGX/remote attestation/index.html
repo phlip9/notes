@@ -1,0 +1,3076 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>remote attestation | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="remote attestation">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="remote attestation">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/confidential computing/intel SGX/remote attestation/"
+    },
+    "headline": "remote attestation",
+    "image": ,
+    "datePublished": "2022-04-12",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Confidential Computing",
+            "item": "https://phlip9.com/notes/confidential computing/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Intel Sgx",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Remote Attestation",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing" checked />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx" checked />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#remote-attestation">remote attestation</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#goals">Goals</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#remote-attestation-procedure-in-detail">Remote attestation procedure in detail</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#attestation-key-algorithms">Attestation Key Algorithms</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#remote-attestation-quote-verification">Remote Attestation Quote Verification</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#pck-lookup-service">PCK lookup service</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#get-platform-s-provisioning-certification-key-pck-certs">GET platform&#x27;s Provisioning Certification Key (PCK) certs</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#get-current-intel-quoting-enclave-qe-and-quote-verification-enclave-qve-identities">GET Current Intel Quoting Enclave (QE) and Quote Verification Enclave (QVE) Identities</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#determining-if-an-sgx-enclave-identity-matches-the-standard-quoting-enclave-identity">Determining if an SGX Enclave identity matches the standard Quoting Enclave Identity</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#get-tcb-info-for-a-given-cpu-family-platform">GET TCB info for a given CPU family&#x2F;platform</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#determine-the-status-of-a-tcb-level-for-a-platform">Determine the status of a TCB level for a platform</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/#misc">Misc</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="remote-attestation">remote attestation
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-04-12 &middot; 9 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/confidential-computing/">&num;confidential-computing</a></li>
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/sgx/">&num;sgx</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<h2 id="goals">Goals
+  <a class="anchor-link" aria-label="anchor link" href="#goals">
+    &num;
+  </a>
+
+</h2>
+<ol>
+<li>The point of Remote Attestation is to prove to a <em>remote</em> client:
+<ol>
+<li>Our software is running inside a genuine Intel enclave.</li>
+<li>The enclave is running a fully up-to-date system at the latest security level.</li>
+<li>The software itself is running a specific, developer-defined version, called an <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#independent-software-vendor-isv">ISV</a> <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#security-version-number-svn">SVN</a>.</li>
+<li>The software is signed by a specific authority, called the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#signer-measurement-mrsigner">Signer Measurement (MRSIGNER)</a>.</li>
+<li>The software's initial state (code &amp; data) is exactly as we expect, communicated via a cryptographic summary called the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#enclave-measurement-mrenclave">Enclave Measurement (MRENCLAVE)</a>.</li>
+<li>(Optional) additional data was present and acknowledged by the enclave when it generated the attestation, called the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#report-ereport">ReportData</a>.
+<ul>
+<li>This slot can be used to pass info to the attestation verifier, e.g., enclave application pubkeys, freshness nonces, timestamps.</li>
+<li>The size is only 64-bytes, so if you have lots of things to attest to, you'll need to attest to a commitment rather than the data itself</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Once the client decides they can trust the enclave's attestation (according to some configurable policy), they can open a secure channel with the enclave.</li>
+<li>Over the secure channel, the client can issue commands or provision secrets into the enclave. These secrets remain encryped and unintelligible to the outside, untrusted service provider, machine, and OS.</li>
+</ol>
+<h2 id="remote-attestation-procedure-in-detail">Remote attestation procedure in detail
+  <a class="anchor-link" aria-label="anchor link" href="#remote-attestation-procedure-in-detail">
+    &num;
+  </a>
+
+</h2>
+<p><a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#report-ereport">Attesting to another local enclave is easy and efficient.</a></p>
+<p>Attesting to a remote client requires a few extra steps:</p>
+<ol>
+<li>The application enclave generates a <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#report-ereport">Report</a>, which includes the various things we want to attest to, described above.</li>
+<li>Ask the local <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quoting-enclave-qe">Quoting Enclave (QE)</a> to <em>sign</em> the application enclave's report with its <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#attestation-key-ak">Attestation Key (AK)</a>, usually via the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#architectural-enclave-service-manager-aesm">Architectural Enclave Service Manager (AESM)</a> API.</li>
+<li><strong>(Optional)</strong> The application enclave can verify that the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quote">Quote</a> was generated by a trusted <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quoting-enclave-qe">Quoting Enclave (QE)</a> on the local machine.
+<ul>
+<li>In theory, this step is optional, since the remote attestation verifier <em>should</em> ultimately reject an invalid Quote. However this step can give the enclave itself  assurance that it's talking to a legitimate QE.</li>
+<li>When requesting a Quote, the application enclave can provide a 16-byte nonce to ensure freshness (preventing replay attacks of old quotes).</li>
+<li>From the AESM or Quoting Library, the application enclave should receive a serialized quote and QE <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#report-ereport">Report</a> from their Quote request.</li>
+<li>This QE Report is a Report generated by the Quoting Enclave. The application enclave should check that the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quoting-enclave-id-qe-id">Quoting Enclave ID</a> in the QE Report is trustworthy.</li>
+<li>The application should then check that the QE Report's ReportData field contains the value <code>SHA-256(nonce || quote) || [0; 32]</code>.</li>
+<li>Finally, the application enclave should check that the Quote actually contains its own Report.</li>
+</ul>
+</li>
+<li><strong>(EPID-only)</strong> This signed report, called a <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quote">Quote</a>, is sent to the endorsement service <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#intel-attestation-services-ias">Intel Attestation Services (IAS)</a> who will endorse (read: sign with its cert) the report IFF it believes the Quote is valid.
+<ul>
+<li>This <em>endorsed</em> Quote is now verifiable by anyone that knows the endorsement service's root CA cert.</li>
+<li>The remote Intel-run IAS is the only party that can endorse these EPID Quotes. This makes Intel's service an <em>interactive party</em> in our attestation protocol flow when using EPID Quotes.</li>
+</ul>
+</li>
+<li><strong>(ECDSA-only)</strong> The report is signed by an ECDSA Attestation Key in a Quoting Enclave. The Attestation Key is endorsed by an Attestation Key Cert from the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#provisioning-certification-enclave-pce">Provisioning Certification Enclave (PCE)</a>.</li>
+</ol>
+<h2 id="attestation-key-algorithms">Attestation Key Algorithms
+  <a class="anchor-link" aria-label="anchor link" href="#attestation-key-algorithms">
+    &num;
+  </a>
+
+</h2>
+<p>There are a two-ish different Attestation Key (TODO link) algorithms that each have different tradeoffs and TCB surface.</p>
+<ol>
+<li>ECDSA P256 or ECDSA P384
+<ol>
+<li>simple, but ids are public and linkable. This is not a problem in data centers or confidential computing scenarios.</li>
+</ol>
+</li>
+<li>Intel Enhanced Privacy ID (EPID)
+<ol>
+<li>complicated, but ids are private and revocations are efficient.</li>
+<li>significant increased protocol complexity.</li>
+<li>Intel verifier is all attestations.</li>
+</ol>
+</li>
+</ol>
+<p>See: <a rel="external" href="https://docs.rs/sgx_types/latest/sgx_types/enum.sgx_ql_attestation_algorithm_id_t.html"><code>sgx_types::sgx_ql_attestation_algorithm_id_t</code></a></p>
+<h2 id="remote-attestation-quote-verification">Remote Attestation Quote Verification
+  <a class="anchor-link" aria-label="anchor link" href="#remote-attestation-quote-verification">
+    &num;
+  </a>
+
+</h2>
+<p>To help visualize how the chain-of-trust extends from our Trust Root (the Intel SGX Root CA) to the enclave's attested values (usually a TLS cert pubkey), I've made this helpful diagram.</p>
+<p>Quickly recapping, the User starts with three trusted objects:</p>
+<ol>
+<li>the Intel SGX Root CA</li>
+<li>the acceptable <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quoting-enclave-qe">Quoting Enclave</a> identities, retrieved from the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#intel-attestation-services-ias">IAS</a> (not depicted)</li>
+<li>the acceptable Application Enclave identities (e.g., <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#signer-measurement-mrsigner">MRSIGNER</a> or <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#enclave-measurement-mrenclave">MRENCLAVE</a>)</li>
+</ol>
+<p>The Application Enclave usually provides the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#quote">Quote</a> to the User as part of setting up a secure transport channel. The User wants to verify the Quote to ensure the enclave is running the expected software.</p>
+<p>This particular diagram shows the ECDSA DCAP-QL Quote structure and how each component commits or signs other sub-components. The flow is somewhat different for EPID-based attestation Quotes.</p>
+<p><img src="../../../__pub/sgx_remote_attestation.png" alt="sgx_remote_attestation.png" /></p>
+<h2 id="pck-lookup-service">PCK lookup service
+  <a class="anchor-link" aria-label="anchor link" href="#pck-lookup-service">
+    &num;
+  </a>
+
+</h2>
+<p><a rel="external" href="https://github.com/intel/SGXDataCenterAttestationPrimitives/tree/master/QuoteGeneration/pccs">Intel DCAP - Provisioning Certificate Caching Service (PCCS)</a></p>
+<h2 id="get-platform-s-provisioning-certification-key-pck-certs">GET platform's Provisioning Certification Key (PCK) certs
+  <a class="anchor-link" aria-label="anchor link" href="#get-platform-s-provisioning-certification-key-pck-certs">
+    &num;
+  </a>
+
+</h2>
+<p>The platform is identified by its encrypted Platform Provisioning ID (PPID) and Provisioning Certification Enclave ID (PCE-ID).</p>
+<h2 id="get-current-intel-quoting-enclave-qe-and-quote-verification-enclave-qve-identities">GET Current Intel Quoting Enclave (QE) and Quote Verification Enclave (QVE) Identities
+  <a class="anchor-link" aria-label="anchor link" href="#get-current-intel-quoting-enclave-qe-and-quote-verification-enclave-qve-identities">
+    &num;
+  </a>
+
+</h2>
+<p>Query the Intel Trusted Services API for current valid Quoting Enclave (QE) identity.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> curl</span><span style="color: #D08770;"> -v -X</span><span style="color: #A3BE8C;"> GET</span><span> &quot;</span><span style="color: #A3BE8C;">https://api.trustedservices.intel.com/sgx/certification/v3/qe/identity</span><span>&quot;</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="json"><span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">  &quot;enclaveIdentity&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;id&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">QE</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;version&quot;</span><span>:</span><span style="color: #D08770;"> 2</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;issueDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2022-04-12T21:57:18Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;nextUpdate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2022-05-12T21:57:18Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;tcbEvaluationDataNumber&quot;</span><span>:</span><span style="color: #D08770;"> 12</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;miscselect&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">00000000</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;miscselectMask&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">FFFFFFFF</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;attributes&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">11000000000000000000000000000000</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;attributesMask&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">FBFFFFFFFFFFFFFF0000000000000000</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;mrsigner&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">8C4F5775D796503E96137F77C68A829A0056AC8DED70140B081B094490C57BFF</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;isvprodid&quot;</span><span>:</span><span style="color: #D08770;"> 1</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    &quot;tcbLevels&quot;</span><span>: [</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcb&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">          &quot;isvsvn&quot;</span><span>:</span><span style="color: #D08770;"> 6</span></span>
+<span class="giallo-l"><span>        },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2021-11-10T00:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">UpToDate</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      },</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcb&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">          &quot;isvsvn&quot;</span><span>:</span><span style="color: #D08770;"> 5</span></span>
+<span class="giallo-l"><span>        },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2020-11-11T00:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">OutOfDate</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      },</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcb&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">          &quot;isvsvn&quot;</span><span>:</span><span style="color: #D08770;"> 4</span></span>
+<span class="giallo-l"><span>        },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2019-11-13T00:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">OutOfDate</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      },</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcb&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">          &quot;isvsvn&quot;</span><span>:</span><span style="color: #D08770;"> 2</span></span>
+<span class="giallo-l"><span>        },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2019-05-15T00:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">OutOfDate</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      },</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcb&quot;</span><span>: {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">          &quot;isvsvn&quot;</span><span>:</span><span style="color: #D08770;"> 1</span></span>
+<span class="giallo-l"><span>        },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbDate&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">2018-08-15T00:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">        &quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">OutOfDate</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    ]</span></span>
+<span class="giallo-l"><span>  },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">  &quot;signature&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">1750f7e5997a8cb5ba2073f7a4312e43f5771a409e0610b20428dffebe51e53a6eadfb5691045b0819b29754dd6f5cfd20837b0e6f76e2307146dd3deb5203be</span><span>&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Likewise, there's a similar endpoint for looking up the Quote Verification Enclave (QVE) identity:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> curl</span><span style="color: #D08770;"> -v -X</span><span style="color: #A3BE8C;"> GET</span><span> &quot;</span><span style="color: #A3BE8C;">https://api.trustedservices.intel.com/sgx/certification/v3/qve/identity</span><span>&quot;</span></span></code></pre>
+<p>For both responses, the <code>"signature"</code> field contains a signature over the <code>"enclaveIdentity"</code> body (hex-encoded, no whitespace, very canonical lmao) using the TCB Info Signing Key.</p>
+<h3 id="determining-if-an-sgx-enclave-identity-matches-the-standard-quoting-enclave-identity">Determining if an SGX Enclave identity matches the standard Quoting Enclave Identity
+  <a class="anchor-link" aria-label="anchor link" href="#determining-if-an-sgx-enclave-identity-matches-the-standard-quoting-enclave-identity">
+    &num;
+  </a>
+
+</h3>
+<ol>
+<li>Retrieve standard Quoting Enclave Identity from the <a rel="external" href="https://api.portal.trustedservices.intel.com/documentation#pcs">Intel SGX Provisioning Certification Service (PCS)</a> and verify that it is a valid structure issued by Intel.</li>
+<li>Perform the following comparison of SGX Enclave Report against the retrieved QE Identity:
+<ol>
+<li>Verify if MRSIGNER field retrieved from SGX Enclave Report is equal to the value of mrsigner field in QE Identity.</li>
+<li>Verify if ISVPRODID field retrieved from SGX Enclave Report is equal to the value of isvprodid field in QE Identity.</li>
+<li>Apply miscselectMask (binary mask) from QE Identity to MISCSELECT field retrieved from SGX Enclave Report. Verify if the outcome (miscselectMask &amp; MISCSELECT) is equal to the value of miscselect field in QE Identity.</li>
+<li>Apply attributesMask (binary mask) from QE Identity to ATTRIBUTES field retrieved from SGX Enclave Report. Verify if the outcome (attributesMask &amp; ATTRIBUTES) is equal to the value of attributes field in QE Identity.</li>
+</ol>
+</li>
+<li>If any of the checks above fail, the identity of the enclave does not match QE Identity published by Intel.</li>
+<li>Determine a TCB status of the Quoting Enclave:
+<ol>
+<li>Retrieve a collection of TCB Levels (sorted by ISVSVNs) from tcbLevels field in QE Identity structure.</li>
+<li>Go over the list of TCB Levels (descending order) and find the one that has ISVSVN that is lower or equal to the ISVSVN value from SGX Enclave Report.</li>
+<li>If a TCB level is found, read its status from tcbStatus field, otherwise your TCB Level is not supported.</li>
+</ol>
+</li>
+</ol>
+<h2 id="get-tcb-info-for-a-given-cpu-family-platform">GET TCB info for a given CPU family/platform
+  <a class="anchor-link" aria-label="anchor link" href="#get-tcb-info-for-a-given-cpu-family-platform">
+    &num;
+  </a>
+
+</h2>
+<p>The platform is identified by an <code>FMSPC</code> (Family, Model, Stepping, Platform Type, Customized SKU) hex-encoded 6-byte array.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">curl</span><span style="color: #D08770;"> -v -X</span><span style="color: #A3BE8C;"> GET</span><span> &quot;</span><span style="color: #A3BE8C;">https://api.trustedservices.intel.com/sgx/certification/v3/tcb?fmspc={}</span><span>&quot;</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="json"><span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">   &quot;tcbInfo&quot;</span><span>:{</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;version&quot;</span><span>:</span><span style="color: #D08770;">2</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;issueDate&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">2019-07-30T12:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;nextUpdate&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">2019-08-30T12:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;fmspc&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">000000000000</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;pceId&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">0000</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;tcbType&quot;</span><span>:</span><span style="color: #D08770;"> 0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;tcbEvaluationDataNumber&quot;</span><span>:</span><span style="color: #D08770;"> 2</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">	  &quot;tcbLevels&quot;</span><span>:[</span></span>
+<span class="giallo-l"><span>		 {</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			&quot;tcb&quot;</span><span>:{</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp01svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp02svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp03svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp04svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp05svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp06svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp07svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp08svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp09svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp10svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp11svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp12svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp13svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp14svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp15svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;sgxtcbcomp16svn&quot;</span><span>:</span><span style="color: #D08770;">0</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			   &quot;pcesvn&quot;</span><span>:</span><span style="color: #D08770;">0</span></span>
+<span class="giallo-l"><span>			},</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			&quot;tcbDate&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">2019-07-11T12:00:00Z</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			&quot;tcbStatus&quot;</span><span>: &quot;</span><span style="color: #A3BE8C;">UpToDate</span><span>&quot;,</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">			&quot;advisoryIDs&quot;</span><span>: [&quot;</span><span style="color: #A3BE8C;">INTEL-SA-00079</span><span>&quot;, &quot;</span><span style="color: #A3BE8C;">INTEL-SA-00076</span><span>&quot;]</span></span>
+<span class="giallo-l"><span>		 }</span></span>
+<span class="giallo-l"><span>	  ]</span></span>
+<span class="giallo-l"><span>   },</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">   &quot;signature&quot;</span><span>:&quot;</span><span style="color: #A3BE8C;">e45785756a06abfabb2eb6481c3b67c8a0729142e10e06e6415948a88e2f2e773bb2ff9f513ec32e4c5afb15883ab653393f8082f69b69ba19a2a21e3eefee7c</span><span>&quot;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h3 id="determine-the-status-of-a-tcb-level-for-a-platform">Determine the status of a TCB level for a platform
+  <a class="anchor-link" aria-label="anchor link" href="#determine-the-status-of-a-tcb-level-for-a-platform">
+    &num;
+  </a>
+
+</h3>
+<p>We use this API to verify that a given platform's current TCB is not vulnerable or revoked.</p>
+<ol>
+<li>Retrieve FMSPC value from SGX PCK Certificate assigned to a given platform.</li>
+<li>Retrieve TCB Info matching the FMSPC value.</li>
+<li>Go over the sorted collection of TCB Levels retrieved from TCB Info starting from the first item on the list:
+<ol>
+<li><strong>Compare all</strong> of the SGX TCB Comp SVNs retrieved from the SGX PCK Certificate (from 01 to 16) with the corresponding values in the TCB Level. If all SGX TCB Comp SVNs in the certificate are greater or equal to the corresponding values in TCB Level, go to <strong>3.b</strong>, otherwise move to the next item on TCB Levels list.</li>
+<li><strong>Compare PCESVN</strong> value retrieved from the SGX PCK certificate with the corresponding value in the TCB Level. If it is greater or equal to the value in TCB Level, read status assigned to this TCB level. Otherwise, move to the next item on TCB Levels list.</li>
+</ol>
+</li>
+<li>If no TCB level matches your SGX PCK Certificate, your TCB Level is not supported.</li>
+</ol>
+<h2 id="misc">Misc
+  <a class="anchor-link" aria-label="anchor link" href="#misc">
+    &num;
+  </a>
+
+</h2>
+<p><a rel="external" href="https://api.portal.trustedservices.intel.com/">Intel SGX Services</a></p>
+<p><a rel="external" href="https://api.portal.trustedservices.intel.com/documentation#register-platform">Intel Trusted Services API Developer Dashboard</a></p>
+<p><a rel="external" href="https://github.com/scrtlabs/SecretNetwork/tree/master/x/registration/remote_attestation">scrtlabs/SecretNetwork/x/registration/remote_attestation</a></p>
+<p><a rel="external" href="https://github.com/scrtlabs/SecretNetwork/tree/613c81534db2211100273963ae1f3ff195c4963e/cosmwasm/enclaves">scrtlabs/SecretNetwork/cosmwasm/enclaves</a></p>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

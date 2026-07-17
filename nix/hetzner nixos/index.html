@@ -1,0 +1,3314 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>hetzner nixos | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/nix/hetzner nixos/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="hetzner nixos">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="hetzner nixos">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/nix/hetzner nixos/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/nix/hetzner nixos/"
+    },
+    "headline": "hetzner nixos",
+    "image": ,
+    "datePublished": "2026-01-17",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Nix",
+            "item": "https://phlip9.com/notes/nix/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Hetzner Nixos",
+            "item": "https://phlip9.com/notes/nix/hetzner nixos/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix" checked />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#hetzner-nixos">hetzner nixos</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#ordering">Ordering</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#set-server-name">Set server name</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#dns-optional">DNS (Optional)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#ssh-into-the-machine">SSH into the machine</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#nixos-configs">NixOS configs</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#copy-update-networking-config-in-the-nixos-config-above">Copy&#x2F;update networking config in the NixOS config above</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#deploy-initial-nixos-config">Deploy initial NixOS config</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#ssh-into-the-deployed-server">SSH into the deployed server</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#init-home-manager-config-optional">Init home-manager config (Optional)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/nix/hetzner nixos/#generate-hardware-nix">Generate hardware.nix</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="hetzner-nixos">hetzner nixos
+</h1>
+
+        
+        
+<p class="text-muted ">
+2026-01-17 &middot; 4 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/nix/">&num;nix</a></li>
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/nixos/">&num;nixos</a></li>
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/hetzner/">&num;hetzner</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<p>Here's roughly how to setup a NixOS dev server on a cost-effective Hetzner bare
+metal machine.</p>
+<p>We'll use:</p>
+<ul>
+<li><a rel="external" href="https://robot.hetzner.com/order">Hetzner Robot</a> to rent a bare metal machine</li>
+<li>A flakes-less NixOS setup, configured for a headless dev server.</li>
+<li><a rel="external" href="https://github.com/nix-community/nixos-anywhere">nixos-anywhere</a> to install
+our NixOS config onto the machine.</li>
+<li><a rel="external" href="https://github.com/nix-community/disko">disko</a> to declaratively partition our
+disks, setup RAID, and manage our filesystems.</li>
+</ul>
+<h2 id="ordering">Ordering
+  <a class="anchor-link" aria-label="anchor link" href="#ordering">
+    &num;
+  </a>
+
+</h2>
+<p>Order a cheap auction server on
+<a rel="external" href="https://robot.hetzner.com/order">Hetzner Robot</a>:</p>
+<p>Paste in your ssh pubkey during the order process.</p>
+<p>Wait for a confirmation email.</p>
+<h2 id="set-server-name">Set server name
+  <a class="anchor-link" aria-label="anchor link" href="#set-server-name">
+    &num;
+  </a>
+
+</h2>
+<p>In <a rel="external" href="https://robot.hetzner.com/server">https://robot.hetzner.com/server</a>, set the server name to e.g.
+<code>omnara1.phlip9.com</code>. Don't forget to also grab the server IPv4 and IPv6
+addresses.</p>
+<h2 id="dns-optional">DNS (Optional)
+  <a class="anchor-link" aria-label="anchor link" href="#dns-optional">
+    &num;
+  </a>
+
+</h2>
+<p>Add A/AAAA records for the server in your DNS provider:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>$ORIGIN phlip9.com  ; zone</span></span>
+<span class="giallo-l"><span>$TTL 600            ; default TTL</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>omnara1  IN  A      95.217.195.225</span></span>
+<span class="giallo-l"><span>omnara1  IN  AAAA   2a01:4f9:4a:52de::2</span></span></code></pre><h2 id="ssh-into-the-machine">SSH into the machine
+  <a class="anchor-link" aria-label="anchor link" href="#ssh-into-the-machine">
+    &num;
+  </a>
+
+</h2>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ssh root@omnara1.phlip9.com</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">Linux</span><span style="color: #A3BE8C;"> rescue</span><span style="color: #D08770;"> 6.12.19</span><span style="color: #65737E;"> #1 SMP Tue Oct 14 13:09:18 UTC 2025 x86_64</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">-------------------------------------------------------------------------------------------------------------------------</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  Welcome</span><span style="color: #A3BE8C;"> to the Hetzner Rescue System.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  This</span><span style="color: #A3BE8C;"> Rescue System is based on Debian GNU/Linux</span><span style="color: #D08770;"> 12</span><span> (bookworm) with a custom kernel.</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  You</span><span style="color: #A3BE8C;"> can install software like you would in a normal system.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  To</span><span style="color: #A3BE8C;"> install a new operating system from one of our prebuilt images, run</span><span> &#39;</span><span style="color: #A3BE8C;">installimage</span><span>&#39;</span><span style="color: #A3BE8C;"> and follow the instructions.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  Important</span><span style="color: #A3BE8C;"> note: Any data that was not written to the disks will be lost during a reboot.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  For</span><span style="color: #A3BE8C;"> additional information, check the following resources:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    Rescue</span><span style="color: #A3BE8C;"> System:           https://docs.hetzner.com/robot/dedicated-server/troubleshooting/hetzner-rescue-system</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    Installimage:</span><span style="color: #A3BE8C;">            https://docs.hetzner.com/robot/dedicated-server/operating-systems/installimage</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    Install</span><span style="color: #A3BE8C;"> custom software: https://docs.hetzner.com/robot/dedicated-server/operating-systems/installing-custom-images</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    other</span><span style="color: #A3BE8C;"> articles:          https://docs.hetzner.com/robot</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">-------------------------------------------------------------------------------------------------------------------------</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">Rescue</span><span style="color: #A3BE8C;"> System</span><span> (via</span><span style="color: #A3BE8C;"> Legacy/CSM</span><span>) up since 2026-01-17 12:01 +01:00</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">Hardware</span><span style="color: #A3BE8C;"> data:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   CPU1:</span><span style="color: #A3BE8C;"> Intel</span><span>(</span><span style="color: #8FA1B3;">R</span><span>)</span><span style="color: #A3BE8C;"> Xeon</span><span>(</span><span style="color: #8FA1B3;">R</span><span>)</span><span style="color: #A3BE8C;"> E-2176G CPU @ 3.70GHz</span><span> (Cores</span><span style="color: #D08770;"> 12</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   Memory:</span><span style="color: #D08770;">  64179</span><span style="color: #A3BE8C;"> MB</span><span> (ECC)</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   Disk</span><span style="color: #A3BE8C;"> /dev/nvme0n1:</span><span style="color: #D08770;"> 960</span><span style="color: #A3BE8C;"> GB</span><span> (=&gt;</span><span style="color: #D08770;"> 894</span><span style="color: #A3BE8C;"> GiB</span><span>) doesn&#39;</span><span style="color: #A3BE8C;">t contain a valid partition table</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">   Disk /dev/nvme1n1: 960 GB (=&gt; 894 GiB) doesn</span><span>&#39;t contain a valid partition table</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   Total</span><span style="color: #A3BE8C;"> capacity</span><span style="color: #D08770;"> 1788</span><span style="color: #A3BE8C;"> GiB with</span><span style="color: #D08770;"> 2</span><span style="color: #A3BE8C;"> Disks</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">Network</span><span style="color: #A3BE8C;"> data:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   eth0</span><span style="color: #A3BE8C;">  LINK: yes</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">         MAC:</span><span style="color: #A3BE8C;">  a8:5e:45:3d:aa:33</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">         IP:</span><span style="color: #D08770;">   95.217.195.225</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">         IPv6:</span><span style="color: #A3BE8C;"> 2a01:4f9:4a:52de::2/64</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">         Intel(R</span><span>) PRO/1000 Network Driver</span></span></code></pre><h2 id="nixos-configs">NixOS configs
+  <a class="anchor-link" aria-label="anchor link" href="#nixos-configs">
+    &num;
+  </a>
+
+</h2>
+<p>Here's the relevant parts of the NixOS config for bootstrapping on Hetzner. You
+can see the complete config in
+<a rel="external" href="https://github.com/phlip9/dotfiles">phlip9/dotfiles</a>.</p>
+<p>First, a simplified top-level <code>default.nix</code>:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="nix"><span class="giallo-l"><span style="color: #65737E;"># default.nix</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>{ </span></span>
+<span class="giallo-l"><span>  nixpkgs ?</span><span style="color: #A3BE8C;"> &lt;nixpkgs&gt;</span><span>,</span></span>
+<span class="giallo-l"><span>  pkgs ?</span><span style="color: #96B5B4;"> import</span><span> nixpkgs {},</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">}</span><span>:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  inherit</span><span style="color: #D08770;"> pkgs</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # NixOS system configs</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  nixosConfigs</span><span> =</span><span style="color: #96B5B4;"> import</span><span style="color: #A3BE8C;"> ./nixos</span><span> {</span><span style="color: #B48EAD;"> inherit</span><span style="color: #D08770;"> nixpkgs</span><span>; };</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>All the top-level NixOS machine config declarations are in <code>nixos/default.nix</code>:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="nix"><span class="giallo-l"><span style="color: #65737E;"># nixos/default.nix</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">{</span><span> nixpkgs</span><span style="color: #8FA1B3;"> }</span><span>:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">let</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # be careful not to pass `pkgs` eval to normal NixOS system evals. they should</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # control their own package set.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  nixosSystem</span><span> =</span></span>
+<span class="giallo-l"><span>    args:</span></span>
+<span class="giallo-l"><span style="color: #96B5B4;">    import</span><span> (nixpkgs + &quot;</span><span style="color: #A3BE8C;">/nixos/lib/eval-config.nix</span><span>&quot;) (</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        lib</span><span> =</span><span style="color: #96B5B4;"> import</span><span> (nixpkgs + &quot;</span><span style="color: #A3BE8C;">/lib</span><span>&quot;);</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        system</span><span> =</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        modules</span><span> = args.modules;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>      // (</span><span style="color: #D08770;">builtins</span><span>.</span><span style="color: #96B5B4;">removeAttrs</span><span> args [ &quot;</span><span style="color: #A3BE8C;">modules</span><span>&quot; ])</span></span>
+<span class="giallo-l"><span>    );</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">in</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # omnara1 - Hetzner bare metal dev server</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  omnara1</span><span> = nixosSystem {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    modules</span><span> = [</span><span style="color: #A3BE8C;"> ./omnara1/default.nix</span><span> ];</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>The <code>omnara1</code> machine NixOS config:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="nix"><span class="giallo-l"><span style="color: #65737E;"># nixos/omnara1/default.nix</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># omnara1 - Hetzner bare metal dev server</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># Hardware:</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># - 2x 894 GiB NVMe SSDs in RAID 0</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># - IPv4: 95.217.195.225</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># - IPv6: 2a01:4f9:4a:52de::2</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span>  lib,</span></span>
+<span class="giallo-l"><span>  pkgs,</span></span>
+<span class="giallo-l"><span>  ...</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">}</span><span>:</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  imports</span><span> = [</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    # use minimal+headless (no GUI/window manager) for server images</span></span>
+<span class="giallo-l"><span>    (modulesPath + &quot;</span><span style="color: #A3BE8C;">/profiles/minimal.nix</span><span>&quot;)</span></span>
+<span class="giallo-l"><span>    (modulesPath + &quot;</span><span style="color: #A3BE8C;">/profiles/headless.nix</span><span>&quot;)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    # hardware-specific configs</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    ./hardware.nix</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    # disk partitions and filesystems</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    ./disko-config.nix</span></span>
+<span class="giallo-l"><span>  ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Don&#39;t update this unless you know what you&#39;re doing.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  system</span><span>.</span><span style="color: #D08770;">stateVersion</span><span> = &quot;</span><span style="color: #A3BE8C;">26.05</span><span>&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Locale</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  time</span><span>.</span><span style="color: #D08770;">timeZone</span><span> = &quot;</span><span style="color: #A3BE8C;">UTC</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  i18n</span><span>.</span><span style="color: #D08770;">defaultLocale</span><span> = &quot;</span><span style="color: #A3BE8C;">en_US.UTF-8</span><span>&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Bootloader</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # My Hetzner machine seemed to need a MBR + grub + EFI support to boot.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  boot</span><span>.</span><span style="color: #D08770;">loader</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    grub</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      enable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      efiSupport</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      efiInstallAsRemovable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    timeout</span><span> =</span><span style="color: #D08770;"> 0</span><span>;</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Use latest kernel</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  boot</span><span>.</span><span style="color: #D08770;">kernelPackages</span><span> = pkgs.linuxPackages_latest;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Silence mdadm warning about missing MAILADDR or PROGRAM</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  boot</span><span>.</span><span style="color: #D08770;">swraid</span><span>.</span><span style="color: #D08770;">mdadmConf</span><span> = &quot;</span><span style="color: #A3BE8C;">PROGRAM </span><span style="color: #AB7967;">${</span><span>pkgs.coreutils</span><span style="color: #AB7967;">}</span><span style="color: #A3BE8C;">/bin/true</span><span>&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Hostname</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">hostName</span><span> = &quot;</span><span style="color: #A3BE8C;">omnara1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">domain</span><span> = &quot;</span><span style="color: #A3BE8C;">phlip9.com</span><span>&quot;;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Use systemd networkd</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  systemd</span><span>.</span><span style="color: #D08770;">network</span><span>.</span><span style="color: #D08770;">enable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">useNetworkd</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Static network configuration (Hetzner)</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">wireless</span><span>.</span><span style="color: #D08770;">enable</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">useDHCP</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">interfaces</span><span>.</span><span style="color: #D08770;">eno1</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    ipv4</span><span>.</span><span style="color: #D08770;">addresses</span><span> = [</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        address</span><span> = &quot;</span><span style="color: #A3BE8C;">95.217.195.225</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        prefixLength</span><span> =</span><span style="color: #D08770;"> 26</span><span>;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    ipv6</span><span>.</span><span style="color: #D08770;">addresses</span><span> = [</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        address</span><span> = &quot;</span><span style="color: #A3BE8C;">2a01:4f9:4a:52de::2</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        prefixLength</span><span> =</span><span style="color: #D08770;"> 64</span><span>;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">defaultGateway</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    address</span><span> = &quot;</span><span style="color: #A3BE8C;">95.217.195.193</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    interface</span><span> = &quot;</span><span style="color: #A3BE8C;">eno1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">defaultGateway6</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    address</span><span> = &quot;</span><span style="color: #A3BE8C;">fe80::1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    interface</span><span> = &quot;</span><span style="color: #A3BE8C;">eno1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">nameservers</span><span> = [</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">185.12.64.1</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">185.12.64.2</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">2a01:4ff:ff00::add:1</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">2a01:4ff:ff00::add:2</span><span>&quot;</span></span>
+<span class="giallo-l"><span>  ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  services</span><span>.</span><span style="color: #D08770;">timesyncd</span><span>.</span><span style="color: #D08770;">servers</span><span> = [</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">ntp1.hetzner.de</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">ntp2.hetzner.com</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    &quot;</span><span style="color: #A3BE8C;">ntp3.hetzner.net</span><span>&quot;</span></span>
+<span class="giallo-l"><span>  ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Firewall</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  networking</span><span>.</span><span style="color: #D08770;">firewall</span><span>.</span><span style="color: #D08770;">enable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Make users and groups static and only configurable via nix</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  users</span><span>.</span><span style="color: #D08770;">mutableUsers</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # My user</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  users</span><span>.</span><span style="color: #D08770;">users</span><span>.</span><span style="color: #D08770;">phlip9</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    isNormalUser</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    description</span><span> = &quot;</span><span style="color: #A3BE8C;">Philip Kannegaard Hayes</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    extraGroups</span><span> = [ &quot;</span><span style="color: #A3BE8C;">wheel</span><span>&quot; ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    openssh</span><span>.</span><span style="color: #D08770;">authorizedKeys</span><span>.</span><span style="color: #D08770;">keys</span><span> = [</span></span>
+<span class="giallo-l"><span>      &quot;</span><span style="color: #A3BE8C;">sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIP/8j7BMuNsn+aXTjm3LP8mDR8q/GylbrkGVBn1PBrwhAAAABHNzaDo= phlip9-5ci-fips</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # sudo-rs - memory-safe sudo</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  security</span><span>.</span><span style="color: #D08770;">sudo-rs</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    enable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    execWheelOnly</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # password-less sudo for wheel group</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  security</span><span>.</span><span style="color: #D08770;">sudo-rs</span><span>.</span><span style="color: #D08770;">wheelNeedsPassword</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # `nix` settings</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  nix</span><span>.</span><span style="color: #D08770;">settings</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    # Allow all sudoers to manage NixOS system.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    trusted-users</span><span> = [</span></span>
+<span class="giallo-l"><span>      &quot;</span><span style="color: #A3BE8C;">root</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      &quot;</span><span style="color: #A3BE8C;">@wheel</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    # Enable `nix` command and flakes support</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    experimental-features</span><span> = [</span></span>
+<span class="giallo-l"><span>      &quot;</span><span style="color: #A3BE8C;">nix-command</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      &quot;</span><span style="color: #A3BE8C;">flakes</span><span>&quot;</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Basic packages</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  environment</span><span>.</span><span style="color: #D08770;">systemPackages</span><span> = [ pkgs.git ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  # OpenSSH</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # SSH server on non-standard port 22022 w/ some hardened settings.</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  # Use non-standard port to silence ssh bots...</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  services</span><span>.</span><span style="color: #D08770;">openssh</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    enable</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    ports</span><span> = [</span><span style="color: #D08770;"> 22022</span><span> ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    openFirewall</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    # Only generate an ed25519 key and not an RSA key.</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    # This is just the default value w/o the type=rsa entry.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    hostKeys</span><span> = [</span></span>
+<span class="giallo-l"><span>      {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        type</span><span> = &quot;</span><span style="color: #A3BE8C;">ed25519</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        path</span><span> = &quot;</span><span style="color: #A3BE8C;">/etc/ssh/ssh_host_ed25519_key</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    # Harden the openssh server</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    settings</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      PasswordAuthentication</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      PermitRootLogin</span><span> = lib.mkForce &quot;</span><span style="color: #A3BE8C;">no</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      KbdInteractiveAuthentication</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      X11Forwarding</span><span> =</span><span style="color: #D08770;"> false</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">      # Only allow a single set of crypto primitives.</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      KexAlgorithms</span><span> = [</span></span>
+<span class="giallo-l"><span>        &quot;</span><span style="color: #A3BE8C;">curve25519-sha256</span><span>&quot;</span></span>
+<span class="giallo-l"><span>        &quot;</span><span style="color: #A3BE8C;">curve25519-sha256@libssh.org</span><span>&quot;</span></span>
+<span class="giallo-l"><span>      ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      Macs</span><span> = [ &quot;</span><span style="color: #A3BE8C;">hmac-sha2-256-etm@openssh.com</span><span>&quot; ];</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      Ciphers</span><span> = [ &quot;</span><span style="color: #A3BE8C;">aes128-gcm@openssh.com</span><span>&quot; ];</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Disk partition and filesystem layout via <a rel="external" href="https://github.com/nix-community/disko/">nix-community/disko</a>.</p>
+<p>For this machine I'm using RAID 0, i.e., combine all available disk storage
+space into one virtual disk. This is normally not recommended, but more space
+is more important than safety/reliablility/redundancy <em>for my specific use
+case</em>. None of the data on this machine is important. I can blow it away and
+rebuild it in a few minutes.</p>
+<p>Normally you should use RAID 1 so Hetzner ops can safely hot-swap disks when
+one goes bad.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="nix"><span class="giallo-l"><span style="color: #65737E;"># nixos/omnara1/disko-config.nix</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># mdadm RAID 0 across two NVMe SSDs (~1.8 TiB unified storage)</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># Hardware:</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># - /dev/nvme0n1 - 894.25 GiB (Toshiba KXD51RUE960G)</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># - /dev/nvme1n1 - 894.25 GiB (Toshiba KXD51RUE960G)</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  disko</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">    enableConfig</span><span> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #D08770;">    devices</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      disk</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        nvme0</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          type</span><span> = &quot;</span><span style="color: #A3BE8C;">disk</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          device</span><span> = &quot;</span><span style="color: #A3BE8C;">/dev/nvme0n1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            type</span><span> = &quot;</span><span style="color: #A3BE8C;">gpt</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            partitions</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">              boot</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                size</span><span> = &quot;</span><span style="color: #A3BE8C;">1M</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                type</span><span> = &quot;</span><span style="color: #A3BE8C;">EF02</span><span>&quot;;</span><span style="color: #65737E;"> # for grub MBR</span></span>
+<span class="giallo-l"><span>              };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">              ESP</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                size</span><span> = &quot;</span><span style="color: #A3BE8C;">2G</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                type</span><span> = &quot;</span><span style="color: #A3BE8C;">EF00</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  type</span><span> = &quot;</span><span style="color: #A3BE8C;">filesystem</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  format</span><span> = &quot;</span><span style="color: #A3BE8C;">vfat</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  mountpoint</span><span> = &quot;</span><span style="color: #A3BE8C;">/boot</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  mountOptions</span><span> = [ &quot;</span><span style="color: #A3BE8C;">umask=0077</span><span>&quot; ];</span></span>
+<span class="giallo-l"><span>                };</span></span>
+<span class="giallo-l"><span>              };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">              swap</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                size</span><span> = &quot;</span><span style="color: #A3BE8C;">32G</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  type</span><span> = &quot;</span><span style="color: #A3BE8C;">swap</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>                };</span></span>
+<span class="giallo-l"><span>              };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">              mdadm</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                size</span><span> = &quot;</span><span style="color: #A3BE8C;">100%</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  type</span><span> = &quot;</span><span style="color: #A3BE8C;">mdraid</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  name</span><span> = &quot;</span><span style="color: #A3BE8C;">nixos</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>                };</span></span>
+<span class="giallo-l"><span>              };</span></span>
+<span class="giallo-l"><span>            };</span></span>
+<span class="giallo-l"><span>          };</span></span>
+<span class="giallo-l"><span>        };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        nvme1</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          type</span><span> = &quot;</span><span style="color: #A3BE8C;">disk</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          device</span><span> = &quot;</span><span style="color: #A3BE8C;">/dev/nvme1n1</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            type</span><span> = &quot;</span><span style="color: #A3BE8C;">gpt</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            partitions</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">              mdadm</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                size</span><span> = &quot;</span><span style="color: #A3BE8C;">100%</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  type</span><span> = &quot;</span><span style="color: #A3BE8C;">mdraid</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                  name</span><span> = &quot;</span><span style="color: #A3BE8C;">nixos</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>                };</span></span>
+<span class="giallo-l"><span>              };</span></span>
+<span class="giallo-l"><span>            };</span></span>
+<span class="giallo-l"><span>          };</span></span>
+<span class="giallo-l"><span>        };</span></span>
+<span class="giallo-l"><span>      };</span></span>
+<span class="giallo-l"><span style="color: #D08770;">      mdadm</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">        nixos</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          type</span><span> = &quot;</span><span style="color: #A3BE8C;">mdadm</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          level</span><span> =</span><span style="color: #D08770;"> 0</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">          content</span><span> = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            type</span><span> = &quot;</span><span style="color: #A3BE8C;">filesystem</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            format</span><span> = &quot;</span><span style="color: #A3BE8C;">ext4</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">            mountpoint</span><span> = &quot;</span><span style="color: #A3BE8C;">/</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>          };</span></span>
+<span class="giallo-l"><span>        };</span></span>
+<span class="giallo-l"><span>      };</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"><span>  };</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>And an initial <code>hardware.nix</code> for bootstrapping:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="nix"><span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #D08770;">  nixpkgs</span><span>.</span><span style="color: #D08770;">hostPlatform</span><span> = lib.mkDefault &quot;</span><span style="color: #A3BE8C;">x86_64-linux</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="copy-update-networking-config-in-the-nixos-config-above">Copy/update networking config in the NixOS config above
+  <a class="anchor-link" aria-label="anchor link" href="#copy-update-networking-config-in-the-nixos-config-above">
+    &num;
+  </a>
+
+</h2>
+<p>Set your ssh pubkey in the user <code>openssh.authorizedKeys.keys</code>.</p>
+<p>Set <code>networking.hostName</code> and <code>networking.domain</code> (ex: "omnara1" and
+"phlip9.com" respectively in this case).</p>
+<p>Set the NIC IPs and gateway addresses. Hetzner recommends using a static
+network configuration (i.e., no DHCP) for stability, especially if you want
+functioning IPv6.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># See the IPv4 gateway (IPv6 just uses a link-local address fe80::1)</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">root@omnara1.phlip9.com:~$</span><span style="color: #A3BE8C;"> ip route list</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">default</span><span style="color: #A3BE8C;"> via</span><span style="color: #D08770;"> 95.217.195.193</span><span style="color: #A3BE8C;"> dev eth0 proto static</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">95.217.195.192/26</span><span style="color: #A3BE8C;"> dev eth0 proto kernel scope link src</span><span style="color: #D08770;"> 95.217.195.225</span></span></code></pre>
+<p>NOTE: this NixOS config uses systemd-networkd. In my case, this renamed the
+interface from eth0 to eno1 between the rescue image and the NixOS boot.
+Maybe <code>usePredictableInterfaceNames = false</code> would disable this?</p>
+<p>The relevant items are:</p>
+<ul>
+<li>ipv4 CIDR: 95.217.195.225/26</li>
+<li>ipv6 CIDR: 2a01:4f9:4a:52de::2/64</li>
+<li>ipv4 gateway: 95.217.195.193</li>
+<li>ipv6 gateway: fe80::1</li>
+</ul>
+<p>Depending on whether the machine uses NVMe/SSD/HD disks, you may also need to
+change the device names in <code>disko-config.nix</code> (ex: "/dev/nvme0n1").</p>
+<h2 id="deploy-initial-nixos-config">Deploy initial NixOS config
+  <a class="anchor-link" aria-label="anchor link" href="#deploy-initial-nixos-config">
+    &num;
+  </a>
+
+</h2>
+<p>In my dotfiles repo, I run this justfile recipe:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> just deploy-omnara1-nixos-anywhere</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>deploy-omnara1-nixos-anywhere:</span></span>
+<span class="giallo-l"><span>    #!/usr/bin/env bash</span></span>
+<span class="giallo-l"><span>    set -euxo pipefail</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    IFS=$&#39;\n&#39; paths=($(nix build -f . --print-out-paths --no-link \</span></span>
+<span class="giallo-l"><span>        pkgs.nixos-anywhere \</span></span>
+<span class="giallo-l"><span>        nixosConfigs.omnara1.config.system.build.diskoScript \</span></span>
+<span class="giallo-l"><span>        nixosConfigs.omnara1.config.system.build.toplevel))</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    nixos_anywhere=${paths[0]}</span></span>
+<span class="giallo-l"><span>    disko_script=${paths[1]}</span></span>
+<span class="giallo-l"><span>    toplevel=${paths[2]}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    &quot;$nixos_anywhere/bin/nixos-anywhere&quot; -L \</span></span>
+<span class="giallo-l"><span>        --store-paths &quot;$disko_script&quot; &quot;$toplevel&quot; \</span></span>
+<span class="giallo-l"><span>        root@omnara1.phlip9.com</span></span></code></pre>
+<p>If anything goes wrong, just reset the server into rescue mode and try again.</p>
+<p>To reset into rescue mode:</p>
+<ol>
+<li>Find the server in <a rel="external" href="https://robot.hetzner.com/server">https://robot.hetzner.com/server</a>.</li>
+<li>Go under "Rescue" and select "OS=Linux" "Public Key=phlip9-5ci-fips". Then hit
+"Activate rescue system".</li>
+<li>Go under "Reset", select "Execute an automatic hardware reset" and hit "Send".</li>
+<li>Wait a minute for the server to reboot into rescue mode.</li>
+</ol>
+<h2 id="ssh-into-the-deployed-server">SSH into the deployed server
+  <a class="anchor-link" aria-label="anchor link" href="#ssh-into-the-deployed-server">
+    &num;
+  </a>
+
+</h2>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ssh phlip9@omnara1.phlip9.com</span><span style="color: #D08770;"> -p 22022</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~$</span></span></code></pre>
+<p>As a dev server, this machine manages its own configuration. I update the
+configuration and switch to the new generation on the machine itself.</p>
+<p>If you want remote deploys, consider
+<a rel="external" href="https://github.com/serokell/deploy-rs">serokell/deploy-rs</a> or similar.</p>
+<h2 id="init-home-manager-config-optional">Init home-manager config (Optional)
+  <a class="anchor-link" aria-label="anchor link" href="#init-home-manager-config-optional">
+    &num;
+  </a>
+
+</h2>
+<p>If you use home-manager (and have it managed separately from the NixOS config
+like me), you can set that up now:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~$</span><span style="color: #A3BE8C;"> mkdir dev</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev$</span><span style="color: #A3BE8C;"> cd dev</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev$</span><span style="color: #A3BE8C;"> git clone git@github.com:phlip9/dotfiles.git</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev/dotfiles$</span><span style="color: #A3BE8C;"> cd dotfiles</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Setup home-manager</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev/dotfiles$</span><span style="color: #A3BE8C;"> ./bin/hms</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Exit and ssh back in</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~$</span><span style="color: #A3BE8C;"> ^D</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ssh phlip9@omnara1.phlip9.com</span><span style="color: #D08770;"> -p 22022</span></span></code></pre><h2 id="generate-hardware-nix">Generate hardware.nix
+  <a class="anchor-link" aria-label="anchor link" href="#generate-hardware-nix">
+    &num;
+  </a>
+
+</h2>
+<p>Generate the hardware-specific nix configuration. This enables some non-default
+kernel modules that are only available on your specific hardware.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~$</span><span style="color: #A3BE8C;"> cd ~/dev/dotfiles</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev/dotfiles$</span><span style="color: #A3BE8C;"> nixos-generate-config</span><span style="color: #D08770;"> --show-hardware-config</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>    |</span><span style="color: #8FA1B3;"> tee</span><span> &gt;</span><span style="color: #A3BE8C;"> nixos/omnara1/hardware.nix</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># Do not modify this file!  It was generated by ‘nixos-generate-config’</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># and may be overwritten by future invocations.  Please make changes</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># to /etc/nixos/configuration.nix instead.</span></span>
+<span class="giallo-l"><span>{</span><span style="color: #8FA1B3;"> config,</span><span style="color: #A3BE8C;"> lib, pkgs, modulesPath, ... }:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  imports</span><span style="color: #A3BE8C;"> =</span></span>
+<span class="giallo-l"><span>    [ (modulesPath + &quot;</span><span style="color: #A3BE8C;">/installer/scan/not-detected.nix</span><span>&quot;)</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  boot.initrd.availableKernelModules</span><span style="color: #A3BE8C;"> =</span><span> [ &quot;</span><span style="color: #A3BE8C;">xhci_pci</span><span>&quot; &quot;</span><span style="color: #A3BE8C;">ahci</span><span>&quot; &quot;</span><span style="color: #A3BE8C;">nvme</span><span>&quot;</span><span style="color: #A3BE8C;"> ]</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  boot.initrd.kernelModules</span><span style="color: #A3BE8C;"> =</span><span> [</span><span style="color: #A3BE8C;"> ]</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  boot.kernelModules</span><span style="color: #A3BE8C;"> =</span><span> [ &quot;</span><span style="color: #A3BE8C;">kvm-intel</span><span>&quot;</span><span style="color: #A3BE8C;"> ]</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  boot.extraModulePackages</span><span style="color: #A3BE8C;"> =</span><span> [</span><span style="color: #A3BE8C;"> ]</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  fileSystems.&quot;/&quot;</span><span style="color: #A3BE8C;"> =</span></span>
+<span class="giallo-l"><span>    {</span><span style="color: #8FA1B3;"> device</span><span style="color: #A3BE8C;"> =</span><span> &quot;</span><span style="color: #A3BE8C;">/dev/disk/by-uuid/06f1bb3f-2a1f-4a38-8b23-a7e0a006985f</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">      fsType</span><span style="color: #A3BE8C;"> =</span><span> &quot;</span><span style="color: #A3BE8C;">ext4</span><span>&quot;;</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  fileSystems.&quot;/boot&quot;</span><span style="color: #A3BE8C;"> =</span></span>
+<span class="giallo-l"><span>    {</span><span style="color: #8FA1B3;"> device</span><span style="color: #A3BE8C;"> =</span><span> &quot;</span><span style="color: #A3BE8C;">/dev/disk/by-uuid/CF71-A6CD</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">      fsType</span><span style="color: #A3BE8C;"> =</span><span> &quot;</span><span style="color: #A3BE8C;">vfat</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">      options</span><span style="color: #A3BE8C;"> =</span><span> [ &quot;</span><span style="color: #A3BE8C;">fmask=0077</span><span>&quot; &quot;</span><span style="color: #A3BE8C;">dmask=0077</span><span>&quot;</span><span style="color: #A3BE8C;"> ]</span><span>;</span></span>
+<span class="giallo-l"><span>    };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  swapDevices</span><span style="color: #A3BE8C;"> =</span></span>
+<span class="giallo-l"><span>    [ { device = &quot;</span><span style="color: #A3BE8C;">/dev/disk/by-uuid/053ebff4-b1c6-4976-8baa-0863d45f5db0</span><span>&quot;; }</span></span>
+<span class="giallo-l"><span>    ];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  nixpkgs.hostPlatform</span><span style="color: #A3BE8C;"> = lib.mkDefault</span><span> &quot;</span><span style="color: #A3BE8C;">x86_64-linux</span><span>&quot;;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  hardware.cpu.intel.updateMicrocode</span><span style="color: #A3BE8C;"> = lib.mkDefault config.hardware.enableRedistributableFirmware</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  boot.swraid.enable</span><span style="color: #A3BE8C;"> =</span><span style="color: #D08770;"> true</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Since I'm using <code>disko</code> to manage disks/partitions/filesystems, I dropped all
+the <code>fileSystems</code> and <code>swapDevices</code> from <code>hardware.nix</code>.</p>
+<p>Finally, switch to the updated config:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">phlip9@omnara1:~/dev/dotfiles$</span><span style="color: #A3BE8C;"> nixos-rebuild</span><span style="color: #D08770;"> -f</span><span style="color: #A3BE8C;"> .</span><span style="color: #D08770;"> -A</span><span style="color: #A3BE8C;"> nixosConfigs.omnara1 switch</span></span></code></pre>
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

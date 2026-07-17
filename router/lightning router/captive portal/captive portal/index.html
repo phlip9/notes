@@ -1,0 +1,4052 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>captive portal | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="captive portal">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="captive portal">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/router/lightning router/captive portal/captive portal/"
+    },
+    "headline": "captive portal",
+    "image": ,
+    "datePublished": "2021-12-02",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Router",
+            "item": "https://phlip9.com/notes/router/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Lightning Router",
+            "item": "https://phlip9.com/notes/router/lightning router/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Captive Portal",
+            "item": "https://phlip9.com/notes/router/lightning router/captive portal/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  5 ,
+            "name": "Captive Portal",
+            "item": "https://phlip9.com/notes/router/lightning router/captive portal/captive portal/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router" checked />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router" checked />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal" checked />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#captive-portal">captive portal</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#rfc-6585-additional-http-status-codes">RFC 6585 (Additional HTTP Status Codes)</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#abstract">Abstract</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#status-of-this-memo">Status of This Memo</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#copyright-notice">Copyright Notice</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#introduction">Introduction</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#requirements">Requirements</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#428-precondition-required">428 Precondition Required</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#429-too-many-requests">429 Too Many Requests</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#431-request-header-fields-too-large">431 Request Header Fields Too Large</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-network-authentication-required-8c7492">511 Network Authentication Required ^8c7492</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#the-511-status-code-and-captive-portals">The 511 Status Code and Captive Portals</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-captive-portal-example">511 Captive Portal Example</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#security-considerations">Security Considerations</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#428-precondition-required-1">428 Precondition Required</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#429-too-many-requests-1">429 Too Many Requests</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#431-request-header-fields-too-large-1">431 Request Header Fields Too Large</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-network-authentication-required-security">511 Network Authentication Required (Security)</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#iana-considerations">IANA Considerations</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#references">References</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix">Appendix</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix-a-acknowledgements">Appendix A.  Acknowledgements</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix-b-issues-raised-by-captive-portals">Appendix B.  Issues Raised by Captive Portals</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#rfc-6585-additional-http-status-codes-1">RFC 6585 (Additional HTTP Status Codes)</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#abstract-1">Abstract</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#status-of-this-memo-1">Status of This Memo</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#copyright-notice-1">Copyright Notice</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#introduction-1">Introduction</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#requirements-1">Requirements</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#428-precondition-required-2">428 Precondition Required</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#429-too-many-requests-2">429 Too Many Requests</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#431-request-header-fields-too-large-2">431 Request Header Fields Too Large</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-network-authentication-required-8c7492-1">511 Network Authentication Required ^8c7492</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#the-511-status-code-and-captive-portals-1">The 511 Status Code and Captive Portals</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-captive-portal-example-1">511 Captive Portal Example</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#security-considerations-1">Security Considerations</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#428-precondition-required-3">428 Precondition Required</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#429-too-many-requests-3">429 Too Many Requests</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#431-request-header-fields-too-large-3">431 Request Header Fields Too Large</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-network-authentication-required-security-1">511 Network Authentication Required (Security)</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#iana-considerations-1">IANA Considerations</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#references-1">References</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix-1">Appendix</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix-a-acknowledgements-1">Appendix A.  Acknowledgements</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#appendix-b-issues-raised-by-captive-portals-1">Appendix B.  Issues Raised by Captive Portals</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#redirect-methods">Redirect Methods</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#1-wifi-passpoint-hotspot-2-0">1. WiFi Passpoint (Hotspot 2.0)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#2-http-redirect">2. HTTP Redirect</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#arubanetworks-example">ArubaNetworks Example</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#http-302-redirect-example">HTTP 302 Redirect Example:</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#http-511-example">HTTP 511 Example:</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#511-captive-portal-example-2">511 Captive Portal Example</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#3-icmp-redirect">3. ICMP Redirect</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/#4-dns-redirect">4. DNS Redirect</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="captive-portal">captive portal
+</h1>
+
+        
+        
+<p class="text-muted ">
+2021-12-02 &middot; 21 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/captive-portal/">&num;captive-portal</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<p><a href="https://phlip9.com/notes/router/lightning%20router/captive%20portal/captive%20portal%20(wikipedia)/">captive portal (wikipedia)</a></p>
+<p><a href="https://phlip9.com/notes/router/lightning%20router/captive%20portal/RFC%206585%20(Additional%20HTTP%20Status%20Codes)/#511-network-authentication-required-8c7492">RFC 6585 (Additional HTTP Status Codes) &gt; 511 Network Authentication Required 8c7492</a></p>
+<h1 id="rfc-6585-additional-http-status-codes">RFC 6585 (Additional HTTP Status Codes)
+</h1>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>Internet Engineering Task Force (IETF)                     M. Nottingham</span></span>
+<span class="giallo-l"><span>Request for Comments: 6585                                     Rackspace</span></span>
+<span class="giallo-l"><span>Updates: 2616                                                R. Fielding</span></span>
+<span class="giallo-l"><span>Category: Standards Track                                          Adobe</span></span>
+<span class="giallo-l"><span>ISSN: 2070-1721                                               April 2012</span></span></code></pre><h2 id="abstract">Abstract
+  <a class="anchor-link" aria-label="anchor link" href="#abstract">
+    &num;
+  </a>
+
+</h2>
+<p>This document specifies additional HyperText Transfer Protocol (HTTP)
+status codes for a variety of common situations.</p>
+<h2 id="status-of-this-memo">Status of This Memo
+  <a class="anchor-link" aria-label="anchor link" href="#status-of-this-memo">
+    &num;
+  </a>
+
+</h2>
+<p>This is an Internet Standards Track document.</p>
+<p>This document is a product of the Internet Engineering Task Force
+(IETF).  It represents the consensus of the IETF community.  It has
+received public review and has been approved for publication by the
+Internet Engineering Steering Group (IESG).  Further information on
+Internet Standards is available in Section 2 of RFC 5741.</p>
+<p>Information about the current status of this document, any errata,
+and how to provide feedback on it may be obtained at
+<a rel="external" href="http://www.rfc-editor.org/info/rfc6585">http://www.rfc-editor.org/info/rfc6585</a>.</p>
+<h2 id="copyright-notice">Copyright Notice
+  <a class="anchor-link" aria-label="anchor link" href="#copyright-notice">
+    &num;
+  </a>
+
+</h2>
+<p>Copyright (c) 2012 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(<a rel="external" href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document.  Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<h2 id="introduction">Introduction
+  <a class="anchor-link" aria-label="anchor link" href="#introduction">
+    &num;
+  </a>
+
+</h2>
+<p>This document specifies additional HTTP [RFC2616] status codes for a
+variety of common situations, to improve interoperability and avoid
+confusion when other, less precise status codes are used.</p>
+<p>Note that these status codes are optional; servers cannot be required
+to support them.  However, because clients will treat unknown status
+codes as a generic error of the same class (e.g., 499 is treated as
+400 if it is not recognized), they can be safely deployed by existing
+servers (see [RFC2616] Section 6.1.1 for more information).</p>
+<h2 id="requirements">Requirements
+  <a class="anchor-link" aria-label="anchor link" href="#requirements">
+    &num;
+  </a>
+
+</h2>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in [RFC2119].</p>
+<h2 id="428-precondition-required">428 Precondition Required
+  <a class="anchor-link" aria-label="anchor link" href="#428-precondition-required">
+    &num;
+  </a>
+
+</h2>
+<p>The 428 status code indicates that the origin server requires the
+request to be conditional.</p>
+<p>Its typical use is to avoid the "lost update" problem, where a client
+GETs a resource's state, modifies it, and PUTs it back to the server,
+when meanwhile a third party has modified the state on the server,
+leading to a conflict.  By requiring requests to be conditional, the
+server can assure that clients are working with the correct copies.</p>
+<p>Responses using this status code SHOULD explain how to resubmit the
+request successfully.  For example:</p>
+<p>HTTP/1.1 428 Precondition Required
+Content-Type: text/html</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>&lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Precondition Required&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Precondition Required&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">p</span><span>&gt;This request is required to be conditional;</span></span>
+<span class="giallo-l"><span>      try using &quot;If-Match&quot;.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>&lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Responses with the 428 status code MUST NOT be stored by a cache.</p>
+<h2 id="429-too-many-requests">429 Too Many Requests
+  <a class="anchor-link" aria-label="anchor link" href="#429-too-many-requests">
+    &num;
+  </a>
+
+</h2>
+<p>The 429 status code indicates that the user has sent too many
+requests in a given amount of time ("rate limiting").</p>
+<p>The response representations SHOULD include details explaining the
+condition, and MAY include a Retry-After header indicating how long
+to wait before making a new request.</p>
+<p>For example:</p>
+<p>HTTP/1.1 429 Too Many Requests
+Content-Type: text/html
+Retry-After: 3600</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Too Many Requests&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Too Many Requests&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;I only allow 50 requests per hour to this Web site per</span></span>
+<span class="giallo-l"><span>            logged in user.  Try again soon.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Note that this specification does not define how the origin server
+identifies the user, nor how it counts requests.  For example, an
+origin server that is limiting request rates can do so based upon
+counts of requests on a per-resource basis, across the entire server,
+or even among a set of servers.  Likewise, it might identify the user
+by its authentication credentials, or a stateful cookie.</p>
+<p>Responses with the 429 status code MUST NOT be stored by a cache.</p>
+<h2 id="431-request-header-fields-too-large">431 Request Header Fields Too Large
+  <a class="anchor-link" aria-label="anchor link" href="#431-request-header-fields-too-large">
+    &num;
+  </a>
+
+</h2>
+<p>The 431 status code indicates that the server is unwilling to process
+the request because its header fields are too large.  The request MAY
+be resubmitted after reducing the size of the request header fields.</p>
+<p>It can be used both when the set of request header fields in total is
+too large, and when a single header field is at fault.  In the latter
+case, the response representation SHOULD specify which header field
+was too large.</p>
+<p>For example:</p>
+<p>HTTP/1.1 431 Request Header Fields Too Large
+Content-Type: text/html</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Request Header Fields Too Large&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Request Header Fields Too Large&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;The &quot;Example&quot; header was too large.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Responses with the 431 status code MUST NOT be stored by a cache.</p>
+<h2 id="511-network-authentication-required-8c7492">511 Network Authentication Required ^8c7492
+  <a class="anchor-link" aria-label="anchor link" href="#511-network-authentication-required-8c7492">
+    &num;
+  </a>
+
+</h2>
+<p>The 511 status code indicates that the client needs to authenticate
+to gain network access.</p>
+<p>The response representation SHOULD contain a link to a resource that
+allows the user to submit credentials (e.g., with an HTML form).</p>
+<p>Note that the 511 response SHOULD NOT contain a challenge or the
+login interface itself, because browsers would show the login
+interface as being associated with the originally requested URL,
+which may cause confusion.</p>
+<p>The 511 status SHOULD NOT be generated by origin servers; it is
+intended for use by intercepting proxies that are interposed as a
+means of controlling access to the network.</p>
+<p>Responses with the 511 status code MUST NOT be stored by a cache.</p>
+<h3 id="the-511-status-code-and-captive-portals">The 511 Status Code and Captive Portals
+  <a class="anchor-link" aria-label="anchor link" href="#the-511-status-code-and-captive-portals">
+    &num;
+  </a>
+
+</h3>
+<p>The 511 status code is designed to mitigate problems caused by
+"captive portals" to software (especially non-browser agents) that is
+expecting a response from the server that a request was made to, not
+the intervening network infrastructure.  It is not intended to
+encourage deployment of captive portals -- only to limit the damage
+caused by them.</p>
+<p>A network operator wishing to require some authentication, acceptance
+of terms, or other user interaction before granting access usually
+does so by identifying clients who have not done so ("unknown
+clients") using their Media Access Control (MAC) addresses. ^615a1d</p>
+<p>Unknown clients then have all traffic blocked, except for that on TCP
+port 80, which is sent to an HTTP server (the "login server")
+dedicated to "logging in" unknown clients, and of course traffic to
+the login server itself. ^521ac1</p>
+<h4 id="511-captive-portal-example">511 Captive Portal Example
+  <a class="anchor-link" aria-label="anchor link" href="#511-captive-portal-example">
+    &num;
+  </a>
+
+</h4>
+<p>For example, a user agent might connect to a network and make the
+following HTTP request on TCP port 80:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>GET /index.htm HTTP/1.1</span></span>
+<span class="giallo-l"><span>Host: www.example.com</span></span></code></pre>
+<p>Upon receiving such a request, the login server would generate a 511
+response:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>HTTP/1.1 511 Network Authentication Required</span></span>
+<span class="giallo-l"><span>Content-Type: text/html</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Network Authentication Required&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">meta</span><span style="color: #D08770;"> http-equiv</span><span>=&quot;</span><span style="color: #A3BE8C;">refresh</span><span>&quot;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">               content</span><span>=&quot;</span><span style="color: #A3BE8C;">0; url=https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;You need to &lt;</span><span style="color: #BF616A;">a</span><span style="color: #D08770;"> href</span><span>=&quot;</span><span style="color: #A3BE8C;">https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>         authenticate with the local network&lt;/</span><span style="color: #BF616A;">a</span><span>&gt; in order to gain</span></span>
+<span class="giallo-l"><span>         access.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Here, the 511 status code assures that non-browser clients will not
+interpret the response as being from the origin server, and the META
+HTML element redirects the user agent to the login server.</p>
+<h2 id="security-considerations">Security Considerations
+  <a class="anchor-link" aria-label="anchor link" href="#security-considerations">
+    &num;
+  </a>
+
+</h2>
+<h3 id="428-precondition-required-1">428 Precondition Required
+  <a class="anchor-link" aria-label="anchor link" href="#428-precondition-required-1">
+    &num;
+  </a>
+
+</h3>
+<p>The 428 status code is optional; clients cannot rely upon its use to
+prevent "lost update" conflicts.</p>
+<h3 id="429-too-many-requests-1">429 Too Many Requests
+  <a class="anchor-link" aria-label="anchor link" href="#429-too-many-requests-1">
+    &num;
+  </a>
+
+</h3>
+<p>When a server is under attack or just receiving a very large number
+of requests from a single party, responding to each with a 429 status
+code will consume resources.</p>
+<p>Therefore, servers are not required to use the 429 status code; when
+limiting resource usage, it may be more appropriate to just drop
+connections, or take other steps.</p>
+<h3 id="431-request-header-fields-too-large-1">431 Request Header Fields Too Large
+  <a class="anchor-link" aria-label="anchor link" href="#431-request-header-fields-too-large-1">
+    &num;
+  </a>
+
+</h3>
+<p>Servers are not required to use the 431 status code; when under
+attack, it may be more appropriate to just drop connections, or take
+other steps.</p>
+<h3 id="511-network-authentication-required-security">511 Network Authentication Required (Security)
+  <a class="anchor-link" aria-label="anchor link" href="#511-network-authentication-required-security">
+    &num;
+  </a>
+
+</h3>
+<p>In common use, a response carrying the 511 status code will not come
+from the origin server indicated in the request's URL.  This presents
+many security issues; e.g., an attacking intermediary may be
+inserting cookies into the original domain's name space, may be
+observing cookies or HTTP authentication credentials sent from the
+user agent, and so on.</p>
+<p>However, these risks are not unique to the 511 status code; in other
+words, a captive portal that is not using this status code introduces
+the same issues.</p>
+<p>Also, note that captive portals using this status code on a Secure
+Socket Layer (SSL) or Transport Layer Security (TLS) connection
+(commonly, port 443) will generate a certificate error on the client.</p>
+<h2 id="iana-considerations">IANA Considerations
+  <a class="anchor-link" aria-label="anchor link" href="#iana-considerations">
+    &num;
+  </a>
+
+</h2>
+<p>The HTTP Status Codes registry has been updated with the following
+entries:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>  Value: 428</span></span>
+<span class="giallo-l"><span>  Description: Precondition Required</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 429</span></span>
+<span class="giallo-l"><span>  Description: Too Many Requests</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 431</span></span>
+<span class="giallo-l"><span>  Description: Request Header Fields Too Large</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 511</span></span>
+<span class="giallo-l"><span>  Description: Network Authentication Required</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span></code></pre><h2 id="references">References
+  <a class="anchor-link" aria-label="anchor link" href="#references">
+    &num;
+  </a>
+
+</h2>
+<p>9.1.  Normative References</p>
+<p>[RFC2119]   Bradner, S., "Key words for use in RFCs to Indicate
+Requirement Levels", BCP 14, RFC 2119, March 1997.</p>
+<p>[RFC2616]   Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
+Transfer Protocol -- HTTP/1.1", RFC 2616, June 1999.</p>
+<p>9.2.  Informative References</p>
+<p>[CORS]      van Kesteren, A., Ed., "Cross-Origin Resource Sharing",
+W3C Working Draft WD-cors-20100727, July 2010,
+<a rel="external" href="http://www.w3.org/TR/cors/">http://www.w3.org/TR/cors/</a>.</p>
+<p>[Favicon]   Wikipedia, "Favicon", March 2012,
+&lt;http://en.wikipedia.org/w/
+index.php?title=Favicon&amp;oldid=484627550&gt;.</p>
+<p>[OAuth2.0]  Hammer-Lahav, E., Ed., Recordon, D., and D. Hardt, "The
+OAuth 2.0 Authorization Protocol", Work in Progress,
+March 2012.</p>
+<p>Nottingham &amp; Fielding        Standards Track                    [Page 7]</p>
+<p>RFC 6585              Additional HTTP Status Codes            April 2012</p>
+<p>[P3P]       Marchiori, M., Ed., "The Platform for Privacy Preferences
+1.0 (P3P1.0) Specification", W3C Recommendation
+REC-P3P-20020416, April 2002,
+<a rel="external" href="http://www.w3.org/TR/P3P/">http://www.w3.org/TR/P3P/</a>.</p>
+<p>[RFC4791]   Daboo, C., Desruisseaux, B., and L. Dusseault,
+"Calendaring Extensions to WebDAV (CalDAV)", RFC 4791,
+March 2007.</p>
+<p>[RFC4918]   Dusseault, L., Ed., "HTTP Extensions for Web Distributed
+Authoring and Versioning (WebDAV)", RFC 4918, June 2007.</p>
+<p>[WIDGETS]   Caceres, M., Ed., "Widget Packaging and XML
+Configuration", W3C Recommendation REC-widgets-20110927,
+September 2011, <a rel="external" href="http://www.w3.org/TR/widgets/">http://www.w3.org/TR/widgets/</a>.</p>
+<p>[WebFinger] WebFinger Project, "WebFingerProtocol (Draft)",
+January 2010, &lt;http://code.google.com/p/webfinger/wiki/
+WebFingerProtocol&gt;.</p>
+<h2 id="appendix">Appendix
+  <a class="anchor-link" aria-label="anchor link" href="#appendix">
+    &num;
+  </a>
+
+</h2>
+<h3 id="appendix-a-acknowledgements">Appendix A.  Acknowledgements
+  <a class="anchor-link" aria-label="anchor link" href="#appendix-a-acknowledgements">
+    &num;
+  </a>
+
+</h3>
+<p>Thanks to Jan Algermissen and Julian Reschke for their suggestions
+and feedback.</p>
+<h3 id="appendix-b-issues-raised-by-captive-portals">Appendix B.  Issues Raised by Captive Portals
+  <a class="anchor-link" aria-label="anchor link" href="#appendix-b-issues-raised-by-captive-portals">
+    &num;
+  </a>
+
+</h3>
+<p>Since clients cannot differentiate between a portal's response and
+that of the HTTP server that they intended to communicate with, a
+number of issues arise.  The 511 status code is intended to help
+mitigate some of them.</p>
+<p>One example is the "favicon.ico" [Favicon] commonly used by browsers
+to identify the site being accessed.  If the favicon for a given site
+is fetched from a captive portal instead of the intended site (e.g.,
+because the user is unauthenticated), it will often "stick" in the
+browser's cache (most implementations cache favicons aggressively)
+beyond the portal session, so that it seems as if the portal's
+favicon has "taken over" the legitimate site.</p>
+<p>Another browser-based issue comes about when the Platform for Privacy
+Preferences [P3P] is supported.  Depending on how it is implemented,
+it's possible a browser might interpret a portal's response for the
+p3p.xml file as the server's, resulting in the privacy policy (or
+lack thereof) advertised by the portal being interpreted as applying
+to the intended site.  Other Web-based protocols such as WebFinger
+[WebFinger], Cross-Origin Resource Sharing [CORS], and Open
+Authorization [OAuth2.0] may also be vulnerable to such issues.</p>
+<p>Although HTTP is most widely used with Web browsers, a growing number
+of non-browsing applications use it as a substrate protocol.  For
+example, Web Distributed Authoring and Versioning (WebDAV) [RFC4918]
+and Calendaring Extensions to WebDAV (CalDAV) [RFC4791] both use HTTP
+as the basis (for remote authoring and calendaring, respectively).
+Using these applications from behind a captive portal can result in
+spurious errors being presented to the user, and might result in
+content corruption, in extreme cases.</p>
+<p>Similarly, other non-browser applications using HTTP can be affected
+as well, e.g., widgets [WIDGETS], software updates, and other
+specialized software such as Twitter clients and the iTunes Music
+Store.</p>
+<p>It should be noted that it's sometimes believed that using HTTP
+redirection to direct traffic to the portal addresses these issues.
+However, since many of these uses "follow" redirects, this is not a
+good solution.</p>
+<p>Authors' Addresses</p>
+<p>Mark Nottingham
+Rackspace</p>
+<p>EMail: mnot@mnot.net
+URI:   http://www.mnot.net/</p>
+<p>Roy T. Fielding
+Adobe Systems Incorporated
+345 Park Ave.
+San Jose, CA  95110
+USA</p>
+<p>EMail: fielding@gbiv.com
+URI:   http://roy.gbiv.com/</p>
+<h1 id="rfc-6585-additional-http-status-codes-1">RFC 6585 (Additional HTTP Status Codes)
+</h1>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>Internet Engineering Task Force (IETF)                     M. Nottingham</span></span>
+<span class="giallo-l"><span>Request for Comments: 6585                                     Rackspace</span></span>
+<span class="giallo-l"><span>Updates: 2616                                                R. Fielding</span></span>
+<span class="giallo-l"><span>Category: Standards Track                                          Adobe</span></span>
+<span class="giallo-l"><span>ISSN: 2070-1721                                               April 2012</span></span></code></pre><h2 id="abstract-1">Abstract
+  <a class="anchor-link" aria-label="anchor link" href="#abstract-1">
+    &num;
+  </a>
+
+</h2>
+<p>This document specifies additional HyperText Transfer Protocol (HTTP)
+status codes for a variety of common situations.</p>
+<h2 id="status-of-this-memo-1">Status of This Memo
+  <a class="anchor-link" aria-label="anchor link" href="#status-of-this-memo-1">
+    &num;
+  </a>
+
+</h2>
+<p>This is an Internet Standards Track document.</p>
+<p>This document is a product of the Internet Engineering Task Force
+(IETF).  It represents the consensus of the IETF community.  It has
+received public review and has been approved for publication by the
+Internet Engineering Steering Group (IESG).  Further information on
+Internet Standards is available in Section 2 of RFC 5741.</p>
+<p>Information about the current status of this document, any errata,
+and how to provide feedback on it may be obtained at
+<a rel="external" href="http://www.rfc-editor.org/info/rfc6585">http://www.rfc-editor.org/info/rfc6585</a>.</p>
+<h2 id="copyright-notice-1">Copyright Notice
+  <a class="anchor-link" aria-label="anchor link" href="#copyright-notice-1">
+    &num;
+  </a>
+
+</h2>
+<p>Copyright (c) 2012 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(<a rel="external" href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document.  Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<h2 id="introduction-1">Introduction
+  <a class="anchor-link" aria-label="anchor link" href="#introduction-1">
+    &num;
+  </a>
+
+</h2>
+<p>This document specifies additional HTTP [RFC2616] status codes for a
+variety of common situations, to improve interoperability and avoid
+confusion when other, less precise status codes are used.</p>
+<p>Note that these status codes are optional; servers cannot be required
+to support them.  However, because clients will treat unknown status
+codes as a generic error of the same class (e.g., 499 is treated as
+400 if it is not recognized), they can be safely deployed by existing
+servers (see [RFC2616] Section 6.1.1 for more information).</p>
+<h2 id="requirements-1">Requirements
+  <a class="anchor-link" aria-label="anchor link" href="#requirements-1">
+    &num;
+  </a>
+
+</h2>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+document are to be interpreted as described in [RFC2119].</p>
+<h2 id="428-precondition-required-2">428 Precondition Required
+  <a class="anchor-link" aria-label="anchor link" href="#428-precondition-required-2">
+    &num;
+  </a>
+
+</h2>
+<p>The 428 status code indicates that the origin server requires the
+request to be conditional.</p>
+<p>Its typical use is to avoid the "lost update" problem, where a client
+GETs a resource's state, modifies it, and PUTs it back to the server,
+when meanwhile a third party has modified the state on the server,
+leading to a conflict.  By requiring requests to be conditional, the
+server can assure that clients are working with the correct copies.</p>
+<p>Responses using this status code SHOULD explain how to resubmit the
+request successfully.  For example:</p>
+<p>HTTP/1.1 428 Precondition Required
+Content-Type: text/html</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>&lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Precondition Required&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Precondition Required&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">p</span><span>&gt;This request is required to be conditional;</span></span>
+<span class="giallo-l"><span>      try using &quot;If-Match&quot;.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>&lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Responses with the 428 status code MUST NOT be stored by a cache.</p>
+<h2 id="429-too-many-requests-2">429 Too Many Requests
+  <a class="anchor-link" aria-label="anchor link" href="#429-too-many-requests-2">
+    &num;
+  </a>
+
+</h2>
+<p>The 429 status code indicates that the user has sent too many
+requests in a given amount of time ("rate limiting").</p>
+<p>The response representations SHOULD include details explaining the
+condition, and MAY include a Retry-After header indicating how long
+to wait before making a new request.</p>
+<p>For example:</p>
+<p>HTTP/1.1 429 Too Many Requests
+Content-Type: text/html
+Retry-After: 3600</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Too Many Requests&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Too Many Requests&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;I only allow 50 requests per hour to this Web site per</span></span>
+<span class="giallo-l"><span>            logged in user.  Try again soon.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Note that this specification does not define how the origin server
+identifies the user, nor how it counts requests.  For example, an
+origin server that is limiting request rates can do so based upon
+counts of requests on a per-resource basis, across the entire server,
+or even among a set of servers.  Likewise, it might identify the user
+by its authentication credentials, or a stateful cookie.</p>
+<p>Responses with the 429 status code MUST NOT be stored by a cache.</p>
+<h2 id="431-request-header-fields-too-large-2">431 Request Header Fields Too Large
+  <a class="anchor-link" aria-label="anchor link" href="#431-request-header-fields-too-large-2">
+    &num;
+  </a>
+
+</h2>
+<p>The 431 status code indicates that the server is unwilling to process
+the request because its header fields are too large.  The request MAY
+be resubmitted after reducing the size of the request header fields.</p>
+<p>It can be used both when the set of request header fields in total is
+too large, and when a single header field is at fault.  In the latter
+case, the response representation SHOULD specify which header field
+was too large.</p>
+<p>For example:</p>
+<p>HTTP/1.1 431 Request Header Fields Too Large
+Content-Type: text/html</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Request Header Fields Too Large&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">h1</span><span>&gt;Request Header Fields Too Large&lt;/</span><span style="color: #BF616A;">h1</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;The &quot;Example&quot; header was too large.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Responses with the 431 status code MUST NOT be stored by a cache.</p>
+<h2 id="511-network-authentication-required-8c7492-1">511 Network Authentication Required ^8c7492
+  <a class="anchor-link" aria-label="anchor link" href="#511-network-authentication-required-8c7492-1">
+    &num;
+  </a>
+
+</h2>
+<p>The 511 status code indicates that the client needs to authenticate
+to gain network access.</p>
+<p>The response representation SHOULD contain a link to a resource that
+allows the user to submit credentials (e.g., with an HTML form).</p>
+<p>Note that the 511 response SHOULD NOT contain a challenge or the
+login interface itself, because browsers would show the login
+interface as being associated with the originally requested URL,
+which may cause confusion.</p>
+<p>The 511 status SHOULD NOT be generated by origin servers; it is
+intended for use by intercepting proxies that are interposed as a
+means of controlling access to the network.</p>
+<p>Responses with the 511 status code MUST NOT be stored by a cache.</p>
+<h3 id="the-511-status-code-and-captive-portals-1">The 511 Status Code and Captive Portals
+  <a class="anchor-link" aria-label="anchor link" href="#the-511-status-code-and-captive-portals-1">
+    &num;
+  </a>
+
+</h3>
+<p>The 511 status code is designed to mitigate problems caused by
+"captive portals" to software (especially non-browser agents) that is
+expecting a response from the server that a request was made to, not
+the intervening network infrastructure.  It is not intended to
+encourage deployment of captive portals -- only to limit the damage
+caused by them.</p>
+<p>A network operator wishing to require some authentication, acceptance
+of terms, or other user interaction before granting access usually
+does so by identifying clients who have not done so ("unknown
+clients") using their Media Access Control (MAC) addresses. ^615a1d</p>
+<p>Unknown clients then have all traffic blocked, except for that on TCP
+port 80, which is sent to an HTTP server (the "login server")
+dedicated to "logging in" unknown clients, and of course traffic to
+the login server itself. ^521ac1</p>
+<h4 id="511-captive-portal-example-1">511 Captive Portal Example
+  <a class="anchor-link" aria-label="anchor link" href="#511-captive-portal-example-1">
+    &num;
+  </a>
+
+</h4>
+<p>For example, a user agent might connect to a network and make the
+following HTTP request on TCP port 80:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>GET /index.htm HTTP/1.1</span></span>
+<span class="giallo-l"><span>Host: www.example.com</span></span></code></pre>
+<p>Upon receiving such a request, the login server would generate a 511
+response:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>HTTP/1.1 511 Network Authentication Required</span></span>
+<span class="giallo-l"><span>Content-Type: text/html</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Network Authentication Required&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">meta</span><span style="color: #D08770;"> http-equiv</span><span>=&quot;</span><span style="color: #A3BE8C;">refresh</span><span>&quot;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">               content</span><span>=&quot;</span><span style="color: #A3BE8C;">0; url=https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;You need to &lt;</span><span style="color: #BF616A;">a</span><span style="color: #D08770;"> href</span><span>=&quot;</span><span style="color: #A3BE8C;">https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>         authenticate with the local network&lt;/</span><span style="color: #BF616A;">a</span><span>&gt; in order to gain</span></span>
+<span class="giallo-l"><span>         access.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Here, the 511 status code assures that non-browser clients will not
+interpret the response as being from the origin server, and the META
+HTML element redirects the user agent to the login server.</p>
+<h2 id="security-considerations-1">Security Considerations
+  <a class="anchor-link" aria-label="anchor link" href="#security-considerations-1">
+    &num;
+  </a>
+
+</h2>
+<h3 id="428-precondition-required-3">428 Precondition Required
+  <a class="anchor-link" aria-label="anchor link" href="#428-precondition-required-3">
+    &num;
+  </a>
+
+</h3>
+<p>The 428 status code is optional; clients cannot rely upon its use to
+prevent "lost update" conflicts.</p>
+<h3 id="429-too-many-requests-3">429 Too Many Requests
+  <a class="anchor-link" aria-label="anchor link" href="#429-too-many-requests-3">
+    &num;
+  </a>
+
+</h3>
+<p>When a server is under attack or just receiving a very large number
+of requests from a single party, responding to each with a 429 status
+code will consume resources.</p>
+<p>Therefore, servers are not required to use the 429 status code; when
+limiting resource usage, it may be more appropriate to just drop
+connections, or take other steps.</p>
+<h3 id="431-request-header-fields-too-large-3">431 Request Header Fields Too Large
+  <a class="anchor-link" aria-label="anchor link" href="#431-request-header-fields-too-large-3">
+    &num;
+  </a>
+
+</h3>
+<p>Servers are not required to use the 431 status code; when under
+attack, it may be more appropriate to just drop connections, or take
+other steps.</p>
+<h3 id="511-network-authentication-required-security-1">511 Network Authentication Required (Security)
+  <a class="anchor-link" aria-label="anchor link" href="#511-network-authentication-required-security-1">
+    &num;
+  </a>
+
+</h3>
+<p>In common use, a response carrying the 511 status code will not come
+from the origin server indicated in the request's URL.  This presents
+many security issues; e.g., an attacking intermediary may be
+inserting cookies into the original domain's name space, may be
+observing cookies or HTTP authentication credentials sent from the
+user agent, and so on.</p>
+<p>However, these risks are not unique to the 511 status code; in other
+words, a captive portal that is not using this status code introduces
+the same issues.</p>
+<p>Also, note that captive portals using this status code on a Secure
+Socket Layer (SSL) or Transport Layer Security (TLS) connection
+(commonly, port 443) will generate a certificate error on the client.</p>
+<h2 id="iana-considerations-1">IANA Considerations
+  <a class="anchor-link" aria-label="anchor link" href="#iana-considerations-1">
+    &num;
+  </a>
+
+</h2>
+<p>The HTTP Status Codes registry has been updated with the following
+entries:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>  Value: 428</span></span>
+<span class="giallo-l"><span>  Description: Precondition Required</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 429</span></span>
+<span class="giallo-l"><span>  Description: Too Many Requests</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 431</span></span>
+<span class="giallo-l"><span>  Description: Request Header Fields Too Large</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>  Value: 511</span></span>
+<span class="giallo-l"><span>  Description: Network Authentication Required</span></span>
+<span class="giallo-l"><span>  Reference: [RFC6585]</span></span></code></pre><h2 id="references-1">References
+  <a class="anchor-link" aria-label="anchor link" href="#references-1">
+    &num;
+  </a>
+
+</h2>
+<p>9.1.  Normative References</p>
+<p>[RFC2119]   Bradner, S., "Key words for use in RFCs to Indicate
+Requirement Levels", BCP 14, RFC 2119, March 1997.</p>
+<p>[RFC2616]   Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
+Transfer Protocol -- HTTP/1.1", RFC 2616, June 1999.</p>
+<p>9.2.  Informative References</p>
+<p>[CORS]      van Kesteren, A., Ed., "Cross-Origin Resource Sharing",
+W3C Working Draft WD-cors-20100727, July 2010,
+<a rel="external" href="http://www.w3.org/TR/cors/">http://www.w3.org/TR/cors/</a>.</p>
+<p>[Favicon]   Wikipedia, "Favicon", March 2012,
+&lt;http://en.wikipedia.org/w/
+index.php?title=Favicon&amp;oldid=484627550&gt;.</p>
+<p>[OAuth2.0]  Hammer-Lahav, E., Ed., Recordon, D., and D. Hardt, "The
+OAuth 2.0 Authorization Protocol", Work in Progress,
+March 2012.</p>
+<p>Nottingham &amp; Fielding        Standards Track                    [Page 7]</p>
+<p>RFC 6585              Additional HTTP Status Codes            April 2012</p>
+<p>[P3P]       Marchiori, M., Ed., "The Platform for Privacy Preferences
+1.0 (P3P1.0) Specification", W3C Recommendation
+REC-P3P-20020416, April 2002,
+<a rel="external" href="http://www.w3.org/TR/P3P/">http://www.w3.org/TR/P3P/</a>.</p>
+<p>[RFC4791]   Daboo, C., Desruisseaux, B., and L. Dusseault,
+"Calendaring Extensions to WebDAV (CalDAV)", RFC 4791,
+March 2007.</p>
+<p>[RFC4918]   Dusseault, L., Ed., "HTTP Extensions for Web Distributed
+Authoring and Versioning (WebDAV)", RFC 4918, June 2007.</p>
+<p>[WIDGETS]   Caceres, M., Ed., "Widget Packaging and XML
+Configuration", W3C Recommendation REC-widgets-20110927,
+September 2011, <a rel="external" href="http://www.w3.org/TR/widgets/">http://www.w3.org/TR/widgets/</a>.</p>
+<p>[WebFinger] WebFinger Project, "WebFingerProtocol (Draft)",
+January 2010, &lt;http://code.google.com/p/webfinger/wiki/
+WebFingerProtocol&gt;.</p>
+<h2 id="appendix-1">Appendix
+  <a class="anchor-link" aria-label="anchor link" href="#appendix-1">
+    &num;
+  </a>
+
+</h2>
+<h3 id="appendix-a-acknowledgements-1">Appendix A.  Acknowledgements
+  <a class="anchor-link" aria-label="anchor link" href="#appendix-a-acknowledgements-1">
+    &num;
+  </a>
+
+</h3>
+<p>Thanks to Jan Algermissen and Julian Reschke for their suggestions
+and feedback.</p>
+<h3 id="appendix-b-issues-raised-by-captive-portals-1">Appendix B.  Issues Raised by Captive Portals
+  <a class="anchor-link" aria-label="anchor link" href="#appendix-b-issues-raised-by-captive-portals-1">
+    &num;
+  </a>
+
+</h3>
+<p>Since clients cannot differentiate between a portal's response and
+that of the HTTP server that they intended to communicate with, a
+number of issues arise.  The 511 status code is intended to help
+mitigate some of them.</p>
+<p>One example is the "favicon.ico" [Favicon] commonly used by browsers
+to identify the site being accessed.  If the favicon for a given site
+is fetched from a captive portal instead of the intended site (e.g.,
+because the user is unauthenticated), it will often "stick" in the
+browser's cache (most implementations cache favicons aggressively)
+beyond the portal session, so that it seems as if the portal's
+favicon has "taken over" the legitimate site.</p>
+<p>Another browser-based issue comes about when the Platform for Privacy
+Preferences [P3P] is supported.  Depending on how it is implemented,
+it's possible a browser might interpret a portal's response for the
+p3p.xml file as the server's, resulting in the privacy policy (or
+lack thereof) advertised by the portal being interpreted as applying
+to the intended site.  Other Web-based protocols such as WebFinger
+[WebFinger], Cross-Origin Resource Sharing [CORS], and Open
+Authorization [OAuth2.0] may also be vulnerable to such issues.</p>
+<p>Although HTTP is most widely used with Web browsers, a growing number
+of non-browsing applications use it as a substrate protocol.  For
+example, Web Distributed Authoring and Versioning (WebDAV) [RFC4918]
+and Calendaring Extensions to WebDAV (CalDAV) [RFC4791] both use HTTP
+as the basis (for remote authoring and calendaring, respectively).
+Using these applications from behind a captive portal can result in
+spurious errors being presented to the user, and might result in
+content corruption, in extreme cases.</p>
+<p>Similarly, other non-browser applications using HTTP can be affected
+as well, e.g., widgets [WIDGETS], software updates, and other
+specialized software such as Twitter clients and the iTunes Music
+Store.</p>
+<p>It should be noted that it's sometimes believed that using HTTP
+redirection to direct traffic to the portal addresses these issues.
+However, since many of these uses "follow" redirects, this is not a
+good solution.</p>
+<p>Authors' Addresses</p>
+<p>Mark Nottingham
+Rackspace</p>
+<p>EMail: mnot@mnot.net
+URI:   http://www.mnot.net/</p>
+<p>Roy T. Fielding
+Adobe Systems Incorporated
+345 Park Ave.
+San Jose, CA  95110
+USA</p>
+<p>EMail: fielding@gbiv.com
+URI:   http://roy.gbiv.com/</p>
+<h2 id="redirect-methods">Redirect Methods
+  <a class="anchor-link" aria-label="anchor link" href="#redirect-methods">
+    &num;
+  </a>
+
+</h2>
+<h3 id="1-wifi-passpoint-hotspot-2-0">1. WiFi Passpoint (Hotspot 2.0)
+  <a class="anchor-link" aria-label="anchor link" href="#1-wifi-passpoint-hotspot-2-0">
+    &num;
+  </a>
+
+</h3>
+<h3 id="2-http-redirect">2. <a rel="external" href="https://www.wikiwand.com/en/Captive_portal#/HTTP_redirect">HTTP Redirect</a>
+  <a class="anchor-link" aria-label="anchor link" href="#2-http-redirect">
+    &num;
+  </a>
+
+</h3>
+<p>When client device first connects, it makes an HTTP request to a special endpoint (what?); if the endpoint returns 200 or 204, then it assume unlimited internet. Otherwise, if it returns 302 (redirect) to the captive portal, the device will know that it needs to auth to gain access.</p>
+<p>Alternatively, ALL HTTP requests from the client are redirected until auth'ed.</p>
+<p>Problem: How does this work when the client is HTTPS only?</p>
+<h4 id="arubanetworks-example">ArubaNetworks Example
+  <a class="anchor-link" aria-label="anchor link" href="#arubanetworks-example">
+    &num;
+  </a>
+
+</h4>
+<p><a href="https://phlip9.com/notes/router/lightning%20router/captive%20portal/arubanetworks%20captive%20portal/">arubanetworks captive portal</a></p>
+<h4 id="http-302-redirect-example">HTTP 302 Redirect Example:
+  <a class="anchor-link" aria-label="anchor link" href="#http-302-redirect-example">
+    &num;
+  </a>
+
+</h4>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span># Client request:</span></span>
+<span class="giallo-l"><span>GET /index.html HTTP/1.1</span></span>
+<span class="giallo-l"><span>Host: www.example.com</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># Server response:</span></span>
+<span class="giallo-l"><span>HTTP/1.1 302 Found</span></span>
+<span class="giallo-l"><span>Location: http://www.iana.org/domains/example/</span></span></code></pre><h4 id="http-511-example">HTTP 511 Example:
+  <a class="anchor-link" aria-label="anchor link" href="#http-511-example">
+    &num;
+  </a>
+
+</h4>
+<h4 id="511-captive-portal-example-2">511 Captive Portal Example
+  <a class="anchor-link" aria-label="anchor link" href="#511-captive-portal-example-2">
+    &num;
+  </a>
+
+</h4>
+<p>For example, a user agent might connect to a network and make the
+following HTTP request on TCP port 80:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>GET /index.htm HTTP/1.1</span></span>
+<span class="giallo-l"><span>Host: www.example.com</span></span></code></pre>
+<p>Upon receiving such a request, the login server would generate a 511
+response:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>HTTP/1.1 511 Network Authentication Required</span></span>
+<span class="giallo-l"><span>Content-Type: text/html</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="html"><span class="giallo-l"><span>   &lt;</span><span style="color: #BF616A;">html</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">title</span><span>&gt;Network Authentication Required&lt;/</span><span style="color: #BF616A;">title</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">meta</span><span style="color: #D08770;"> http-equiv</span><span>=&quot;</span><span style="color: #A3BE8C;">refresh</span><span>&quot;</span></span>
+<span class="giallo-l"><span style="color: #D08770;">               content</span><span>=&quot;</span><span style="color: #A3BE8C;">0; url=https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">head</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>         &lt;</span><span style="color: #BF616A;">p</span><span>&gt;You need to &lt;</span><span style="color: #BF616A;">a</span><span style="color: #D08770;"> href</span><span>=&quot;</span><span style="color: #A3BE8C;">https://login.example.net/</span><span>&quot;&gt;</span></span>
+<span class="giallo-l"><span>         authenticate with the local network&lt;/</span><span style="color: #BF616A;">a</span><span>&gt; in order to gain</span></span>
+<span class="giallo-l"><span>         access.&lt;/</span><span style="color: #BF616A;">p</span><span>&gt;</span></span>
+<span class="giallo-l"><span>      &lt;/</span><span style="color: #BF616A;">body</span><span>&gt;</span></span>
+<span class="giallo-l"><span>   &lt;/</span><span style="color: #BF616A;">html</span><span>&gt;</span></span></code></pre>
+<p>Here, the 511 status code assures that non-browser clients will not
+interpret the response as being from the origin server, and the META
+HTML element redirects the user agent to the login server.</p>
+<h3 id="3-icmp-redirect">3. ICMP Redirect
+  <a class="anchor-link" aria-label="anchor link" href="#3-icmp-redirect">
+    &num;
+  </a>
+
+</h3>
+<p>TODO</p>
+<h3 id="4-dns-redirect">4. DNS Redirect
+  <a class="anchor-link" aria-label="anchor link" href="#4-dns-redirect">
+    &num;
+  </a>
+
+</h3>
+<p>Use <a rel="external" href="https://www.wikiwand.com/en/DNS_hijacking">DNS Hijacking</a> to return IP of captive portal for all DNS requests until client is auth'ed.</p>
+<p>DNS response should use TTL=0 to avoid poisoning client's DNS cache.</p>
+<p>Problem: how does this work if the client has their own DNS server configured (e.g. 8.8.8.8)? Could do DNS packet rewriting I guess...</p>
+<p>Problem: when the client looks up <code>google.com</code>, what if their local DNS cache is already hot? They will never make a DNS request that we can rewrite.</p>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

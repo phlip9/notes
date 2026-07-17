@@ -1,0 +1,3301 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>sealing | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="sealing">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="sealing">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/confidential computing/intel SGX/sealing/"
+    },
+    "headline": "sealing",
+    "image": ,
+    "datePublished": "2022-04-14",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Confidential Computing",
+            "item": "https://phlip9.com/notes/confidential computing/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Intel Sgx",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Sealing",
+            "item": "https://phlip9.com/notes/confidential computing/intel SGX/sealing/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing" checked />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx" checked />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#sealing">sealing</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#deriving-some-key-material">Deriving some Key Material</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#key-request-policy">Key Request Policy</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#preventing-version-downgrade-attacks">Preventing Version Downgrade Attacks</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#sealing-pattern">Sealing Pattern</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#migrating-data-between-enclaves">Migrating data between enclaves</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#offline-migration">Offline migration</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#online-migration">Online migration</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#examples">Examples</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#oasis">oasis</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#intel-linux-sgx">intel&#x2F;linux-sgx</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/#openenclave">openenclave</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="sealing">sealing
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-04-14 &middot; 5 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/confidential-computing/">&num;confidential-computing</a></li>
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/sgx/">&num;sgx</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<ul>
+<li>Some enclaves need to be able to securely persist state across machine restarts. Sealing provides one piece of the puzzle.</li>
+<li><a href="https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#sealing">Real code in oasis-core for sealing</a></li>
+</ul>
+<h2 id="deriving-some-key-material">Deriving some Key Material
+  <a class="anchor-link" aria-label="anchor link" href="#deriving-some-key-material">
+    &num;
+  </a>
+
+</h2>
+<p>While an enclave is running, the enclave application code has access to the <code>EGETKEY</code> instruction. Enclaves use this to derive Seal Key material.</p>
+<ol>
+<li>Enclave application code calls <code>EREPORT</code> to obtain the CPU <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#security-version-number-svn">SVN</a> and <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#independent-software-vendor-isv">ISV</a> SVN.</li>
+<li>The enclave application prepares a <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest">KEYREQUEST</a> struct with appropriate fields.
+<ol>
+<li>The <code>keyname=4</code>, for Seal Key.</li>
+<li>Choose a <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/sealing/#key-request-policy">Key Request Policy</a>.</li>
+<li>Choose a <code>keyid</code>. This should be a hashed Domain Separation Value, like you would input to a normal KDF. Some places also seem to use a random value, which you prepend in plaintext next to the ciphertext? Not sure when that's necessary. Is this also functioning like a nonce or something? Need to investigate...</li>
+</ol>
+</li>
+<li>User code calls the <code>EGETKEY</code> instruction with the <code>KEYREQUEST</code>.</li>
+<li>The instruction derives key material according to the policy defined by the <code>KEYREQUEST</code> and returns 128-bits key material to the enclave code.
+<ol>
+<li>IF the Keyrequest.ISVSVN &gt; Enclave.ISVSVN or Keyrequest.CPUSVN &gt; Enclave.CPUSVN, THEN the key request fails.</li>
+</ol>
+</li>
+</ol>
+<p>You can also view the <a rel="external" href="https://www.felixcloutier.com/x86/egetkey#temp-variables-in-egetkey-operational-flow">full <code>EGETKEY</code> flow</a> and some <a href="https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#egetkey">real code in oasis-core that calls EGETKEY</a>.</p>
+<h2 id="key-request-policy">Key Request Policy
+  <a class="anchor-link" aria-label="anchor link" href="#key-request-policy">
+    &num;
+  </a>
+
+</h2>
+<p>The enclave has two options</p>
+<ol>
+<li>The enclave can request a key derived from the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#enclave-measurement-mrenclave">Enclave Measurement (MRENCLAVE)</a>, which pins a derived key to the exact (1) TCB version, (2) enclave code, and (3) CPU product ID.</li>
+<li>The key can also be derived from the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#signer-measurement-mrsigner">Enclave Signer's Identity</a>, which allows any enclave <em>signed with this identity</em> to derive the same keys. Newer enclave versions can also successfully derive keys created on older versions, but older versions will fail to derive keys created on newer versions. See <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/sealing/#preventing-version-downgrade-attacks">Preventing Version Downgrade Attacks</a>.</li>
+</ol>
+<h2 id="preventing-version-downgrade-attacks">Preventing Version Downgrade Attacks
+  <a class="anchor-link" aria-label="anchor link" href="#preventing-version-downgrade-attacks">
+    &num;
+  </a>
+
+</h2>
+<p>Older versions of an enclave should not be able to derive keys or read sealed data from a newer enclave version. To prevent these downgrading attacks, the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest">KEYREQUEST</a> also contains the current CPU <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#security-version-number-svn">SVN</a> and <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#independent-software-vendor-isv">ISV</a> SVN. The <code>EGETKEY</code> intrinsic will then verify that the keyrequest  CPU SVN and ISV SVN are not beyond the current CPU SVN and enclave ISV SVN.</p>
+<h2 id="sealing-pattern">Sealing Pattern
+  <a class="anchor-link" aria-label="anchor link" href="#sealing-pattern">
+    &num;
+  </a>
+
+</h2>
+<p>Sealed data should effectively include the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest">SGX lingo &gt; KEYREQUEST</a> used to seal the data. When an enclave wants to decrypt some sealed data, it just passes this attached <code>KEYREQUEST</code> to <code>EGETKEY</code>. An enclave should then reseal the data, but with a freshly generated Seal Key. This will ratchet any old secure platform versions forward.</p>
+<h2 id="migrating-data-between-enclaves">Migrating data between enclaves
+  <a class="anchor-link" aria-label="anchor link" href="#migrating-data-between-enclaves">
+    &num;
+  </a>
+
+</h2>
+<ol>
+<li><strong>Same platform, same enclave, different instances</strong>
+<ol>
+<li>Offline migration is always possible. Both enclaves will simply rederive the same keys.</li>
+</ol>
+</li>
+<li><strong>Same platform, different enclave versions</strong>
+<ol>
+<li>If the enclave has a newer security version for the CPU SVN + ISV SVN and the <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/SGX%20lingo/#keyrequest">Keypolicy</a> is set to <code>MRSIGNER</code>
+<ol>
+<li>Then Offline migration is possible. Both enclaves will derive the same keys.</li>
+</ol>
+</li>
+<li>Otherwise, online migration is necessary.</li>
+</ol>
+</li>
+<li><strong>Different platform, same or different enclave</strong>
+<ol>
+<li>Online migration is necessary.</li>
+</ol>
+</li>
+</ol>
+<h3 id="offline-migration">Offline migration
+  <a class="anchor-link" aria-label="anchor link" href="#offline-migration">
+    &num;
+  </a>
+
+</h3>
+<p>We say offline migration is available when no coordination is required for two enclaves to read each other's sealed data.</p>
+<h3 id="online-migration">Online migration
+  <a class="anchor-link" aria-label="anchor link" href="#online-migration">
+    &num;
+  </a>
+
+</h3>
+<p>In contrast, online migration requires both enclaves to coordinate. Both enclaves usually need to be online and able to communicate. The enclaves then establish a secure channel using <a href="https://phlip9.com/notes/confidential%20computing/intel%20SGX/remote%20attestation/">remote attestation</a> and migrate secrets or other unsealed data over the secure channel.</p>
+<p>Another approach is to delegate key distribution to a shared enclave service. This is what <a href="https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/">oasis</a> does with their <a href="https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#key-manager-enclaves">oasis &gt; Key Manager Enclaves</a>. Here compute enclaves store their machine-specific keys with the key manager enclaves, along with a policy for which other enclaves can read the keys. This way enclaves don't need to communicate with or attest each other directly and can instead just query the local key manager enclave.</p>
+<h2 id="examples">Examples
+  <a class="anchor-link" aria-label="anchor link" href="#examples">
+    &num;
+  </a>
+
+</h2>
+<h3 id="oasis">oasis
+  <a class="anchor-link" aria-label="anchor link" href="#oasis">
+    &num;
+  </a>
+
+</h3>
+<p>See: <a href="https://phlip9.com/notes/b%20l%20o%20c%20k%20c%20h%20a%20i%20n/oasis/#sealing">oasis &gt; Sealing</a></p>
+<h3 id="intel-linux-sgx">intel/linux-sgx
+  <a class="anchor-link" aria-label="anchor link" href="#intel-linux-sgx">
+    &num;
+  </a>
+
+</h3>
+<p><a rel="external" href="https://github.com/intel/linux-sgx/blob/26c458905b72e66db7ac1feae04b43461ce1b76f/sdk/tseal/tSeal.cpp">https://github.com/intel/linux-sgx/blob/26c458905b72e66db7ac1feae04b43461ce1b76f/sdk/tseal/tSeal.cpp</a></p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #B48EAD;">extern</span><span> &quot;</span><span style="color: #A3BE8C;">C</span><span>&quot; sgx_status_t</span><span style="color: #8FA1B3;"> sgx_seal_data_ex</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint16_t</span><span> key_policy,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const</span><span> sgx_attributes_t attribute_mask,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const</span><span> sgx_misc_select_t misc_mask,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint32_t</span><span> additional_MACtext_length,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint8_t</span><span> *p_additional_MACtext,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint32_t</span><span> text2encrypt_length,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint8_t</span><span> *p_text2encrypt,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	const uint32_t</span><span> sealed_data_size,</span></span>
+<span class="giallo-l"><span>	sgx_sealed_data_t *p_sealed_data</span></span>
+<span class="giallo-l"><span>) {</span></span>
+<span class="giallo-l"><span>    sgx_status_t err = SGX_ERROR_UNEXPECTED;</span></span>
+<span class="giallo-l"><span>    sgx_key_id_t keyID;</span></span>
+<span class="giallo-l"><span>    sgx_key_request_t tmp_key_request;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    uint8_t</span><span> payload_iv[SGX_SEAL_IV_SIZE];</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memset</span><span>(&amp;payload_iv,</span><span style="color: #D08770;"> 0</span><span>, sizeof(payload_iv));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    uint32_t</span><span> sealedDataSize =</span><span style="color: #8FA1B3;"> sgx_calc_sealed_data_size</span><span>(additional_MACtext_length,text2encrypt_length);</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Check for overflow</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (sealedDataSize == UINT32_MAX)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    //</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Check parameters</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    //</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // check key_request-&gt;key_policy: </span></span>
+<span class="giallo-l"><span style="color: #65737E;">    //  1. Reserved bits are not set</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    //  2. Either MRENCLAVE or MRSIGNER is set</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((key_policy &amp; ~(SGX_KEYPOLICY_MRENCLAVE | SGX_KEYPOLICY_MRSIGNER | (KEY_POLICY_KSS) | SGX_KEYPOLICY_NOISVPRODID)) ||</span></span>
+<span class="giallo-l"><span>        (key_policy &amp; (SGX_KEYPOLICY_MRENCLAVE | SGX_KEYPOLICY_MRSIGNER)) ==</span><span style="color: #D08770;"> 0</span><span>)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ( !(attribute_mask.flags &amp; SGX_FLAGS_INITTED)</span></span>
+<span class="giallo-l"><span>      || !(attribute_mask.flags &amp; SGX_FLAGS_DEBUG) )</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((additional_MACtext_length &gt;</span><span style="color: #D08770;"> 0</span><span>) &amp;&amp; (p_additional_MACtext ==</span><span style="color: #D08770;"> NULL</span><span>))</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((text2encrypt_length ==</span><span style="color: #D08770;"> 0</span><span>) || (p_text2encrypt ==</span><span style="color: #D08770;"> NULL</span><span>) || (!</span><span style="color: #8FA1B3;">sgx_is_within_enclave</span><span>(p_text2encrypt,text2encrypt_length)))</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Ensure sealed data blob is within an enclave during the sealing process</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((p_sealed_data ==</span><span style="color: #D08770;"> NULL</span><span>) || (!</span><span style="color: #8FA1B3;">sgx_is_within_enclave</span><span>(p_sealed_data,sealed_data_size)))</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Ensure aad data does not cross enclave boundary</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((additional_MACtext_length &gt;</span><span style="color: #D08770;"> 0</span><span>) &amp;&amp;</span></span>
+<span class="giallo-l"><span>        (!(</span><span style="color: #8FA1B3;">sgx_is_within_enclave</span><span>(p_additional_MACtext,additional_MACtext_length) ||</span><span style="color: #8FA1B3;"> sgx_is_outside_enclave</span><span>(p_additional_MACtext, additional_MACtext_length))))</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (sealedDataSize != sealed_data_size)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> SGX_ERROR_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memset</span><span>(p_sealed_data,</span><span style="color: #D08770;"> 0</span><span>, sealedDataSize);</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memset</span><span>(&amp;keyID,</span><span style="color: #D08770;"> 0</span><span>, sizeof(sgx_key_id_t));</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memset</span><span>(&amp;tmp_key_request,</span><span style="color: #D08770;"> 0</span><span>, sizeof(sgx_key_request_t));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Get the report to obtain isv_svn and cpu_svn</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const</span><span> sgx_report_t *report =</span><span style="color: #8FA1B3;"> sgx_self_report</span><span>();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Get a random number to populate the key_id of the key_request</span></span>
+<span class="giallo-l"><span>    err =</span><span style="color: #8FA1B3;"> sgx_read_rand</span><span>(reinterpret_cast&lt;</span><span style="color: #B48EAD;">uint8_t</span><span> *&gt;(&amp;keyID), sizeof(sgx_key_id_t));</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (err != SGX_SUCCESS)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        goto</span><span> clear_return;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memcpy</span><span>(&amp;(tmp_key_request.cpu_svn), &amp;(report-&gt;body.cpu_svn), sizeof(sgx_cpu_svn_t));</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memcpy</span><span>(&amp;(tmp_key_request.isv_svn), &amp;(report-&gt;body.isv_svn), sizeof(sgx_isv_svn_t));</span></span>
+<span class="giallo-l"><span>    tmp_key_request.config_svn = report-&gt;body.config_svn;</span></span>
+<span class="giallo-l"><span>    tmp_key_request.key_name = SGX_KEYSELECT_SEAL;</span></span>
+<span class="giallo-l"><span>    tmp_key_request.key_policy = key_policy;</span></span>
+<span class="giallo-l"><span>    tmp_key_request.attribute_mask.flags = attribute_mask.flags;</span></span>
+<span class="giallo-l"><span>    tmp_key_request.attribute_mask.xfrm = attribute_mask.xfrm;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memcpy</span><span>(&amp;(tmp_key_request.key_id), &amp;keyID, sizeof(sgx_key_id_t));</span></span>
+<span class="giallo-l"><span>    tmp_key_request.misc_mask = misc_mask;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    err =</span><span style="color: #8FA1B3;"> random_stack_advance</span><span>&lt;</span><span style="color: #D08770;">0x400</span><span>&gt;(sgx_seal_data_iv, additional_MACtext_length, p_additional_MACtext,</span></span>
+<span class="giallo-l"><span>        text2encrypt_length, p_text2encrypt, payload_iv, &amp;tmp_key_request, p_sealed_data);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (err == SGX_SUCCESS)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">        // Copy data from the temporary key request buffer to the sealed data blob</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">        memcpy</span><span>(&amp;(p_sealed_data-&gt;key_request), &amp;tmp_key_request, sizeof(sgx_key_request_t));</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>clear_return:</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Clear temp state</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    memset_s</span><span>(&amp;keyID, sizeof(sgx_key_id_t),</span><span style="color: #D08770;"> 0</span><span>, sizeof(sgx_key_id_t));</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span> err;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h3 id="openenclave">openenclave
+  <a class="anchor-link" aria-label="anchor link" href="#openenclave">
+    &num;
+  </a>
+
+</h3>
+<p><a rel="external" href="https://github.com/openenclave/openenclave/blob/master/enclave/core/seal.c#L93">https://github.com/openenclave/openenclave/blob/master/enclave/core/seal.c#L93</a></p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="cpp"><span class="giallo-l"></span>
+<span class="giallo-l"><span>oe_result_t</span><span style="color: #8FA1B3;"> oe_seal</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const</span><span> oe_uuid_t</span><span style="color: #B48EAD;">*</span><span> plugin_id,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const</span><span> oe_seal_setting_t</span><span style="color: #B48EAD;">*</span><span> settings,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> settings_count,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const uint8_t*</span><span> plaintext,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> plaintext_size,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const uint8_t*</span><span> additional_data,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> additional_data_size,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    uint8_t**</span><span> blob,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t*</span><span> blob_size)</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span>    oe_result_t result;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const</span><span> oe_seal_plugin_definition_t* plugin;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> i;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (blob ==</span><span style="color: #D08770;"> NULL</span><span> || blob_size ==</span><span style="color: #D08770;"> NULL</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    *blob =</span><span style="color: #D08770;"> NULL</span><span>;</span></span>
+<span class="giallo-l"><span>    *blob_size =</span><span style="color: #D08770;"> 0</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> ((settings ==</span><span style="color: #D08770;"> NULL</span><span>) != (settings_count ==</span><span style="color: #D08770;"> 0</span><span>) ||</span></span>
+<span class="giallo-l"><span>        !</span><span style="color: #8FA1B3;">oe_is_within_enclave</span><span>(settings, settings_count * sizeof(*settings)) ||</span></span>
+<span class="giallo-l"><span>        (plaintext ==</span><span style="color: #D08770;"> NULL</span><span>) != (plaintext_size ==</span><span style="color: #D08770;"> 0</span><span>) ||</span></span>
+<span class="giallo-l"><span>        !</span><span style="color: #8FA1B3;">oe_is_within_enclave</span><span>(plaintext, plaintext_size) ||</span></span>
+<span class="giallo-l"><span>        (additional_data ==</span><span style="color: #D08770;"> NULL</span><span>) != (additional_data_size ==</span><span style="color: #D08770;"> 0</span><span>) ||</span></span>
+<span class="giallo-l"><span>        ((additional_data !=</span><span style="color: #D08770;"> NULL</span><span>) &amp;&amp;</span></span>
+<span class="giallo-l"><span>         !</span><span style="color: #8FA1B3;">oe_is_within_enclave</span><span>(additional_data, additional_data_size)))</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    for</span><span> (i =</span><span style="color: #D08770;"> 0</span><span>; i &lt; settings_count; ++i)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        if</span><span> (settings[i].type &lt;</span><span style="color: #D08770;"> 0</span><span> || settings[i].type &gt;= OE_SEAL_SETTING_MAX)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            return</span><span> OE_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        if</span><span> (settings[i].size &gt;</span><span style="color: #D08770;"> 0</span><span> &amp;&amp;</span></span>
+<span class="giallo-l"><span>            !</span><span style="color: #8FA1B3;">oe_is_within_enclave</span><span>(settings[i].value.p, settings[i].size))</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            return</span><span> OE_INVALID_PARAMETER;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (</span><span style="color: #8FA1B3;">oe_mutex_lock</span><span>(&amp;_plugins_lock) != OE_OK)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_UNEXPECTED;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    plugin =</span><span style="color: #8FA1B3;"> _find_plugin</span><span>(plugin_id);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (plugin ==</span><span style="color: #D08770;"> NULL</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">        OE_RAISE</span><span>(OE_NOT_FOUND);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    result = plugin-&gt;</span><span style="color: #8FA1B3;">seal</span><span>(</span></span>
+<span class="giallo-l"><span>        settings,</span></span>
+<span class="giallo-l"><span>        settings_count,</span></span>
+<span class="giallo-l"><span>        plaintext,</span></span>
+<span class="giallo-l"><span>        plaintext_size,</span></span>
+<span class="giallo-l"><span>        additional_data,</span></span>
+<span class="giallo-l"><span>        additional_data_size,</span></span>
+<span class="giallo-l"><span>        blob,</span></span>
+<span class="giallo-l"><span>        blob_size);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>done:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    oe_mutex_unlock</span><span>(&amp;_plugins_lock);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span> result;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p><a rel="external" href="https://github.com/openenclave/openenclave/blob/master/include/openenclave/bits/sgx/sgxtypes.h#L1073">https://github.com/openenclave/openenclave/blob/master/include/openenclave/bits/sgx/sgxtypes.h#L1073</a></p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #65737E;">/* Enclave MISCSELECT Flags Bit Masks, additional information to an SSA frame */</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave page fault and general protection exception are</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> * reported */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_MISC_FLAGS_PF_GP_EXIT_INFO</span><span style="color: #D08770;"> 0x0000000000000001ULL</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">/* Enclave Flags Bit Masks */</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave is initialized */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_INITTED</span><span style="color: #D08770;"> 0x0000000000000001ULL</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave is debug */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_DEBUG</span><span style="color: #D08770;"> 0x0000000000000002ULL</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave is 64 bit */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_MODE64BIT</span><span style="color: #D08770;"> 0x0000000000000004ULL</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave has access to provision key */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_PROVISION_KEY</span><span style="color: #D08770;"> 0x0000000000000010ULL</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* If set, then the enclave has access to EINITTOKEN key */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_EINITTOKEN_KEY</span><span style="color: #D08770;"> 0x0000000000000020ULL</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_RESERVED</span><span style="color: #96B5B4;">                                         \</span></span>
+<span class="giallo-l"><span>    (~(SGX_FLAGS_INITTED | SGX_FLAGS_DEBUG | SGX_FLAGS_MODE64BIT |</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>       SGX_FLAGS_PROVISION_KEY | SGX_FLAGS_EINITTOKEN_KEY))</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">/* Set the bits which have no security implications to 0 for sealed data</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> migration */</span></span>
+<span class="giallo-l"><span style="color: #65737E;">/* Bits which have no security implications in attributes.flags:</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> *    Reserved bit[55:6]  - 0xFFFFFFFFFFFFC0ULL</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> *    SGX_FLAGS_MODE64BIT</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> *    SGX_FLAGS_PROVISION_KEY</span></span>
+<span class="giallo-l"><span style="color: #65737E;"> *    SGX_FLAGS_EINITTOKEN_KEY */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_FLAGS_NON_SECURITY_BITS</span><span style="color: #96B5B4;">                                        \</span></span>
+<span class="giallo-l"><span>    (</span><span style="color: #D08770;">0xFFFFFFFFFFFFC0ULL</span><span> | SGX_FLAGS_MODE64BIT | SGX_FLAGS_PROVISION_KEY |</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>     SGX_FLAGS_EINITTOKEN_KEY)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">/* bit[27:0]: have no security implications */</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> SGX_MISC_NON_SECURITY_BITS</span><span style="color: #D08770;"> 0x0FFFFFFFU</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">/* OE seal key default flag masks*/</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> OE_SEALKEY_DEFAULT_FLAGSMASK</span><span> (~SGX_FLAGS_NON_SECURITY_BITS)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> OE_SEALKEY_DEFAULT_MISCMASK</span><span> (~SGX_MISC_NON_SECURITY_BITS)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">#define</span><span style="color: #8FA1B3;"> OE_SEALKEY_DEFAULT_XFRMMASK</span><span> (0X0ULL)</span></span></code></pre>
+<p><a rel="external" href="https://github.com/openenclave/openenclave/blob/master/enclave/sealing/sgx/seal_gcmaes.c">https://github.com/openenclave/openenclave/blob/master/enclave/sealing/sgx/seal_gcmaes.c</a></p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="cpp"><span class="giallo-l"><span style="color: #B48EAD;">static</span><span> oe_result_t</span><span style="color: #8FA1B3;"> _init_key_request</span><span>(sgx_key_request_t</span><span style="color: #B48EAD;">*</span><span> keyrequest)</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span>    sgx_report_t report = {{{</span><span style="color: #D08770;">0</span><span>}}};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    oe_result_t result = OE_OK;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">        oe_memset_s</span><span>(keyrequest, sizeof(*keyrequest),</span><span style="color: #D08770;"> 0</span><span>, sizeof(*keyrequest)));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">sgx_create_report</span><span>(</span><span style="color: #D08770;">NULL</span><span>,</span><span style="color: #D08770;"> 0</span><span>,</span><span style="color: #D08770;"> NULL</span><span>,</span><span style="color: #D08770;"> 0</span><span>, &amp;report));</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_memcpy_s</span><span>(</span></span>
+<span class="giallo-l"><span>        &amp;keyrequest-&gt;cpu_svn,</span></span>
+<span class="giallo-l"><span>        sizeof(keyrequest-&gt;cpu_svn),</span></span>
+<span class="giallo-l"><span>        &amp;report.body.cpusvn,</span></span>
+<span class="giallo-l"><span>        sizeof(report.body.cpusvn)));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    keyrequest-&gt;key_name = SGX_KEYSELECT_SEAL;</span></span>
+<span class="giallo-l"><span>    keyrequest-&gt;key_policy = SGX_KEYPOLICY_MRSIGNER;</span></span>
+<span class="giallo-l"><span>    keyrequest-&gt;isv_svn = report.body.isvsvn;</span></span>
+<span class="giallo-l"><span>    keyrequest-&gt;attribute_mask.flags = OE_SEALKEY_DEFAULT_FLAGSMASK;</span></span>
+<span class="giallo-l"><span>    keyrequest-&gt;attribute_mask.xfrm = OE_SEALKEY_DEFAULT_XFRMMASK;</span></span>
+<span class="giallo-l"><span>    keyrequest-&gt;misc_attribute_mask = OE_SEALKEY_DEFAULT_MISCMASK;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>done:</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span> result;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">static</span><span> oe_result_t</span><span style="color: #8FA1B3;"> _seal</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const</span><span> oe_seal_setting_t</span><span style="color: #B48EAD;">*</span><span> settings,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> settings_count,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const uint8_t*</span><span> plaintext,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> plaintext_size,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    const uint8_t*</span><span> additional_data,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> additional_data_size,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    uint8_t**</span><span> blob,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t*</span><span> blob_size)</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span>    oe_result_t result = OE_OK;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    struct</span><span> _sealed_blob_header</span><span style="color: #B48EAD;">*</span><span> header;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    uint8_t</span><span>* key =</span><span style="color: #D08770;"> NULL</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> size;</span></span>
+<span class="giallo-l"><span>    oe_entropy_kind_t kind;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    size_t</span><span> i;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    size = sizeof(*header);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (plaintext_size &gt; OE_UINT32_MAX - size)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_INTEGER_OVERFLOW;</span></span>
+<span class="giallo-l"><span>    size += plaintext_size;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (additional_data_size &gt; OE_UINT32_MAX - size)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_INTEGER_OVERFLOW;</span></span>
+<span class="giallo-l"><span style="color: #65737E;">    // Please note that blob will NOT include additional_data</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    *blob_size = size;</span></span>
+<span class="giallo-l"><span>    *blob = (</span><span style="color: #B48EAD;">uint8_t</span><span>*)</span><span style="color: #8FA1B3;">oe_calloc</span><span>(</span><span style="color: #D08770;">1</span><span>, size);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (*blob ==</span><span style="color: #D08770;"> NULL</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        return</span><span> OE_OUT_OF_MEMORY;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    header = (</span><span style="color: #B48EAD;">struct</span><span> _sealed_blob_header</span><span style="color: #B48EAD;">*</span><span>)*blob;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">_init_key_request</span><span>(&amp;header-&gt;keyrequest));</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_get_entropy</span><span>(</span></span>
+<span class="giallo-l"><span>        header-&gt;keyrequest.key_id, sizeof(header-&gt;keyrequest.key_id), &amp;kind));</span></span>
+<span class="giallo-l"><span>    header-&gt;ciphertext_size = (</span><span style="color: #B48EAD;">uint32_t</span><span>)plaintext_size;</span></span>
+<span class="giallo-l"><span>    header-&gt;total_size = (</span><span style="color: #B48EAD;">uint32_t</span><span>)(plaintext_size + additional_data_size);</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_get_entropy</span><span>(header-&gt;iv, sizeof(header-&gt;iv), &amp;kind));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    for</span><span> (i =</span><span style="color: #D08770;"> 0</span><span>; i &lt; settings_count; ++i)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        switch</span><span> (settings[i].type)</span></span>
+<span class="giallo-l"><span>        {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_POLICY:</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                switch</span><span> (settings[i].value.w)</span></span>
+<span class="giallo-l"><span>                {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                    case</span><span> OE_SEAL_POLICY_UNIQUE:</span></span>
+<span class="giallo-l"><span>                        header-&gt;keyrequest.key_policy = SGX_KEYPOLICY_MRENCLAVE;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                        break</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                    case</span><span> OE_SEAL_POLICY_PRODUCT:</span></span>
+<span class="giallo-l"><span>                        header-&gt;keyrequest.key_policy = SGX_KEYPOLICY_MRSIGNER;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                        break</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                    default</span><span>:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                        OE_RAISE</span><span>(OE_INVALID_PARAMETER);</span></span>
+<span class="giallo-l"><span>                }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_IV:</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                if</span><span> (settings[i].size != sizeof(header-&gt;iv))</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                    OE_RAISE</span><span>(OE_INVALID_PARAMETER);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                else</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_memcpy_s</span><span>(</span></span>
+<span class="giallo-l"><span>                        header-&gt;iv,</span></span>
+<span class="giallo-l"><span>                        sizeof(header-&gt;iv),</span></span>
+<span class="giallo-l"><span>                        settings[i].value.p,</span></span>
+<span class="giallo-l"><span>                        settings[i].size));</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_KEYNAME:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.key_name = settings[i].value.w;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_ISVSVN:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.isv_svn = settings[i].value.w;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_CPUSVN:</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                if</span><span> (settings[i].size != sizeof(header-&gt;keyrequest.cpu_svn))</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                    OE_RAISE</span><span>(OE_INVALID_PARAMETER);</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_memcpy_s</span><span>(</span></span>
+<span class="giallo-l"><span>                    header-&gt;keyrequest.cpu_svn,</span></span>
+<span class="giallo-l"><span>                    sizeof(header-&gt;keyrequest.cpu_svn),</span></span>
+<span class="giallo-l"><span>                    settings[i].value.p,</span></span>
+<span class="giallo-l"><span>                    settings[i].size));</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_FLAGSMASK:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.attribute_mask.flags = settings[i].value.q;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_XFRMMASK:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.attribute_mask.xfrm = settings[i].value.q;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_MISCMASK:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.misc_attribute_mask = settings[i].value.d;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_CONFIGSVN:</span></span>
+<span class="giallo-l"><span>                header-&gt;keyrequest.config_svn = settings[i].value.w;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">                break</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_ADDITIONAL_CONTEXT:</span></span>
+<span class="giallo-l"><span style="color: #65737E;">                // Custom OE_SEAL_SETTING_ADDITIONAL_CONTEXT not supported</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            case</span><span> OE_SEAL_SETTING_SGX_CET_ATTRIBUTES_MASK:</span></span>
+<span class="giallo-l"><span style="color: #65737E;">                // OE_SEAL_SETTING_SGX_CET_ATTRIBUTES_MASK not supported</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            default</span><span>:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">                OE_RAISE</span><span>(OE_UNSUPPORTED);</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_get_seal_key</span><span>(</span></span>
+<span class="giallo-l"><span>        (</span><span style="color: #B48EAD;">uint8_t</span><span>*)&amp;header-&gt;keyrequest,</span></span>
+<span class="giallo-l"><span>        sizeof(header-&gt;keyrequest),</span></span>
+<span class="giallo-l"><span>        &amp;key,</span></span>
+<span class="giallo-l"><span>        &amp;size));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_STATIC_ASSERT</span><span>(sizeof(header-&gt;tag) &gt;=</span><span style="color: #D08770;"> 16</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    OE_CHECK</span><span>(</span><span style="color: #8FA1B3;">oe_aes_gcm_encrypt</span><span>(</span></span>
+<span class="giallo-l"><span>        key,</span></span>
+<span class="giallo-l"><span>        size,</span></span>
+<span class="giallo-l"><span>        header-&gt;iv,</span></span>
+<span class="giallo-l"><span>        sizeof(header-&gt;iv),</span></span>
+<span class="giallo-l"><span>        additional_data,</span></span>
+<span class="giallo-l"><span>        additional_data_size,</span></span>
+<span class="giallo-l"><span>        plaintext,</span></span>
+<span class="giallo-l"><span>        plaintext_size,</span></span>
+<span class="giallo-l"><span>        (</span><span style="color: #B48EAD;">uint8_t</span><span>*)(header +</span><span style="color: #D08770;"> 1</span><span>),</span></span>
+<span class="giallo-l"><span>        plaintext_size,</span></span>
+<span class="giallo-l"><span>        header-&gt;tag));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>done:</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    oe_free_key</span><span>(key, size,</span><span style="color: #D08770;"> NULL</span><span>,</span><span style="color: #D08770;"> 0</span><span>);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (result != OE_OK)</span></span>
+<span class="giallo-l"><span>    {</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">        oe_free</span><span>(*blob);</span></span>
+<span class="giallo-l"><span>        *blob =</span><span style="color: #D08770;"> NULL</span><span>;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span> result;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

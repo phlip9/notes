@@ -1,0 +1,3078 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>network interfaces | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/networking/network interfaces/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="network interfaces">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="network interfaces">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/networking/network interfaces/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/networking/network interfaces/"
+    },
+    "headline": "network interfaces",
+    "image": ,
+    "datePublished": "2022-04-17",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Networking",
+            "item": "https://phlip9.com/notes/networking/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Network Interfaces",
+            "item": "https://phlip9.com/notes/networking/network interfaces/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking" checked />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#network-interfaces">network interfaces</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#physical-network-interfaces">Physical Network Interfaces</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#virtual-network-interfaces">Virtual Network Interfaces</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#loopback">Loopback</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#vlans">VLANs</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#stacked-vlans">Stacked VLANs</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#bridges">Bridges</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#bonds">Bonds</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#tunnels-taps">Tunnels&#x2F;Taps</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#special-purpose">Special Purpose</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#deprecated-aliases">(Deprecated) Aliases</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/networking/network interfaces/#viewing-the-current-network-interfaces">Viewing the current network interfaces</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="network-interfaces">network interfaces
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-04-17 &middot; 6 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/networking/">&num;networking</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<p>Wikipedia: <a rel="external" href="https://www.wikiwand.com/en/Virtual_network_interface">https://www.wikiwand.com/en/Virtual_network_interface</a></p>
+<p>Let's start with some basic definitions. A <strong>network interface</strong> is a <em>software interface</em> over some:</p>
+<ol>
+<li><strong>phyiscal networking hardware</strong>, like a <a href="https://phlip9.com/notes/networking/network%20interface%20card%20(NIC)/">network interface card (NIC)</a>. You'll see these named like <code>eth0</code>, <code>eth5</code>, <code>radio0</code>, <code>wlan3</code>.</li>
+<li><strong>virtual interface</strong>, like the "loopback" device or a <a rel="external" href="https://www.wireguard.com/">WireGuard VPN</a> tunnel.
+<ul>
+<li>Most virtual interfaces wrap a lower physical interface or another virtual interface. One exception is the loopback interface <code>lo</code> which stands alone.</li>
+<li>We have virtual interfaces to maximise flexibility when configuring our system.</li>
+<li>These will look like <code>lo</code>, <code>eth0:1</code>, <code>eth0.1</code>, <code>vlan2</code>, <code>br-lan</code>, <code>pppoe-dsl</code>, <code>gre0</code>, <code>sit0</code>, <code>tun0</code>, <code>imq0</code>, <code>teql0</code>.</li>
+</ul>
+</li>
+</ol>
+<p><em>Helpful Tip:</em> Cloud machines will often present two virtual networking interfaces, one for public internet traffic and one for private VPC traffic.</p>
+<h2 id="physical-network-interfaces">Physical Network Interfaces
+  <a class="anchor-link" aria-label="anchor link" href="#physical-network-interfaces">
+    &num;
+  </a>
+
+</h2>
+<p>Ex: <code>eth0</code>, <code>eth4</code>, <code>radio0</code>, <code>wlan2</code></p>
+<ul>
+<li>These interfaces always represent an actual hardware device such as an Ethernet or Wireless <a href="https://phlip9.com/notes/networking/network%20interface%20card%20(NIC)/">NIC</a>.</li>
+<li>Physical network interfaces are provided by the kernel and presented to the user for configuration and consumption.</li>
+</ul>
+<h2 id="virtual-network-interfaces">Virtual Network Interfaces
+  <a class="anchor-link" aria-label="anchor link" href="#virtual-network-interfaces">
+    &num;
+  </a>
+
+</h2>
+<h3 id="loopback">Loopback
+  <a class="anchor-link" aria-label="anchor link" href="#loopback">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>lo</code>, <code>lo0</code></p>
+<ul>
+<li>The <a rel="external" href="https://www.wikiwand.com/en/Loopback">Loopback</a> interface is provided by the kernel so applications can easily communicate with other local applications without any special code changes.</li>
+<li>Any traffic sent to the loopback IP is immediately passed back up the network stack as if it had been received from another device.</li>
+<li>The IPv4 range <code>127.0.0.1/8</code> and IPv6 address <code>::1/128</code> both represent the loopback device.</li>
+<li>The DNS name <code>localhost</code> is also a special name that resolves to <code>127.0.0.1</code> or <code>::1</code>.</li>
+</ul>
+<h3 id="vlans">VLANs
+  <a class="anchor-link" aria-label="anchor link" href="#vlans">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>eth4.0</code>, <code>eth4.1</code>, <code>eth4.2</code>, <code>vlan0</code></p>
+<ul>
+<li><a rel="external" href="https://www.wikiwand.com/en/Virtual_LAN">Virtual LANs</a> let you partition a single link-layer (L2) network into multiple virtual L2 networks.</li>
+<li>VLANs let you <em>decouple a user's network location from their physical location</em>.</li>
+<li>VLANs let you <em>separate and isolate network applications</em>, despite sitting on the same physical network.</li>
+<li>VLANs let you <em>group hosts together even if they're not directly connected to same network switch</em>, simplifying network design and deployment.</li>
+<li>Cloud hosts often use VLANs to provide customers with a single VPC network spanning multiple regions. Multiple customers can use the same physical links yet remain safely isolated.</li>
+<li>VLANs use the <a rel="external" href="https://www.wikiwand.com/en/IEEE%20802.1Q">IEEE 802.1Q</a> Ethernet frame header extension to "tag" each frame with its associated VLAN id. Since VLANs operate at L2, they let us support higher layers (L3+) transparently.</li>
+</ul>
+<h3 id="stacked-vlans">Stacked VLANs
+  <a class="anchor-link" aria-label="anchor link" href="#stacked-vlans">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>Create VLANs, inside VLANs, ..., inside VLANs : )</li>
+<li>Uses <a rel="external" href="https://www.wikiwand.com/en/IEEE%20802.1ad">IEEE 802.1ad</a> to add multiple VLAN tags to ethernet frames.</li>
+</ul>
+<h3 id="bridges">Bridges
+  <a class="anchor-link" aria-label="anchor link" href="#bridges">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>br0</code>, <code>br-lan</code></p>
+<ul>
+<li><a rel="external" href="https://www.wikiwand.com/en/Network_bridge">Network Bridges</a> make multiple physical or virtual network interfaces act as if they were just one network interface.</li>
+<li>In some ways, bridges are the opposite of VLANs.</li>
+<li>For example, my local OpenWRT router groups all LAN ethernet devices and wireless radios into one logical LAN interface, called <code>br-lan</code>. This way my phone and laptop can easily connect to my desktop, even though the first two connect over WiFi and the last connects over wired ethernet. From each device's perspective, the network looks like a single unified network.</li>
+<li>See: <a rel="external" href="https://wiki.linuxfoundation.org/networking/bridge">Linux Foundation Wiki - bridge</a></li>
+</ul>
+<h3 id="bonds">Bonds
+  <a class="anchor-link" aria-label="anchor link" href="#bonds">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>bond0</code></p>
+<ul>
+<li><a rel="external" href="https://docs.oracle.com/cd/E27300_01/E27309/html/vmusg-network-bonding.html">Network Bonding</a> allows you to combine multiple links into one big link for higher throughput or reliability.
+<ul>
+<li>See: <a rel="external" href="https://www.wikiwand.com/en/Link%20aggregation">Link Aggregation</a></li>
+</ul>
+</li>
+<li>For example, if you have two upstream eth interfaces that each support 50 Mbps throughput, you can bond them into one virtual eth interface with a maximum of 100 Mbps throughput.</li>
+</ul>
+<h3 id="tunnels-taps">Tunnels/Taps
+  <a class="anchor-link" aria-label="anchor link" href="#tunnels-taps">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>pppoe-dsl</code>, <code>wg0</code>, <code>tun0</code>, <code>tunl0</code>, <code>tap2</code>, <code>vpn1</code>, <code>sit0</code></p>
+<ul>
+<li>Tunnels let you send L3 packets or L2 frames over a <a rel="external" href="https://www.wikiwand.com/en/tunneling%20protocol">Tunneling Protocol</a>, usually to a remote host.</li>
+<li>For example, <a rel="external" href="https://www.wireguard.com/">WireGuard</a> is a secure VPN protocol that provides a secure <code>wg0</code> tunnel interface.
+<ul>
+<li>It lets you send standard L4 TCP/UDP/whatever packets over the <code>wg0</code> tunnel to configured remote WireGuard peers.</li>
+<li>Data sent through the tunnel is wrapped, encrypted, and sent over WireGuard's UDP protocol to the destination peer.</li>
+<li>WireGuard servers maintain a Cryptokey routing table that associates a pubkey and set of allowed source CIDRs for each peer.</li>
+</ul>
+</li>
+<li><a rel="external" href="https://www.wikiwand.com/en/TUN/TAP">Linux TUN/TAP</a> lets userspace programs provide virtual software network interfaces at L3 (TUN, IP packets) or L2 (TAP, Ethernet frames).
+<ul>
+<li>TUN devices can be used to intercept and dump packets, provide a userspace-implemented VPN, relay packets over TOR, and much more!</li>
+<li>See: <a rel="external" href="https://wiki.linuxfoundation.org/networking/tunneling">Linux Foundation Wiki &gt; Tunneling</a></li>
+<li>See: <a rel="external" href="https://www.kernel.org/doc/html/latest/networking/tuntap.html">Linux Networking Documentation &gt; Universal TUN/TAP</a></li>
+<li>See: <a rel="external" href="https://www.gabriel.urdhr.fr/2021/05/08/tuntap/">https://www.gabriel.urdhr.fr/2021/05/08/tuntap/</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="special-purpose">Special Purpose
+  <a class="anchor-link" aria-label="anchor link" href="#special-purpose">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>icq0</code>, <code>teql0</code></p>
+<ul>
+<li>Some interfaces provide traffic shaping or load balancing functionality, like <a rel="external" href="https://github.com/imq/linuximq/wiki/WhatIs">Intermediate Queueing Device (IMQ)</a> for ingress shaping or <a rel="external" href="https://lartc.org/howto/lartc.loadshare.html">True Link Equalizer</a> which round-robins packets into 2-or-more interfaces.</li>
+</ul>
+<h3 id="deprecated-aliases">(Deprecated) Aliases
+  <a class="anchor-link" aria-label="anchor link" href="#deprecated-aliases">
+    &num;
+  </a>
+
+</h3>
+<p>Ex: <code>eth4:5</code>, <code>eth4:6</code></p>
+<ul>
+<li>Back in the day, Linux only supported one IP+mask per interface. Aliases are a way to present an existing interface with more than one IP+mask. Aliases are no longer necessary, but exist for backwards-compatibility reasons.</li>
+<li>See: <a rel="external" href="https://www.kernel.org/doc/html/latest/networking/alias.html">Linux Networking Documentation &gt; IP-Aliasing</a></li>
+</ul>
+<h2 id="viewing-the-current-network-interfaces">Viewing the current network interfaces
+  <a class="anchor-link" aria-label="anchor link" href="#viewing-the-current-network-interfaces">
+    &num;
+  </a>
+
+</h2>
+<p>On a recent Linux kernel, you can easily view the available interfaces with <code>ip addr</code>. This command will list the current network interfaces along with their names, configuration, and CIDRs they're responsible for.</p>
+<p>Quickly, before we dive in, the network topology in these examples looks like:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>	      desktop</span></span>
+<span class="giallo-l"><span>.------------------------.</span></span>
+<span class="giallo-l"><span>|     vEth              eth                  eth        fiber</span></span>
+<span class="giallo-l"><span>| WSL &lt;---&gt; Windows 11 &lt;-|-&gt; OpenWRT Router &lt;---&gt; Modem &lt;---&gt; ISP</span></span>
+<span class="giallo-l"><span>|                        |</span></span>
+<span class="giallo-l"><span>&#39;------------------------&#39;</span></span></code></pre>
+<p>Starting with my desktop WSL Linux VM, the interfaces are fairly simple.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># Desktop Computer, Linux running in WSL</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ip addr</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">1:</span><span style="color: #A3BE8C;"> lo:</span><span> &lt;</span><span style="color: #A3BE8C;">LOOPBACK,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 65536</span><span style="color: #A3BE8C;"> qdisc noqueue state UNKNOWN group default qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/loopback</span><span style="color: #A3BE8C;"> 00:00:00:00:00:00 brd 00:00:00:00:00:00</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet</span><span style="color: #A3BE8C;"> 127.0.0.1/8 scope host lo</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> ::1/128 scope host</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span>	   </span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">2:</span><span style="color: #A3BE8C;"> eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc mq state UP group default qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 00:12:34:77:55:aa brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet</span><span style="color: #A3BE8C;"> 172.20.114.28/20 brd</span><span style="color: #D08770;"> 172.20.127.255</span><span style="color: #A3BE8C;"> scope global eth0</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::215:5dff:fea9:713/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># plus some disabled interfaces: bond0, dummy0, tunl0, sit0</span></span></code></pre>
+<p>Here we have a local loopback (lo) interface and a virtual ethernet interface (eth0) to the Windows WSL virtual Ethernet adapter. Currently the WSL network interface is in NAT mode (as opposed to Bridge mode), so the WSL network is hidden from the outer LAN.</p>
+<p>Underneath the WSL instance, we have the base Windows desktop machine. Here it's configured with a physical Ethernet interface to the local LAN OpenWRT router.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="powershell"><span class="giallo-l"><span>PS &gt; ipconfig</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Windows IP Configuration</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Ethernet adapter Ethernet:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>   Connection-specific DNS Suffix  . : lan</span></span>
+<span class="giallo-l"><span>   IPv6 Address. . . . . . . . . . . : </span><span style="color: #D08770;">2601</span><span>:</span><span style="color: #D08770;">646</span><span>:ca00:2fb5:dcb2:595c:1f81:cfc6</span></span>
+<span class="giallo-l"><span>   IPv6 Address. . . . . . . . . . . : fd5b:7e09:</span><span style="color: #D08770;">2223</span><span>::</span><span style="color: #D08770;">88e</span></span>
+<span class="giallo-l"><span>   IPv6 Address. . . . . . . . . . . : fd5b:7e09:</span><span style="color: #D08770;">2223</span><span>:</span><span style="color: #D08770;">0</span><span>:dcb2:595c:1f81:cfc6</span></span>
+<span class="giallo-l"><span>   Temporary IPv6 Address. . . . . . : </span><span style="color: #D08770;">2601</span><span>:</span><span style="color: #D08770;">646</span><span>:ca00:b0e:</span><span style="color: #D08770;">7576</span><span>:98bc:5e6c:7eb1</span></span>
+<span class="giallo-l"><span>   Temporary IPv6 Address. . . . . . : fd5b:7e09:</span><span style="color: #D08770;">2223</span><span>:</span><span style="color: #D08770;">0</span><span>:</span><span style="color: #D08770;">7576</span><span>:98bc:5e6c:7eb1</span></span>
+<span class="giallo-l"><span>   Link-local IPv6 Address . . . . . : fe80::dcb2:596c:1f81:cfc6%</span><span style="color: #D08770;">5</span></span>
+<span class="giallo-l"><span>   IPv4 Address. . . . . . . . . . . : </span><span style="color: #D08770;">10.69</span><span>.</span><span style="color: #D08770;">69.111</span></span>
+<span class="giallo-l"><span>   Subnet Mask . . . . . . . . . . . : </span><span style="color: #D08770;">255.255</span><span>.</span><span style="color: #D08770;">255.0</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">   Default</span><span> Gateway . . . . . . . . . : fe80::</span><span style="color: #D08770;">5249</span><span>:e0ff:febc:3f60%</span><span style="color: #D08770;">5</span></span>
+<span class="giallo-l"><span style="color: #D08770;">                                       10.69</span><span>.</span><span style="color: #D08770;">69.1</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Ethernet adapter vEthernet (WSL):</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>   Connection-specific DNS Suffix  . :</span></span>
+<span class="giallo-l"><span>   Link-local IPv6 Address . . . . . : fe80::</span><span style="color: #D08770;">49ef</span><span>:174b:</span><span style="color: #D08770;">890</span><span>:ef00%</span><span style="color: #D08770;">22</span></span>
+<span class="giallo-l"><span>   IPv4 Address. . . . . . . . . . . : </span><span style="color: #D08770;">172.20</span><span>.</span><span style="color: #D08770;">112.1</span></span>
+<span class="giallo-l"><span>   Subnet Mask . . . . . . . . . . . : </span><span style="color: #D08770;">255.255</span><span>.</span><span style="color: #D08770;">240.0</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">   Default</span><span> Gateway . . . . . . . . . :</span></span></code></pre>
+<p>Or in a bit more detail (IPv4 at least)</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="powershell"><span class="giallo-l"><span>PS &gt; netsh interface ipv4 show config</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">Configuration</span><span style="color: #8FA1B3;"> for</span><span> interface &quot;Ethernet&quot;</span></span>
+<span class="giallo-l"><span>    DHCP enabled:                         Yes</span></span>
+<span class="giallo-l"><span>    IP Address:                           10.69.69.111</span></span>
+<span class="giallo-l"><span>    Subnet Prefix:                        10.69.69.0/24 (mask </span><span style="color: #D08770;">255.255</span><span>.</span><span style="color: #D08770;">255.0</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    Default</span><span> Gateway:                      </span><span style="color: #D08770;">10.69</span><span>.</span><span style="color: #D08770;">69.1</span></span>
+<span class="giallo-l"><span>    Gateway Metric:                       </span><span style="color: #D08770;">0</span></span>
+<span class="giallo-l"><span>    InterfaceMetric:                      </span><span style="color: #D08770;">25</span></span>
+<span class="giallo-l"><span>    DNS servers configured through DHCP:  </span><span style="color: #D08770;">10.69</span><span>.</span><span style="color: #D08770;">69.1</span></span>
+<span class="giallo-l"><span>    Register with which suffix:           Primary only</span></span>
+<span class="giallo-l"><span>    WINS servers configured through DHCP: None</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">Configuration</span><span style="color: #8FA1B3;"> for</span><span> interface &quot;Loopback Pseudo-Interface 1&quot;</span></span>
+<span class="giallo-l"><span>    DHCP enabled:                         No</span></span>
+<span class="giallo-l"><span>    IP Address:                           127.0.0.1</span></span>
+<span class="giallo-l"><span>    Subnet Prefix:                        127.0.0.0/8 (mask </span><span style="color: #D08770;">255.0</span><span>.</span><span style="color: #D08770;">0.0</span><span>)</span></span>
+<span class="giallo-l"><span>    InterfaceMetric:                      </span><span style="color: #D08770;">75</span></span>
+<span class="giallo-l"><span>    Statically Configured DNS Servers:    None</span></span>
+<span class="giallo-l"><span>    Register with which suffix:           Primary only</span></span>
+<span class="giallo-l"><span>    Statically Configured WINS Servers:   None</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">Configuration</span><span style="color: #8FA1B3;"> for</span><span> interface &quot;vEthernet (WSL)&quot;</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    DHCP enabled:                         No</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    IP Address:                           172.21.32.1</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    Subnet Prefix:                        172.21.32.0/20 (mask 255.255.240.0)</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    InterfaceMetric:                      5000</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    Statically Configured DNS Servers:    None</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    Register with which suffix:           None</span></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">    Statically Configured WINS Servers:   None</span></span></code></pre>
+<p>On my OpenWRT router, the configuration gets a bit crazy.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ip addr</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">1:</span><span style="color: #A3BE8C;"> lo:</span><span> &lt;</span><span style="color: #A3BE8C;">LOOPBACK,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 65536</span><span style="color: #A3BE8C;"> qdisc noqueue state UNKNOWN qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/loopback</span><span style="color: #A3BE8C;"> 00:00:00:00:00:00 brd 00:00:00:00:00:00</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet</span><span style="color: #A3BE8C;"> 127.0.0.1/8 scope host lo</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> ::1/128 scope host</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">2:</span><span style="color: #A3BE8C;"> eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1508</span><span style="color: #A3BE8C;"> qdisc mq state UP qlen</span><span style="color: #D08770;"> 1024</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::5249:e0ff:febc:3f60/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">3:</span><span style="color: #A3BE8C;"> lan4@eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">NO-CARRIER,BROADCAST,MULTICAST,U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue master br-lan state LOWERLAYERDOWN qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">4:</span><span style="color: #A3BE8C;"> lan3@eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">NO-CARRIER,BROADCAST,MULTICAST,U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue master br-lan state LOWERLAYERDOWN qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">5:</span><span style="color: #A3BE8C;"> lan2@eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">NO-CARRIER,BROADCAST,MULTICAST,U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue master br-lan state LOWERLAYERDOWN qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">6:</span><span style="color: #A3BE8C;"> lan1@eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue master br-lan state UP qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">7:</span><span style="color: #A3BE8C;"> wan@eth0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue state UP qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 36:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet</span><span style="color: #A3BE8C;"> 69.312.42.96/22 brd</span><span style="color: #D08770;"> 69.312.42.255</span><span style="color: #A3BE8C;"> scope global wan</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> 2001:547:6143:b9:905:61b9:2a3:6aff/128 scope global dynamic noprefixroute</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> 258008sec preferred_lft 258008sec</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::5049:e0ff:febc:3f60/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">10:</span><span style="color: #A3BE8C;"> mlan0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAS</span><span>T&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noop state DOWN qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:63 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">14:</span><span style="color: #A3BE8C;"> br-lan:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc noqueue state UP qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:60 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet</span><span style="color: #A3BE8C;"> 10.69.69.1/24 brd</span><span style="color: #D08770;"> 10.69.69.255</span><span style="color: #A3BE8C;"> scope global br-lan</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> 2601:646:ca00:b0e::1/64 scope global dynamic noprefixroute</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> 258008sec preferred_lft 258008sec</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fd5b:7e09:2223::1/60 scope global noprefixroute</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::5249:e0ff:febc:3f60/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">15:</span><span style="color: #A3BE8C;"> wlan0:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc mq master br-lan state UP qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:62 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::5249:e0ff:febc:3f62/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">16:</span><span style="color: #A3BE8C;"> wlan1:</span><span> &lt;</span><span style="color: #A3BE8C;">BROADCAST,MULTICAST,UP,LOWER_U</span><span>P&gt;</span><span style="color: #A3BE8C;"> mtu</span><span style="color: #D08770;"> 1500</span><span style="color: #A3BE8C;"> qdisc mq master br-lan state UP qlen</span><span style="color: #D08770;"> 1000</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    link/ether</span><span style="color: #A3BE8C;"> 34:f4:aa:91:ec:61 brd ff:ff:ff:ff:ff:ff</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    inet6</span><span style="color: #A3BE8C;"> fe80::5249:e0ff:febc:3f61/64 scope link</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">       valid_lft</span><span style="color: #A3BE8C;"> forever preferred_lft forever</span></span></code></pre>
+<p>Just like the others, we still have a loopback.</p>
+<p>TODO: explain what we're looking at : )</p>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

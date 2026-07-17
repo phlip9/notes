@@ -1,0 +1,3063 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>git multirepo to monorepo | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="git multirepo to monorepo">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="git multirepo to monorepo">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/misc/git multirepo to monorepo/"
+    },
+    "headline": "git multirepo to monorepo",
+    "image": ,
+    "datePublished": "2022-08-16",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Misc",
+            "item": "https://phlip9.com/notes/misc/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Git Multirepo To Monorepo",
+            "item": "https://phlip9.com/notes/misc/git multirepo to monorepo/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc" checked />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#git-multirepo-to-monorepo">git multirepo to monorepo</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#the-setup">the setup</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#0-current-state">(0) current state</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#1-move-all-files-in-pub-into-the-subdirectory">(1) move all files in pub into the subdirectory</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#2-git-merge-allow-unrelated-histories">(2) git merge --allow-unrelated-histories</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#3-git-push-new-subrepo-history-upstream">(3) git push new subrepo history upstream</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#appendix">appendix</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#1-more-janky-git-mv-all-files-into-subdir">(1) more janky git mv all files into subdir</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#1-alt-rewrite-history-into-subdirectory">(1) (alt) rewrite history into subdirectory</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#2-alt-git-subrepo">(2) (alt) git subrepo</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#2-alt-git-subtree-add">(2) (alt) git subtree add</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#2-alt-git-read-write-commit-tree">(2) (alt) git read&#x2F;write&#x2F;commit-tree</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/misc/git multirepo to monorepo/#other-monorepo-tools">other monorepo tools</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="git-multirepo-to-monorepo">git multirepo to monorepo
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-08-16 &middot; 5 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/git/">&num;git</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<h2 id="the-setup">the setup
+  <a class="anchor-link" aria-label="anchor link" href="#the-setup">
+    &num;
+  </a>
+
+</h2>
+<ul>
+<li>We currently have a private repo and a public repo, <code>mono</code> and <code>pub</code>.</li>
+<li>The <code>pub</code> repo is already exists as a published and open-source repo.</li>
+<li>We'd like to merge <code>pub</code> into <code>mono</code> as a subdirectory <code>mono/pub-dir</code>.</li>
+<li>The conversion must not lose the original <code>pub</code> subrepo history.</li>
+<li>The migrated <code>pub</code> subrepo will still be published as a public, mostly read-only open source repo.</li>
+<li>The conversion should not require a force-push rewrite of the <code>pub</code> subrepo history.</li>
+<li>For privacy, new commits in <code>mono</code> that don't touch the <code>mono/pub-dir</code> subdirectory must not appear in the published <code>pub</code> subrepo.</li>
+<li><code>git blame</code> must continue to work as expected.</li>
+<li>Filtering and publishing changes from the monorepo to one of the subrepos should easily run in CI.</li>
+<li>It should work with the built-in <code>git</code> tools.</li>
+</ul>
+<h3 id="0-current-state">(0) current state
+  <a class="anchor-link" aria-label="anchor link" href="#0-current-state">
+    &num;
+  </a>
+
+</h3>
+<p>First, let's orient ourselves with the two repos:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span>~/pub$ exa --tree</span></span>
+<span class="giallo-l"><span style="color: #96B5B4;">.</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">├──</span><span style="color: #A3BE8C;"> README.md</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">└──</span><span style="color: #A3BE8C;"> client</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   └──</span><span style="color: #A3BE8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/pub$ git lg</span></span>
+<span class="giallo-l"><span>* 5de880b - pub: add client (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> master</span><span>)</span></span>
+<span class="giallo-l"><span>* ff12305 - pub: initial commit</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/mono$ exa --tree</span></span>
+<span class="giallo-l"><span style="color: #96B5B4;">.</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">├──</span><span style="color: #A3BE8C;"> README.md</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">└──</span><span style="color: #A3BE8C;"> backend</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   └──</span><span style="color: #A3BE8C;"> ..</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/mono$ git lg</span></span>
+<span class="giallo-l"><span>* e89ca6f - mono: add backend (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> master</span><span>)</span></span>
+<span class="giallo-l"><span>* 5017487 - mono: initial commit</span></span></code></pre>
+<p>Ultimately we'd like our <code>mono</code> repo to look like:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> ~/mono</span><span>$</span><span style="color: #A3BE8C;"> exa</span><span style="color: #D08770;"> --tree</span></span>
+<span class="giallo-l"><span style="color: #96B5B4;">.</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">├──</span><span style="color: #A3BE8C;"> README.md</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">├──</span><span style="color: #A3BE8C;"> backend</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">│</span><span style="color: #A3BE8C;">  └── ..</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">└──</span><span style="color: #A3BE8C;"> pub-dir</span><span style="color: #65737E;"> # `pub-dir` will contain the `pub` subrepo</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   ├──</span><span style="color: #A3BE8C;"> README.md</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">   └──</span><span style="color: #A3BE8C;"> client</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">      └──</span><span style="color: #A3BE8C;"> ..</span></span></code></pre>
+<p>The published <code>pub</code> subrepo will look the same immediately after conversion, but will exist as a "projected" view of the <code>mono</code> repo.</p>
+<h3 id="1-move-all-files-in-pub-into-the-subdirectory">(1) move all files in <code>pub</code> into the subdirectory
+  <a class="anchor-link" aria-label="anchor link" href="#1-move-all-files-in-pub-into-the-subdirectory">
+    &num;
+  </a>
+
+</h3>
+<p>The first step is to prepare the <code>pub</code> subrepo by creating a commit that moves all files into the desired future subdirectory of the monorepo.</p>
+<p>For this example, we'll move all the files in <code>pub</code> into a new <code>pub-dir</code> subdirectory:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># prepare public repo by moving all files into new `pub-dir` subdir.</span></span>
+<span class="giallo-l"><span>~/pub$ git branch migration</span></span>
+<span class="giallo-l"><span>~/pub$ mkdir ./pub-dir</span></span>
+<span class="giallo-l"><span>~/pub$ git ls-tree -z --name-only HEAD </span><span style="color: #96B5B4;">\</span></span>
+<span class="giallo-l"><span>	|</span><span style="color: #8FA1B3;"> xargs</span><span style="color: #D08770;"> -0 -I</span><span>{} git mv &quot;{}&quot; ./pub-dir/</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">~/pub$</span><span style="color: #A3BE8C;"> git commit</span><span style="color: #D08770;"> -m</span><span> &quot;</span><span style="color: #A3BE8C;">pub: prepare for monorepo migration</span><span>&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/pub$ git lg</span></span>
+<span class="giallo-l"><span>* 33708aa - pub: prepare </span><span style="color: #B48EAD;">for</span><span> monorepo migration (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> migration</span><span>)</span></span>
+<span class="giallo-l"><span>* 5de880b - pub: add client (</span><span style="color: #8FA1B3;">master</span><span>)</span></span>
+<span class="giallo-l"><span>* ff12305 - pub: initial commit</span></span></code></pre>
+<p>This approach preserves the histories in both repos and doesn't require rewriting the public repo's existing history. When we push new changes from the <code>mono</code> repo to the <code>pub</code> subrepo, the existing public repo will continue to have its original history, just with new commits added on top!</p>
+<h3 id="2-git-merge-allow-unrelated-histories">(2) git merge --allow-unrelated-histories
+  <a class="anchor-link" aria-label="anchor link" href="#2-git-merge-allow-unrelated-histories">
+    &num;
+  </a>
+
+</h3>
+<p>Once the <code>pub</code> repo is prepared, we move into the <code>mono</code> repo and merge the two independent histories into one.</p>
+<p>The key trick here is to use <code>git merge --allow-unrelated-histories</code>, which lets us have <em>two</em> "root" initial commits in the repo. In other words, our git history is no longer a single tree, but a "forest", which eventually grows together into one linear history.</p>
+<p>In diagram form:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>* - mono+pub: merged linear history</span></span>
+<span class="giallo-l"><span>|</span></span>
+<span class="giallo-l"><span>⁞</span></span>
+<span class="giallo-l"><span>|</span></span>
+<span class="giallo-l"><span>* - mono+pub: merge commit</span></span>
+<span class="giallo-l"><span>|\</span></span>
+<span class="giallo-l"><span>| *</span></span>
+<span class="giallo-l"><span>*  \</span></span>
+<span class="giallo-l"><span>|   *</span></span>
+<span class="giallo-l"><span>⁞   ⁞</span></span>
+<span class="giallo-l"><span>⁞   * - pub: initial commit</span></span>
+<span class="giallo-l"><span>|</span></span>
+<span class="giallo-l"><span>* - mono: initial commit</span></span></code></pre>
+<p>Let's do that now. We import all commits on <code>master</code> from the subrepo into the main <code>mono</code> repo. Best part: this works flawlessly with <code>git blame</code>!</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># Fetch the public repo from a local directory or remote url.</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># In our case `pub` is just in the parent directory:</span></span>
+<span class="giallo-l"><span>~/mono$ git remote add pub ../pub</span></span>
+<span class="giallo-l"><span>~/mono$ git fetch --no-tags pub migration</span></span>
+<span class="giallo-l"><span>~/mono$ git merge --allow-unrelated-histories pub/migration</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># See the two independent histories merged into one linear</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># history, without losing either history.</span></span>
+<span class="giallo-l"><span>~/mono$ git lg</span></span>
+<span class="giallo-l"><span>*   3888a45 - mono: merge pub repo into subdir (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> master</span><span>)</span></span>
+<span class="giallo-l"><span>|</span><span style="color: #8FA1B3;">\</span><span>  </span></span>
+<span class="giallo-l"><span>|</span><span style="color: #8FA1B3;"> *</span><span style="color: #A3BE8C;"> 33708aa - pub: prepare for monorepo migration</span><span> (pub/migration)</span></span>
+<span class="giallo-l"><span>|</span><span style="color: #8FA1B3;"> *</span><span style="color: #A3BE8C;"> 5de880b - pub: add client</span><span> (pub/master)</span></span>
+<span class="giallo-l"><span>|</span><span style="color: #8FA1B3;"> *</span><span style="color: #A3BE8C;"> ff12305 - pub: initial commit</span></span>
+<span class="giallo-l"><span>* e89ca6f - mono: add backend</span></span>
+<span class="giallo-l"><span>* 5017487 - mono: initial commit</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Push the migrated `mono` history.</span></span>
+<span class="giallo-l"><span>~/mono$ git push origin master</span></span></code></pre>
+<p>Note: you can do this without <code>git push</code>'ing until the end, but it's somewhat tedious to describe in tutorial format.</p>
+<h2 id="3-git-push-new-subrepo-history-upstream">(3) git push new subrepo history upstream
+  <a class="anchor-link" aria-label="anchor link" href="#3-git-push-new-subrepo-history-upstream">
+    &num;
+  </a>
+
+</h2>
+<p>Now that we have all the subrepos merged into <code>mono</code>, we only need to make changes in one place--no more PRs split across repos!</p>
+<p>Of course we still want changes to the subrepos inside <code>mono</code> to get pushed out to the public repos. We can accomplish this with <code>git subtree split</code>. We'll do this in a fresh clone, since it mangles the current repo state...</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># We project the monorepo history into it&#39;s public-only form.</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># This approach completely preserves the original public commits!</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># NOTE: the subshell:</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># ```</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># git rev-list --max-parents=0 pub/migration | tail --lines=1</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># ```</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># simply picks out the root initial commit from the `pub`</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># subrepo history.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Get a fresh clone of the `mono` repo.</span></span>
+<span class="giallo-l"><span>~/$ git clone &lt;origin-mono-repo-git-url&gt; mono &amp;&amp;</span><span style="color: #96B5B4;"> cd</span><span style="color: #A3BE8C;"> mono</span></span>
+<span class="giallo-l"><span>~/mono$ git remote add pub &lt;origin-pub-repo-git-url&gt;</span></span>
+<span class="giallo-l"><span>~/mono$ git fetch pub</span></span>
+<span class="giallo-l"><span>~/mono$ git switch master</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Project the `pub` subrepo history from the `mono` repo history.</span></span>
+<span class="giallo-l"><span>~/mono$ git subtree split </span><span style="color: #96B5B4;">\</span></span>
+<span class="giallo-l"><span>	--prefix=</span><span style="color: #A3BE8C;">pub-dir/</span><span style="color: #8FA1B3;"> \</span></span>
+<span class="giallo-l"><span style="color: #D08770;">	--onto=$(</span><span style="color: #8FA1B3;">git</span><span style="color: #A3BE8C;"> rev-list</span><span style="color: #D08770;"> --max-parents=0</span><span style="color: #A3BE8C;"> pub/migration</span><span> |</span><span style="color: #8FA1B3;"> tail</span><span style="color: #D08770;"> --lines=1)</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">198017b02ffa2d45f301f6b9ba6424c4e849251b</span></span>
+<span class="giallo-l"><span>~/mono$ git reset --hard 198017b02ffa2d45f301f6b9ba6424c4e849251b</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># This is the &quot;projected&quot; `pub` repo history with new commits from</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># the `mono` repo.</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># Note: commits that don&#39;t touch the `pub-dir/` subrepo will be</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># safely ignored.</span></span>
+<span class="giallo-l"><span>~/mono$ git lg</span></span>
+<span class="giallo-l"><span>* 198017b - mono+pub: this commit touches files on / and pub-dir/ (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> master</span><span>)</span></span>
+<span class="giallo-l"><span>* 3269fbc - pub: this commit only touches files in pub-dir/</span></span>
+<span class="giallo-l"><span>* c7b8b55 - pub: prepare </span><span style="color: #B48EAD;">for</span><span> monorepo migration</span></span>
+<span class="giallo-l"><span>* 5de880b - pub: add client (</span><span style="color: #8FA1B3;">pub/master</span><span>)</span></span>
+<span class="giallo-l"><span>* ff12305 - pub: initial commit</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># Push the projected `pub` history to the upstream `pub` repo.</span></span>
+<span class="giallo-l"><span>~/mono$ git push pub master</span></span></code></pre>
+<p>Note: If we use <code>git subtree split</code> without <code>--onto=&lt;pub-initial-commit&gt;</code>, it will fail to determine the original subrepo root commit. Instead it will just squash all changes pre-merge, which is not what we want!</p>
+<h2 id="appendix">appendix
+  <a class="anchor-link" aria-label="anchor link" href="#appendix">
+    &num;
+  </a>
+
+</h2>
+<p>This section contains other alternative approaches that didn't work well for one reason or another. Feel free to skip everything below.</p>
+<h3 id="1-more-janky-git-mv-all-files-into-subdir">(1) more janky git mv all files into subdir
+  <a class="anchor-link" aria-label="anchor link" href="#1-more-janky-git-mv-all-files-into-subdir">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span>~/pub$ git ls-files </span><span style="color: #96B5B4;">\</span></span>
+<span class="giallo-l"><span>	|</span><span style="color: #8FA1B3;"> sed</span><span style="color: #D08770;"> -n -E</span><span> &quot;</span><span style="color: #A3BE8C;">s/^([^\/]*)\/?.*$/\1/p</span><span>&quot;</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>	|</span><span style="color: #8FA1B3;"> uniq</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>	|</span><span style="color: #8FA1B3;"> grep</span><span style="color: #D08770;"> -v</span><span> &quot;</span><span style="color: #A3BE8C;">^pub-dir</span><span>&quot;</span><span style="color: #96B5B4;"> \</span></span>
+<span class="giallo-l"><span>	|</span><span style="color: #8FA1B3;"> xargs</span><span style="color: #D08770;"> -I</span><span>{} git mv &quot;{}&quot; ./pub-dir/</span></span></code></pre><h3 id="1-alt-rewrite-history-into-subdirectory">(1) (alt) rewrite history into subdirectory
+  <a class="anchor-link" aria-label="anchor link" href="#1-alt-rewrite-history-into-subdirectory">
+    &num;
+  </a>
+
+</h3>
+<p>You can also use <a rel="external" href="https://github.com/newren/git-filter-repo"><code>git filter-repo</code></a> to rewrite the whole commit history, as-if it had been written inside a subdirectory from the beginning:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># install the `git filter-repo` tool, which replaces the (apparently</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># unsafe?) built-in filter-branch</span></span>
+<span class="giallo-l"><span>(</span><span style="color: #8FA1B3;">deb</span><span>)</span><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> sudo apt install git-filter-repo</span></span>
+<span class="giallo-l"><span>(</span><span style="color: #8FA1B3;">macOS</span><span>)</span><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> brew install git-filter-repo</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># After this command, all files in the current commit and all past</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># commits will be moved into the public-dir/ subdirectory.</span></span>
+<span class="giallo-l"><span style="color: #65737E;">#</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># You&#39;ll need to do this in fresh repo clone, since this command trashes</span></span>
+<span class="giallo-l"><span style="color: #65737E;"># all repo commits.</span></span>
+<span class="giallo-l"><span>~/pub$ git filter-repo --to-subdirectory-filter pub-dir</span></span></code></pre>
+<p>This approach will require a force-push, overwriting the original <code>pub</code> repo history as the later <code>git subtree split</code> doesn't appear to be fully lossless in this case, causing the commit hashes change. Note: this will only affect the <em>commit hashes</em> of the <code>pub</code> repo history after push. The changes in each commit will still appear (almost) exactly the same, i.e., they're still in the root directory.</p>
+<h3 id="2-alt-git-subrepo">(2) (alt) git subrepo
+  <a class="anchor-link" aria-label="anchor link" href="#2-alt-git-subrepo">
+    &num;
+  </a>
+
+</h3>
+<p>Skip step (1) if you use this approach.</p>
+<p>The <a rel="external" href="https://github.com/ingydotnet/git-subrepo"><code>git subrepo</code></a> tool is a user-friendly alternative to the <code>git submodule</code> and <code>git subtree</code> commands.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span>(</span><span style="color: #8FA1B3;">macOS</span><span>)</span><span style="color: #8FA1B3;">$</span><span style="color: #A3BE8C;"> brew install git-subrepo</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;"># git subrepo clone &lt;remote-url&gt; &lt;subdir&gt;</span></span>
+<span class="giallo-l"><span>~/mono$ git subrepo clone ../pub ./pub-dir</span></span></code></pre>
+<p>Unfortunately, <code>git subrepo clone</code> squashes all the commit history before the merge. If you're just looking to vendor a dependency or don't care about the original history, this approach might be for you.</p>
+<h3 id="2-alt-git-subtree-add">(2) (alt) git subtree add
+  <a class="anchor-link" aria-label="anchor link" href="#2-alt-git-subtree-add">
+    &num;
+  </a>
+
+</h3>
+<p>Skip step (1) if you use this approach.</p>
+<p><code>git subtree</code> is a built-in tool that lets you keep other repos phyiscally inside your main repo. If you don't care about <code>git blame</code> working, then this is an easier method.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #65737E;"># git subtree add --prefix=&lt;subdir&gt; &lt;remote-url&gt; &lt;remote-ref&gt;</span></span>
+<span class="giallo-l"><span>~/mono$ git subtree add --prefix=</span><span style="color: #A3BE8C;">pub-dir/</span><span style="color: #96B5B4;"> .</span><span style="color: #A3BE8C;">./pub master</span></span></code></pre>
+<p><code>git subtree add</code> at least preserves the original history, but <code>git blame</code> only works down to the merge commit for subtree files. :'(</p>
+<h3 id="2-alt-git-read-write-commit-tree">(2) (alt) git read/write/commit-tree
+  <a class="anchor-link" aria-label="anchor link" href="#2-alt-git-read-write-commit-tree">
+    &num;
+  </a>
+
+</h3>
+<p>Skip step (1) if you use this approach.</p>
+<p>Using some low-level git porcelain, we can merge the subrepo into a subdirectory without touching the subrepo. This method effectively creates a new <code>tree</code> object in the git db whose contents are a single subdirectory with the <code>pub/master</code> root <code>tree</code>. We then create a merge commit pointing to (1) the existing <code>mono</code> repo master commit and (2) the new manually created commit.</p>
+<p>Unfortunately, while the end result looks almost the same as [[#(1) move all files in <code>pub</code> into the subdirectory]], it appears to break <code>git blame</code>. :'(</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="shellscript"><span class="giallo-l"><span>~/mono$ git remote add public ../public</span></span>
+<span class="giallo-l"><span>~/mono$ git fetch --no-tags public master</span></span>
+<span class="giallo-l"><span>~/mono$ git read-tree --prefix=</span><span style="color: #A3BE8C;">public/</span><span style="color: #8FA1B3;"> public/master</span></span>
+<span class="giallo-l"><span>~/mono$ git write-tree</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">f1b1ee12e1d679ec84c282049102e2654efc4b67</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/mono$ git commit-tree f1b1ee12e1d679ec84c282049102e2654efc4b67 </span><span style="color: #96B5B4;">\</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">	-p</span><span style="color: #A3BE8C;"> master</span><span style="color: #D08770;"> -p</span><span style="color: #A3BE8C;"> public/master</span><span style="color: #D08770;"> -m</span><span> &quot;</span><span style="color: #A3BE8C;">monorepo merge</span><span>&quot;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">046d3298b9976d50fa379fa071f57bc1158aca5b</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/mono$ git reset 046d3298b9976d50fa379fa071f57bc1158aca5b &amp;&amp;</span><span style="color: #8FA1B3;"> git</span><span style="color: #A3BE8C;"> restore .</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>~/mono$ git lg</span></span>
+<span class="giallo-l"><span>*   854b553 - monorepo merge (</span><span style="color: #8FA1B3;">HEAD</span><span> -&gt;</span><span style="color: #A3BE8C;"> master</span><span>)</span></span>
+<span class="giallo-l"><span>|</span><span style="color: #96B5B4;">\</span></span>
+<span class="giallo-l"><span>* |</span><span style="color: #8FA1B3;"> 5b02f51</span><span style="color: #A3BE8C;"> - mono: add backend</span><span> (origin/master)</span></span>
+<span class="giallo-l"><span>|</span><span style="color: #8FA1B3;"> *</span><span style="color: #A3BE8C;"> 7709d49 - pub: add client</span><span> (public/master)</span></span></code></pre><h3 id="other-monorepo-tools">other monorepo tools
+  <a class="anchor-link" aria-label="anchor link" href="#other-monorepo-tools">
+    &num;
+  </a>
+
+</h3>
+<ol>
+<li><a rel="external" href="https://github.com/google/copybara">(java) google/copybara</a></li>
+<li><a rel="external" href="https://github.com/facebook/fbshipit">(hack) facebook/fbshipit - Copy commits b/w repos</a></li>
+<li><a rel="external" href="https://github.com/symplify/monorepo-split-github-action">(php) symplify/monorepo-split-gh-action</a></li>
+<li><a rel="external" href="https://github.com/ingydotnet/git-subrepo">(sh) ingydotnet/git-subrepo</a></li>
+<li><a rel="external" href="https://github.com/newren/git-filter-repo">(py) newren/git-filter-repo</a></li>
+<li><a rel="external" href="https://github.com/splitsh/lite">(go) splitsh/lite</a></li>
+<li><a rel="external" href="https://github.com/SimonBaeumer/sync-monorepo">(sh) SimonBaeumer/sync-monorepo</a></li>
+<li>[(sh) https://github.com/shopsys/monorepo-tools]</li>
+</ol>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>

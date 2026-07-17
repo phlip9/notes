@@ -1,0 +1,3625 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>dart lang | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/lang/flutter/dart lang/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="dart lang">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="dart lang">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/lang/flutter/dart lang/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/lang/flutter/dart lang/"
+    },
+    "headline": "dart lang",
+    "image": ,
+    "datePublished": "2022-12-05",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Lang",
+            "item": "https://phlip9.com/notes/lang/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Flutter",
+            "item": "https://phlip9.com/notes/lang/flutter/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Dart Lang",
+            "item": "https://phlip9.com/notes/lang/flutter/dart lang/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design"  />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang" checked />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter" checked />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#dart-lang">dart lang</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#variables">variables</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#mutable">mutable</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#immutable">immutable</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#comptime">comptime</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#late-init">late init</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#lazy-init">lazy init</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#built-in-types">built-in types</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#numbers-num-int-double">numbers (num, int, double)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#strings-string">strings (String)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#lists-list-t">lists (List&lt;T&gt;)</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#spread-operator">spread operator</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#collection-control-flow-operators">collection control flow operators</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#sets-set-t">sets (Set&lt;T&gt;)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#maps-map-k-v">maps (Map&lt;K, V&gt;)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#symbols-symbol">symbols (Symbol)</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#functions-function">functions (Function)</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#parameters">parameters</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#main">main</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#closures">closures</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#operators">operators</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#control-flow">control flow</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#classes">classes</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#constructors">constructors</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#getters-and-setters">getters and setters</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#implicit-interfaces">implicit interfaces</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#extension-methods">extension methods</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#enums">enums</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#mixins">mixins</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#libraries">libraries</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#async-await">async&#x2F;await</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#enable-the-unawaited-futures-lint">enable the unawaited_futures lint</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/lang/flutter/dart lang/#enable-the-discarded-futures-lint">enable the discarded_futures lint</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="dart-lang">dart lang
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-12-05 &middot; 6 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/dart/">&num;dart</a></li>
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/flutter/">&num;flutter</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<h2 id="variables">variables
+  <a class="anchor-link" aria-label="anchor link" href="#variables">
+    &num;
+  </a>
+
+</h2>
+<h3 id="mutable">mutable
+  <a class="anchor-link" aria-label="anchor link" href="#mutable">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> name =</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">Object</span><span> name =</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">String</span><span> name =</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> name =</span><span style="color: #B48EAD;"> const</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span>name =</span><span style="color: #A3BE8C;"> &#39;Alice&#39;</span><span>;</span></span></code></pre><h3 id="immutable">immutable
+  <a class="anchor-link" aria-label="anchor link" href="#immutable">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">final</span><span> name =</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final</span><span style="color: #EBCB8B;"> String</span><span> name =</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span>
+<span class="giallo-l"><span>name =</span><span style="color: #A3BE8C;"> &#39;Alice&#39;</span><span>;</span><span style="color: #65737E;"> // &lt;&lt; compile error: final var can only be set once</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final</span><span style="color: #EBCB8B;"> String</span><span> name =</span><span style="color: #B48EAD;"> const</span><span style="color: #A3BE8C;"> &#39;Bob&#39;</span><span>;</span></span></code></pre><h3 id="comptime">comptime
+  <a class="anchor-link" aria-label="anchor link" href="#comptime">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">const</span><span> bar =</span><span style="color: #D08770;"> 1000000</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">const</span><span style="color: #EBCB8B;"> double</span><span> atm =</span><span style="color: #D08770;"> 1.01325</span><span> * bar;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">const</span><span> p1 = [bar, atm];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">const</span><span> p2 =</span><span style="color: #B48EAD;"> const</span><span> [bar, atm];</span><span style="color: #65737E;"> // &lt;&lt; style: const-value is redundant</span></span></code></pre>
+<blockquote>
+<p>If you enable null safety, then you must initialize the values of non-nullable variables before you use them.</p>
+</blockquote>
+<p>The compiler can sometimes determine a lazy-init val is not null before use:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #EBCB8B;">int</span><span> foo;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">if</span><span> (isFooable) {</span></span>
+<span class="giallo-l"><span>	foo =</span><span style="color: #D08770;"> 123</span><span>;</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #B48EAD;">else</span><span> {</span></span>
+<span class="giallo-l"><span>	foo =</span><span style="color: #D08770;"> 0</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(foo);</span></span></code></pre><h3 id="late-init">late init
+  <a class="anchor-link" aria-label="anchor link" href="#late-init">
+    &num;
+  </a>
+
+</h3>
+<p>Use the <code>late</code> modifier if <code>dart</code> can't prove non-null-before-use. You will get a runtime panic if it's null on use:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">late</span><span style="color: #EBCB8B;"> String</span><span> desc;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> main</span><span>() {</span></span>
+<span class="giallo-l"><span>	desc =</span><span style="color: #A3BE8C;"> &#39;hello&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">	print</span><span>(desc);</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h3 id="lazy-init">lazy init
+  <a class="anchor-link" aria-label="anchor link" href="#lazy-init">
+    &num;
+  </a>
+
+</h3>
+<p>You can also use <code>late</code> for lazy-init:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #65737E;">// only computed on first use</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">late</span><span style="color: #EBCB8B;"> String</span><span> expensiveValue =</span><span style="color: #8FA1B3;"> computeExpensive</span><span>();</span></span></code></pre><h2 id="built-in-types">built-in types
+  <a class="anchor-link" aria-label="anchor link" href="#built-in-types">
+    &num;
+  </a>
+
+</h2>
+<h3 id="numbers-num-int-double">numbers (<a rel="external" href="https://api.dart.dev/stable/dart-core/num-class.html">num</a>, <a rel="external" href="https://api.dart.dev/stable/dart-core/int-class.html">int</a>, <a rel="external" href="https://api.dart.dev/stable/dart-core/double-class.html">double</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#numbers-num-int-double">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li><code>class num</code></li>
+<li>(native) <code>int := i64</code></li>
+<li>(native) <code>double := double</code></li>
+<li>both <code>int extends num</code> and <code>double extends num</code></li>
+</ul>
+<h3 id="strings-string">strings (<a rel="external" href="https://api.dart.dev/stable/dart-core/String-class.html">String</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#strings-string">
+    &num;
+  </a>
+
+</h3>
+<p><code>String</code> is a sequence of UTF-16 code points. You can use either '' or "" to create a string:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> s1 =</span><span style="color: #A3BE8C;"> &#39;hello&#39;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> s2 =</span><span style="color: #A3BE8C;"> &quot;world&quot;</span><span>;</span></span></code></pre>
+<p>Dart also supports string interpolation:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> inner =</span><span style="color: #A3BE8C;"> &quot;world&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> s1 =</span><span style="color: #A3BE8C;"> &quot;hello $</span><span>inner</span><span style="color: #A3BE8C;">&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> s2 =</span><span style="color: #A3BE8C;"> &quot;HELLO ${</span><span>inner</span><span style="color: #A3BE8C;">.</span><span style="color: #8FA1B3;">toUpperCase</span><span style="color: #A3BE8C;">()}&quot;</span><span>;</span></span></code></pre><h3 id="lists-list-t">lists (<a rel="external" href="https://api.dart.dev/stable/dart-core/List-class.html">List&lt;T&gt;</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#lists-list-t">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #EBCB8B;">List</span><span>&lt;</span><span style="color: #EBCB8B;">int</span><span>&gt; list = [</span><span style="color: #D08770;">1</span><span>,</span><span style="color: #D08770;"> 2</span><span>,</span><span style="color: #D08770;"> 3</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(list.length ==</span><span style="color: #D08770;"> 3</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(list[</span><span style="color: #D08770;">1</span><span>] ==</span><span style="color: #D08770;"> 2</span><span>);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> list =</span><span style="color: #B48EAD;"> const</span><span> [</span><span style="color: #D08770;">1</span><span>,</span><span style="color: #D08770;"> 2</span><span>,</span><span style="color: #D08770;"> 3</span><span>];</span></span>
+<span class="giallo-l"><span>list[</span><span style="color: #D08770;">1</span><span>] =</span><span style="color: #D08770;"> 1</span><span>;</span><span style="color: #65737E;"> // &lt;&lt; error</span></span></code></pre><h4 id="spread-operator">spread operator
+  <a class="anchor-link" aria-label="anchor link" href="#spread-operator">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>spread operator <code>...</code></li>
+<li>null-aware spread operator <code>...?</code></li>
+</ul>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> xs = [</span><span style="color: #D08770;">1</span><span>,</span><span style="color: #D08770;"> 2</span><span>,</span><span style="color: #D08770;"> 3</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> ys = [</span><span style="color: #D08770;">0</span><span>, ...xs];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(ys == [</span><span style="color: #D08770;">0</span><span>,</span><span style="color: #D08770;"> 1</span><span>,</span><span style="color: #D08770;"> 2</span><span>,</span><span style="color: #D08770;"> 3</span><span>]);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> zs =</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> ws = [</span><span style="color: #D08770;">0</span><span>, ...?zs];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(ws == [</span><span style="color: #D08770;">0</span><span>]);</span></span></code></pre><h4 id="collection-control-flow-operators">collection control flow operators
+  <a class="anchor-link" aria-label="anchor link" href="#collection-control-flow-operators">
+    &num;
+  </a>
+
+</h4>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> nav = [</span><span style="color: #A3BE8C;">&quot;Home&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Furniture&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Plants&quot;</span><span>,</span><span style="color: #B48EAD;"> if</span><span> (promo) </span><span style="color: #A3BE8C;">&quot;Outlet&quot;</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> ints = [</span><span style="color: #D08770;">1</span><span>,</span><span style="color: #D08770;"> 2</span><span>,</span><span style="color: #D08770;"> 3</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> strs = [</span><span style="color: #A3BE8C;">&quot;#0&quot;</span><span>,</span><span style="color: #B48EAD;"> for</span><span> (</span><span style="color: #B48EAD;">var</span><span> i </span><span style="color: #B48EAD;">in</span><span> ints) </span><span style="color: #A3BE8C;">&quot;#$</span><span>i</span><span style="color: #A3BE8C;">&quot;</span><span>];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(strs == [</span><span style="color: #A3BE8C;">&quot;#0&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;#1&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;#2&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;#3&quot;</span><span>]);</span></span></code></pre><h3 id="sets-set-t">sets (<a rel="external" href="https://api.dart.dev/stable/dart-core/Set-class.html">Set&lt;T&gt;</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#sets-set-t">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> halogens = {</span><span style="color: #A3BE8C;">&quot;F&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Cl&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Br&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;I&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;At&quot;</span><span>};</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">var</span><span> names = &lt;</span><span style="color: #EBCB8B;">String</span><span>&gt;{};</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">Set</span><span>&lt;</span><span style="color: #EBCB8B;">String</span><span>&gt; names = {};</span></span>
+<span class="giallo-l"><span>names.</span><span style="color: #8FA1B3;">add</span><span>(</span><span style="color: #A3BE8C;">&quot;Alice&quot;</span><span>);</span></span>
+<span class="giallo-l"><span>names.</span><span style="color: #8FA1B3;">addAll</span><span>({</span><span style="color: #A3BE8C;">&quot;Bob&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Charlie&quot;</span><span>});</span></span></code></pre><h3 id="maps-map-k-v">maps (<a rel="external" href="https://api.dart.dev/stable/dart-core/Map-class.html">Map&lt;K, V&gt;</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#maps-map-k-v">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> halogens = {</span></span>
+<span class="giallo-l"><span style="color: #D08770;">	9</span><span>:</span><span style="color: #A3BE8C;"> &quot;F&quot;</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #D08770;">	17</span><span>:</span><span style="color: #A3BE8C;"> &quot;Cl&quot;</span><span>,</span></span>
+<span class="giallo-l"><span>};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(halogens.length ==</span><span style="color: #D08770;"> 2</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(halogens[</span><span style="color: #D08770;">9</span><span>] ==</span><span style="color: #A3BE8C;"> &quot;F&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(halogens[</span><span style="color: #D08770;">2</span><span>] ==</span><span style="color: #D08770;"> null</span><span>);</span></span></code></pre><h3 id="symbols-symbol">symbols (<a rel="external" href="https://api.dart.dev/stable/dart-core/Symbol-class.html">Symbol</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#symbols-symbol">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>Represents an operator or identifier in a dart program.</li>
+</ul>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span>#radix</span></span>
+<span class="giallo-l"><span>#bar</span></span></code></pre>
+<p>example using <a rel="external" href="https://api.dart.dev/stable/dart-core/Function/apply.html"><code>Function.apply</code></a>:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">abstract class</span><span style="color: #EBCB8B;"> Function</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	external static</span><span style="color: #8FA1B3;"> apply</span><span>(</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">		Function</span><span> function,</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">		List</span><span>&lt;</span><span style="color: #EBCB8B;">dynamic</span><span>&gt;? positionalArguments,</span></span>
+<span class="giallo-l"><span>		[</span><span style="color: #EBCB8B;">Map</span><span>&lt;</span><span style="color: #EBCB8B;">Symbol</span><span>,</span><span style="color: #EBCB8B;"> dynamic</span><span>&gt;? namedArguments],</span></span>
+<span class="giallo-l"><span>	);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> printWineDetails</span><span>(</span><span style="color: #EBCB8B;">int</span><span> vintage, {</span><span style="color: #EBCB8B;">String</span><span>? country,</span><span style="color: #EBCB8B;"> String</span><span>? name}) {</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  print</span><span>(</span><span style="color: #A3BE8C;">&#39;Name: $</span><span>name</span><span style="color: #A3BE8C;">, Country: $</span><span>country</span><span style="color: #A3BE8C;">, Vintage: $</span><span>vintage</span><span style="color: #A3BE8C;">&#39;</span><span>);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">Function</span><span>.</span><span style="color: #8FA1B3;">apply</span><span>(printWineDetails, [</span><span style="color: #D08770;">2018</span><span>], {#country:</span><span style="color: #A3BE8C;"> &quot;USA&quot;</span><span>, #name:</span><span style="color: #A3BE8C;"> &quot;Casocco&quot;</span><span>});</span></span></code></pre><h3 id="functions-function">functions (<a rel="external" href="https://api.dart.dev/stable/dart-core/Function-class.html">Function</a>)
+  <a class="anchor-link" aria-label="anchor link" href="#functions-function">
+    &num;
+  </a>
+
+</h3>
+<p>Dart functions are first-class objects and can be assigned to variables and passed as arguments.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #EBCB8B;">bool</span><span style="color: #8FA1B3;"> isNoble</span><span>(</span><span style="color: #EBCB8B;">int</span><span> n) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	return</span><span> _nobleGases[n] !=</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// can omit type annotations...</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">isNoble</span><span>(n) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	return</span><span> _nobleGases[n] !=</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// single-expressions shorthand syntax</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">bool</span><span style="color: #8FA1B3;"> isNoble</span><span>(</span><span style="color: #EBCB8B;">int</span><span> n) =&gt; _nobleGases[n] !=</span><span style="color: #D08770;"> null</span><span>;</span></span></code></pre><h4 id="parameters">parameters
+  <a class="anchor-link" aria-label="anchor link" href="#parameters">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>Functions can have <em>required positional</em> parameters, followed by <em>named parameters</em> xor <em>optional positional</em> parameters.</li>
+</ul>
+<h5 id="named-parameters">named parameters
+  <a class="anchor-link" aria-label="anchor link" href="#named-parameters">
+    &num;
+  </a>
+
+</h5>
+<ul>
+<li>Named params are <code>null</code> by default (hence the <code>bool?</code> for each param in this example):</li>
+</ul>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> enableFlags</span><span>({</span><span style="color: #EBCB8B;">bool</span><span>? bold,</span><span style="color: #EBCB8B;"> bool</span><span>? hidden}) { </span><span style="color: #65737E;">/* .. */</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">enableFlags</span><span>(bold:</span><span style="color: #D08770;"> true</span><span>, hidden:</span><span style="color: #D08770;"> false</span><span>);</span></span></code></pre>
+<ul>
+<li>You can specify default values:</li>
+</ul>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> enableFlags</span><span>({</span><span style="color: #EBCB8B;">bool</span><span> bold =</span><span style="color: #D08770;"> false</span><span>,</span><span style="color: #EBCB8B;"> bool</span><span> hidden =</span><span style="color: #D08770;"> false</span><span>}) { </span><span style="color: #65737E;">/* .. */</span><span> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">enableFlags</span><span>(hidden:</span><span style="color: #D08770;"> true</span><span>);</span><span style="color: #65737E;"> // bold = false</span></span></code></pre>
+<ul>
+<li>You can use the <code>required</code> keyword to make a named param non-optional:</li>
+</ul>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">const</span><span style="color: #EBCB8B;"> Scrollbar</span><span>({super.key,</span><span style="color: #B48EAD;"> required</span><span style="color: #EBCB8B;"> Widget</span><span> child});</span></span></code></pre><h5 id="optional-positional-parameters">optional positional parameters
+  <a class="anchor-link" aria-label="anchor link" href="#optional-positional-parameters">
+    &num;
+  </a>
+
+</h5>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> say</span><span>(</span><span style="color: #EBCB8B;">String</span><span> from,</span><span style="color: #EBCB8B;"> String</span><span> msg, [</span><span style="color: #EBCB8B;">String</span><span>? device]) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span> tail = (device !=</span><span style="color: #D08770;"> null</span><span>) ?</span><span style="color: #A3BE8C;"> &quot;on their $</span><span>device</span><span style="color: #A3BE8C;">&quot;</span><span> :</span><span style="color: #A3BE8C;"> &quot;&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  print</span><span>(</span><span style="color: #A3BE8C;">&quot;$</span><span>from</span><span style="color: #A3BE8C;"> says $</span><span>msg</span><span style="color: #A3BE8C;">$</span><span>tail</span><span style="color: #A3BE8C;">&quot;</span><span>);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> main</span><span>() {</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  say</span><span>(</span><span style="color: #A3BE8C;">&quot;Bob&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;hello&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  say</span><span>(</span><span style="color: #A3BE8C;">&quot;Alice&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;goodbye&quot;</span><span>,</span><span style="color: #A3BE8C;"> &quot;Android&quot;</span><span>);</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h4 id="main">main
+  <a class="anchor-link" aria-label="anchor link" href="#main">
+    &num;
+  </a>
+
+</h4>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> main</span><span>() {}</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">void</span><span style="color: #8FA1B3;"> main</span><span>(</span><span style="color: #EBCB8B;">List</span><span>&lt;</span><span style="color: #EBCB8B;">String</span><span>&gt; arguments) {}</span></span></code></pre>
+<ul>
+<li>You can use the <a rel="external" href="https://pub.dev/packages/args">args</a> package for arg parsing.</li>
+</ul>
+<h4 id="closures">closures
+  <a class="anchor-link" aria-label="anchor link" href="#closures">
+    &num;
+  </a>
+
+</h4>
+<p>syntax:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>([[Type] param1[, ...]]) { codeBlock; }</span></span>
+<span class="giallo-l"><span>([[Type] param1[, ...]]) =&gt; expression;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>const printer = (val) { print(&quot;this is $val&quot;); };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[&quot;bob&quot;, &quot;Alice&quot;]</span></span>
+<span class="giallo-l"><span>	.map((name) =&gt; name.toUpperCase())</span></span>
+<span class="giallo-l"><span>	.forEach((name) =&gt; print(&quot;big name: $name&quot;));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Function makeAdder(int addend) =&gt; (int i) =&gt; i + addend;</span></span></code></pre><h2 id="operators">operators
+  <a class="anchor-link" aria-label="anchor link" href="#operators">
+    &num;
+  </a>
+
+</h2>
+<p>(only highlighting interesting or non-standard operators)</p>
+<ul>
+<li><code>~/</code> integer division, e.g., <code>5 ~/ 2 == 2</code>.</li>
+<li><code>x is T</code> is true if value <code>x</code> impls <code>T</code>. <code>x is Object?</code> is always true.</li>
+<li><code>x is! T == !(x is T)</code></li>
+<li><code>x ??= value</code> assigns value iff x is null.</li>
+</ul>
+<p><code>ints</code> are always signed, so shifts are sign-extended as well. To do a bit-wise unsigned right shift, use <code>&gt;&gt;&gt;</code>.</p>
+<ul>
+<li><code>expr1 ?? expr2</code> returns <code>expr1</code> if it's non-null, otherwise <code>expr2</code>.</li>
+</ul>
+<p>cascade notation lets you make a sequence of operations on one object:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">var</span><span> paint =</span><span style="color: #EBCB8B;"> Paint</span><span>()</span></span>
+<span class="giallo-l"><span>  ..color =</span><span style="color: #EBCB8B;"> Colors</span><span>.black</span></span>
+<span class="giallo-l"><span>  ..strokeCap =</span><span style="color: #EBCB8B;"> StrokeCap</span><span>.round</span></span>
+<span class="giallo-l"><span>  ..strokeWidth =</span><span style="color: #D08770;"> 5.0</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// if the object is possibly null, then use `?..` for the first operation</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">querySelector</span><span>(</span><span style="color: #A3BE8C;">&quot;#confirm&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>  ?..text =</span><span style="color: #A3BE8C;"> &quot;Confirm&quot;</span></span>
+<span class="giallo-l"><span>  ..classes.</span><span style="color: #8FA1B3;">add</span><span>(</span><span style="color: #A3BE8C;">&quot;important&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>  ..onClick.</span><span style="color: #8FA1B3;">listen</span><span>((e) =&gt; window.</span><span style="color: #8FA1B3;">alert</span><span>(</span><span style="color: #A3BE8C;">&quot;Confirmed&quot;</span><span>))</span></span>
+<span class="giallo-l"><span>  ..</span><span style="color: #8FA1B3;">scrollIntoView</span><span>();</span></span></code></pre>
+<p>other maybe-null operators</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span>xs?[</span><span style="color: #D08770;">1</span><span>] == xs.</span><span style="color: #8FA1B3;">map</span><span>(|xs| xs[</span><span style="color: #D08770;">1</span><span>])</span></span>
+<span class="giallo-l"><span>paint?.color == paint.</span><span style="color: #8FA1B3;">map</span><span>(|p| p.color)</span></span>
+<span class="giallo-l"><span>paint! == paint.</span><span style="color: #8FA1B3;">unwrap</span><span>()</span></span>
+<span class="giallo-l"><span>paint!.color == paint.</span><span style="color: #8FA1B3;">unwrap</span><span>().color</span></span></code></pre>
+<p>you can override operators on classes</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> Vec3d</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> double</span><span> x, y, z;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Vec3d</span><span>(this.x, this.y, this.z);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Vec3d</span><span style="color: #B48EAD;"> operator</span><span> +(</span><span style="color: #EBCB8B;">Vec3d</span><span> v) =&gt;</span><span style="color: #EBCB8B;"> Vec3d</span><span>(x + v.x, y + v.y, z + v.z);</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="control-flow">control flow
+  <a class="anchor-link" aria-label="anchor link" href="#control-flow">
+    &num;
+  </a>
+
+</h2>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">for</span><span> (</span><span style="color: #B48EAD;">var</span><span> i =</span><span style="color: #D08770;"> 0</span><span>; i &lt;</span><span style="color: #D08770;"> 10</span><span>; i++) { </span><span style="color: #65737E;">/* .. */</span><span> }</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">for</span><span> (</span><span style="color: #B48EAD;">final</span><span> cb </span><span style="color: #B48EAD;">in</span><span> callbacks) { </span><span style="color: #65737E;">/* .. */</span><span> }</span></span>
+<span class="giallo-l"><span>callbacks.</span><span style="color: #8FA1B3;">forEach</span><span>((cb) =&gt;</span><span style="color: #65737E;"> /* .. */</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">while</span><span> (foo) { </span><span style="color: #65737E;">/* .. */</span><span>}</span></span></code></pre>
+<ul>
+<li>supports c-style <code>switch-case</code> blocks...</li>
+</ul>
+<p>All of Dart’s exceptions are unchecked exceptions. Methods don’t declare which exceptions they might throw, and you aren’t required to catch any exceptions.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">try</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  breedMoreLlamas</span><span>();</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #B48EAD;">on</span><span style="color: #EBCB8B;"> OutOfLlamasException</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  // A specific exception</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  buyMoreLlamas</span><span>();</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #B48EAD;">on</span><span style="color: #EBCB8B;"> Exception</span><span style="color: #B48EAD;"> catch</span><span> (err) {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  // Anything else that is an exception</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  print</span><span>(</span><span style="color: #A3BE8C;">&#39;Unknown exception: $</span><span>err</span><span style="color: #A3BE8C;">&#39;</span><span>);</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #B48EAD;">catch</span><span> (err, backtrace) {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  // No specified type, handles all</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  print</span><span>(</span><span style="color: #A3BE8C;">&#39;unknown error:</span><span style="color: #96B5B4;">\n</span><span style="color: #A3BE8C;">$</span><span>err</span><span style="color: #96B5B4;">\n</span><span style="color: #A3BE8C;">trace:</span><span style="color: #96B5B4;">\n</span><span style="color: #A3BE8C;">$</span><span>backtrace</span><span style="color: #A3BE8C;">&#39;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  rethrow</span><span>;</span></span>
+<span class="giallo-l"><span>} </span><span style="color: #B48EAD;">finally</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">  cleanup</span><span>();</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="classes">classes
+  <a class="anchor-link" aria-label="anchor link" href="#classes">
+    &num;
+  </a>
+
+</h2>
+<p>The root of the Dart object hierarchy is <code>Object? := { null U Object }</code>:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="plain"><span class="giallo-l"><span>				Object?</span></span>
+<span class="giallo-l"><span>				|     |</span></span>
+<span class="giallo-l"><span>			  null  Object</span></span>
+<span class="giallo-l"><span>			        / / \ \</span></span>
+<span class="giallo-l"><span>			    &lt;normal classes&gt;</span></span></code></pre>
+<p>Classes have one superclass (by <code>extends</code>) and zero or more <code>mixin</code> interfaces.</p>
+<h3 id="constructors">constructors
+  <a class="anchor-link" aria-label="anchor link" href="#constructors">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;dart:math&quot;</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> Point</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> double</span><span> x;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> double</span><span> y;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> double</span><span> z;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // initializing with &quot;formal&quot; parameters</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Point</span><span>({</span><span style="color: #B48EAD;">required</span><span> this.x,</span><span style="color: #B48EAD;"> required</span><span> this.y, this.z =</span><span style="color: #D08770;"> 0.0</span><span>});</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // initializing with C++-style initializer list</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Point</span><span>.</span><span style="color: #8FA1B3;">fromPolar</span><span>({</span><span style="color: #B48EAD;">required</span><span style="color: #EBCB8B;"> double</span><span> r,</span><span style="color: #B48EAD;"> required</span><span style="color: #EBCB8B;"> double</span><span> theta})</span></span>
+<span class="giallo-l"><span>      : x = r *</span><span style="color: #8FA1B3;"> cos</span><span>(theta),</span></span>
+<span class="giallo-l"><span>        y = r *</span><span style="color: #8FA1B3;"> sin</span><span>(theta),</span></span>
+<span class="giallo-l"><span>        z =</span><span style="color: #D08770;"> 0.0</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // can also redirect to another constructor</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Point</span><span>.</span><span style="color: #8FA1B3;">fromPolar2</span><span>({</span><span style="color: #B48EAD;">required</span><span style="color: #EBCB8B;"> double</span><span> r,</span><span style="color: #B48EAD;"> required</span><span style="color: #EBCB8B;"> double</span><span> theta})</span></span>
+<span class="giallo-l"><span>      : this(x: r *</span><span style="color: #8FA1B3;"> cos</span><span>(theta), y: r *</span><span style="color: #8FA1B3;"> sin</span><span>(theta));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // if you need to do some work before construction, use `factory`.</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  // this also works for objects retrieved from e.g. an internal cache.</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  factory</span><span style="color: #EBCB8B;"> Point</span><span>.</span><span style="color: #8FA1B3;">fromPolar3d</span><span>({</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    required</span><span style="color: #EBCB8B;"> double</span><span> r,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    required</span><span style="color: #EBCB8B;"> double</span><span> theta,</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    required</span><span style="color: #EBCB8B;"> double</span><span> phi,</span></span>
+<span class="giallo-l"><span>  }) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> rSinPhi = r *</span><span style="color: #8FA1B3;"> sin</span><span>(phi);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> x = rSinPhi *</span><span style="color: #8FA1B3;"> cos</span><span>(theta);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> y = rSinPhi *</span><span style="color: #8FA1B3;"> sin</span><span>(theta);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> z = r *</span><span style="color: #8FA1B3;"> cos</span><span>(phi);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span style="color: #EBCB8B;"> Point</span><span>(x: x, y: y, z: z);</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  String</span><span style="color: #8FA1B3;"> toString</span><span>() =&gt;</span><span style="color: #A3BE8C;"> &quot;{ $</span><span>x</span><span style="color: #A3BE8C;">, $</span><span>y</span><span style="color: #A3BE8C;">, $</span><span>z</span><span style="color: #A3BE8C;"> }&quot;</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(</span><span style="color: #EBCB8B;">Point</span><span>(x:</span><span style="color: #D08770;"> 1</span><span>, y:</span><span style="color: #D08770;"> 2</span><span>));</span><span style="color: #65737E;"> // { 1.0, 2.0, 0.0 }</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(</span><span style="color: #EBCB8B;">Point</span><span>(x:</span><span style="color: #D08770;"> 1</span><span>, y:</span><span style="color: #D08770;"> 2</span><span>, z:</span><span style="color: #D08770;"> 3</span><span>));</span><span style="color: #65737E;"> // { 1.0, 2.0, 3.0 }</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(</span><span style="color: #EBCB8B;">Point</span><span>.</span><span style="color: #8FA1B3;">fromPolar</span><span>(r:</span><span style="color: #D08770;"> 3.0</span><span>, theta:</span><span style="color: #D08770;"> 0.25</span><span> * pi));</span><span style="color: #65737E;"> // { 2.121, 2.121, 0.0 }</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(</span><span style="color: #EBCB8B;">Point</span><span>.</span><span style="color: #8FA1B3;">fromPolar3d</span><span>(</span><span style="color: #65737E;"> // { 0.812, 0.812, 2.772 }</span></span>
+<span class="giallo-l"><span>  r:</span><span style="color: #D08770;"> 3.0</span><span>,</span></span>
+<span class="giallo-l"><span>  theta:</span><span style="color: #D08770;"> 0.25</span><span> * pi,</span></span>
+<span class="giallo-l"><span>  phi:</span><span style="color: #D08770;"> 0.125</span><span> * pi,</span></span>
+<span class="giallo-l"><span>));</span></span></code></pre><h3 id="getters-and-setters">getters and setters
+  <a class="anchor-link" aria-label="anchor link" href="#getters-and-setters">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> Point</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Point</span><span>(this.x, this.y, this.x);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> double</span><span> x, y, z;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  double</span><span style="color: #B48EAD;"> get</span><span> length =&gt;</span><span style="color: #8FA1B3;"> sqrt</span><span>(x * x + y * y + z * z);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  set</span><span style="color: #8FA1B3;"> length</span><span>(</span><span style="color: #EBCB8B;">double</span><span> newLen) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> mult = newLen / length;</span></span>
+<span class="giallo-l"><span>    x *= mult;</span></span>
+<span class="giallo-l"><span>    y *= mult;</span></span>
+<span class="giallo-l"><span>    z *= mult;</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">bool</span><span style="color: #8FA1B3;"> approxEq</span><span>(</span><span style="color: #EBCB8B;">double</span><span> x,</span><span style="color: #EBCB8B;"> double</span><span> y) =&gt;</span><span style="color: #8FA1B3;"> abs</span><span>(x - y) &lt;=</span><span style="color: #D08770;"> 1e-10</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final</span><span> point =</span><span style="color: #EBCB8B;"> Point</span><span>(</span><span style="color: #D08770;">0</span><span>,</span><span style="color: #8FA1B3;"> sqrt</span><span>(</span><span style="color: #D08770;">2</span><span>)/</span><span style="color: #D08770;">2</span><span>,</span><span style="color: #8FA1B3;"> sqrt</span><span>(</span><span style="color: #D08770;">2</span><span>)/</span><span style="color: #D08770;">2</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(</span><span style="color: #8FA1B3;">approxEq</span><span>(</span><span style="color: #D08770;">1.0</span><span>, point.length));</span></span></code></pre><h3 id="implicit-interfaces">implicit interfaces
+  <a class="anchor-link" aria-label="anchor link" href="#implicit-interfaces">
+    &num;
+  </a>
+
+</h3>
+<p>All classes define an <em>implicit interface</em> containing all its instance members and implemented interfaces.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #65737E;">// A person. The implicit interface contains greet().</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> Person</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #65737E;">  // In the interface, but visible only in this library.</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> String</span><span> _name;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // Not in the interface, since this is a constructor.</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Person</span><span>(this._name);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">  // In the interface.</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  String</span><span style="color: #8FA1B3;"> greet</span><span>(</span><span style="color: #EBCB8B;">String</span><span> who) =&gt;</span><span style="color: #A3BE8C;"> &#39;Hello, $</span><span>who</span><span style="color: #A3BE8C;">. I am $</span><span>_name</span><span style="color: #A3BE8C;">.&#39;</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// An implementation of the Person interface.</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> Impostor</span><span style="color: #B48EAD;"> implements</span><span style="color: #EBCB8B;"> Person</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  String</span><span style="color: #B48EAD;"> get</span><span> _name =&gt;</span><span style="color: #A3BE8C;"> &#39;&#39;</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  String</span><span style="color: #8FA1B3;"> greet</span><span>(</span><span style="color: #EBCB8B;">String</span><span> who) =&gt;</span><span style="color: #A3BE8C;"> &#39;Hi $</span><span>who</span><span style="color: #A3BE8C;">. Do you know who I am?&#39;</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="extension-methods">extension methods
+  <a class="anchor-link" aria-label="anchor link" href="#extension-methods">
+    &num;
+  </a>
+
+</h2>
+<blockquote>
+<p>extension methods == point-free function -&gt; dot method</p>
+</blockquote>
+<p>Extension methods are <em>pure syntactic sugar</em>. They let us define faux-methods on a type (using dot notation) when we would otherwise be restricted to a static point-free function. In the following example, we can use extension methods to make <code>parseInt("123")</code> into a faux-method on <code>String</code>, like <code>"123".parseInt()</code>.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #65737E;">// point free version</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">int</span><span style="color: #8FA1B3;"> parseInt</span><span>(</span><span style="color: #EBCB8B;">String</span><span> s) =&gt;</span><span style="color: #EBCB8B;"> int</span><span>.</span><span style="color: #8FA1B3;">parse</span><span>(s);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// a named extension on String</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">extension</span><span style="color: #EBCB8B;"> NumberParsing</span><span style="color: #B48EAD;"> on</span><span style="color: #EBCB8B;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  int</span><span style="color: #8FA1B3;"> parseInt</span><span>() =&gt;</span><span style="color: #EBCB8B;"> int</span><span>.</span><span style="color: #8FA1B3;">parse</span><span>(this);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// an unnamed, module-local extension</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">extension on</span><span style="color: #EBCB8B;"> String</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  int</span><span style="color: #8FA1B3;"> parseInt</span><span>() =&gt;</span><span style="color: #EBCB8B;"> int</span><span>.</span><span style="color: #8FA1B3;">parse</span><span>(this);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(</span><span style="color: #EBCB8B;">int</span><span>.</span><span style="color: #8FA1B3;">parse</span><span>(</span><span style="color: #A3BE8C;">&quot;123&quot;</span><span>) ==</span><span style="color: #D08770;"> 123</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(</span><span style="color: #8FA1B3;">parseInt</span><span>(</span><span style="color: #A3BE8C;">&quot;123&quot;</span><span>) ==</span><span style="color: #D08770;"> 123</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(</span><span style="color: #A3BE8C;">&quot;123&quot;</span><span>.</span><span style="color: #8FA1B3;">parseInt</span><span>() ==</span><span style="color: #D08770;"> 123</span><span>);</span></span></code></pre>
+<p>You can't invoke extension methods on values with type <code>dynamic</code>.</p>
+<p>If two modules provide two extension methods of the same name on the same type, you will need to either (1) <code>hide</code> the extension for one of the modules or (2) namespace one of the modules with <code>as</code>.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;string_apis.dart&quot;</span><span>;</span><span style="color: #65737E;"> // defs String.parseInt() extension</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;string_apis_2.dart&quot;</span><span style="color: #B48EAD;"> hide</span><span> NumberParsing2;</span><span style="color: #65737E;"> // need to hide the second ext</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">&quot;42&quot;</span><span>.</span><span style="color: #8FA1B3;">parseInt</span><span>();</span></span></code></pre><pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;string_apis.dart&quot;</span><span>;</span><span style="color: #65737E;"> // defs NumberParsing ext</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;string_apis_3.dart&quot;</span><span style="color: #B48EAD;"> as</span><span> foo;</span><span style="color: #65737E;"> // defs NumberParsing ext</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #A3BE8C;">&quot;42&quot;</span><span>.</span><span style="color: #8FA1B3;">parseInt</span><span>();</span><span style="color: #65737E;"> // &lt;&lt; ERROR</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">NumberParsing</span><span>(</span><span style="color: #A3BE8C;">&quot;42&quot;</span><span>).</span><span style="color: #8FA1B3;">parseInt</span><span>();</span></span>
+<span class="giallo-l"><span>foo.</span><span style="color: #EBCB8B;">NumberParsing</span><span>(</span><span style="color: #A3BE8C;">&quot;42&quot;</span><span>).</span><span style="color: #8FA1B3;">parseInt</span><span>();</span></span></code></pre><h2 id="enums">enums
+  <a class="anchor-link" aria-label="anchor link" href="#enums">
+    &num;
+  </a>
+
+</h2>
+<p>Dart has basic C-style enums, like:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">enum</span><span style="color: #EBCB8B;"> Color</span><span> { red, green, blue }</span></span></code></pre>
+<p>There's also "enhanced enums" which are <em>NOT</em> like real discriminated unions. This feature just allows enums to have methods and a <em>fixed</em> set of fields shared across all variants.</p>
+<p>Update(2023/07/14): dart 3 now includes <code>sealed</code> and <code>final</code> classes, plus exhaustive pattern matching. These two features let us mostly emulate real discriminated unions. For example, consider an enum like Rust's <code>Result&lt;T, E&gt;</code>:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="rust"><span class="giallo-l"><span style="color: #B48EAD;">pub enum</span><span> Result&lt;T, E&gt; {</span></span>
+<span class="giallo-l"><span>  Ok(T),</span></span>
+<span class="giallo-l"><span>  Err(E),</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>We can now mostly emulate this in dart 3:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">sealed class</span><span style="color: #EBCB8B;"> Result</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>,</span><span style="color: #EBCB8B;"> E</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Result</span><span>();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  T</span><span>?</span><span style="color: #B48EAD;"> get</span><span> ok;</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  E</span><span>?</span><span style="color: #B48EAD;"> get</span><span> err;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final class</span><span style="color: #EBCB8B;"> Ok</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>,</span><span style="color: #EBCB8B;"> E</span><span>&gt;(this.ok) </span><span style="color: #B48EAD;">extends</span><span style="color: #EBCB8B;"> Result</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>,</span><span style="color: #EBCB8B;"> E</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Ok</span><span>(this.ok);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> T</span><span> ok;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  E</span><span>?</span><span style="color: #B48EAD;"> get</span><span> err =&gt;</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final class</span><span style="color: #EBCB8B;"> Err</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>,</span><span style="color: #EBCB8B;"> E</span><span>&gt;(this.ok) </span><span style="color: #B48EAD;">extends</span><span style="color: #EBCB8B;"> Result</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>,</span><span style="color: #EBCB8B;"> E</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> Err</span><span>(this.err);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> E</span><span> err;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  T</span><span>?</span><span style="color: #B48EAD;"> get</span><span> ok =&gt;</span><span style="color: #D08770;"> null</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p>Using it isn't too bad with exhaustive pattern matching:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">final</span><span style="color: #EBCB8B;"> Result</span><span>&lt;</span><span style="color: #EBCB8B;">int</span><span>,</span><span style="color: #EBCB8B;"> String</span><span>&gt; result =</span><span style="color: #EBCB8B;"> Ok</span><span>(</span><span style="color: #D08770;">123</span><span>);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// using switch-expressions:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final</span><span style="color: #EBCB8B;"> bool</span><span> isOk123 =</span><span style="color: #B48EAD;"> switch</span><span> (result) {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Ok</span><span>(:</span><span style="color: #B48EAD;">final</span><span> ok) =&gt; ok ==</span><span style="color: #D08770;"> 123</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Err</span><span>() =&gt;</span><span style="color: #D08770;"> false</span><span>,</span></span>
+<span class="giallo-l"><span>};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">assert</span><span>(isOk123);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// or switch-statements:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">final</span><span style="color: #EBCB8B;"> int</span><span> value;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">switch</span><span> (result) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  case</span><span style="color: #EBCB8B;"> Ok</span><span>(:</span><span style="color: #B48EAD;">final</span><span> ok):</span></span>
+<span class="giallo-l"><span>    value = ok;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  case</span><span style="color: #EBCB8B;"> Err</span><span>(:</span><span style="color: #B48EAD;">final</span><span> err):</span></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">    print</span><span>(</span><span style="color: #A3BE8C;">&quot;Error: $</span><span>err</span><span style="color: #A3BE8C;">&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    return</span><span>;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8FA1B3;">print</span><span>(</span><span style="color: #A3BE8C;">&quot;value = $</span><span>value</span><span style="color: #A3BE8C;">&quot;</span><span>);</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// value = 123</span></span></code></pre><h2 id="mixins">mixins
+  <a class="anchor-link" aria-label="anchor link" href="#mixins">
+    &num;
+  </a>
+
+</h2>
+<blockquote>
+<p><code>mixin</code>s are like <code>abstract class</code>es that can neither be <em>extended</em> nor <em>constructed</em>.</p>
+</blockquote>
+<p>(philip): looking through dart-lang std, it appears that mixins are almost never used? even interface-only cases, like <code>Comparable&lt;T&gt;</code>, are just <code>abstract class</code>es. consumers provide the interface by e.g. <code>class X implements Comparable&lt;X&gt;</code>.</p>
+<p>(philip): more std: main use case in std seems to be type-specialization? like "implement <code>List&lt;int&gt;</code> more efficiently for <code>Uint8List</code>".</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">enum</span><span style="color: #EBCB8B;"> Ordering</span><span> { less, equal, greater }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">mixin</span><span style="color: #EBCB8B;"> PartialOrd</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Ordering</span><span>?</span><span style="color: #8FA1B3;"> partialCmp</span><span>(</span><span style="color: #EBCB8B;">T</span><span> other);</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">mixin</span><span style="color: #EBCB8B;"> Ord</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>&gt;</span><span style="color: #B48EAD;"> on</span><span style="color: #EBCB8B;"> PartialOrd</span><span>&lt;</span><span style="color: #EBCB8B;">T</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Ordering</span><span style="color: #8FA1B3;"> cmp</span><span>(</span><span style="color: #EBCB8B;">T</span><span> other);</span></span>
+<span class="giallo-l"><span>} </span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">class</span><span style="color: #EBCB8B;"> BigInt</span><span style="color: #B48EAD;"> with</span><span style="color: #EBCB8B;"> PartialOrd</span><span>&lt;</span><span style="color: #EBCB8B;">BigInt</span><span>&gt;,</span><span style="color: #EBCB8B;"> Ord</span><span>&lt;</span><span style="color: #EBCB8B;">BigInt</span><span>&gt; {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  final</span><span style="color: #EBCB8B;"> List</span><span>&lt;</span><span style="color: #EBCB8B;">int</span><span>&gt; limbs;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  const</span><span style="color: #EBCB8B;"> BigInt</span><span>() : this.limbs =</span><span style="color: #B48EAD;"> const</span><span> [];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Ordering</span><span>?</span><span style="color: #8FA1B3;"> partialCmp</span><span>(</span><span style="color: #EBCB8B;">BigInt</span><span> other) =&gt;</span><span style="color: #8FA1B3;"> cmp</span><span>(other);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">  @override</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">  Ordering</span><span style="color: #8FA1B3;"> cmp</span><span>(</span><span style="color: #EBCB8B;">BigInt</span><span> other) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> lenThis = this.limbs.length;</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    final</span><span> lenOther = other.limbs.length;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">    if</span><span> (lenThis &lt; lenOther) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">      return</span><span style="color: #EBCB8B;"> Ordering</span><span>.less;</span></span>
+<span class="giallo-l"><span>    } </span><span style="color: #B48EAD;">else if</span><span> (lenThis &gt; lenOther) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">      return</span><span style="color: #EBCB8B;"> Ordering</span><span>.greater;</span></span>
+<span class="giallo-l"><span>    } </span><span style="color: #B48EAD;">else</span><span> {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">	  for</span><span> (</span><span style="color: #B48EAD;">var</span><span> i = lenThis -</span><span style="color: #D08770;"> 1</span><span>; i &gt;=</span><span style="color: #D08770;"> 0</span><span>; i--) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        final</span><span> limbThis = this.limbs[i];</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        final</span><span> limbOther = other.limbs[i];</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">        if</span><span> (limbThis &lt; limbOther) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">          return</span><span style="color: #EBCB8B;"> Ordering</span><span>.less;</span></span>
+<span class="giallo-l"><span>        } </span><span style="color: #B48EAD;">else if</span><span> (limbThis &gt; limbOther) {</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">          return</span><span style="color: #EBCB8B;"> Ordering</span><span>.greater;</span></span>
+<span class="giallo-l"><span>        }</span></span>
+<span class="giallo-l"><span>      }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #B48EAD;">      return</span><span style="color: #EBCB8B;"> Ordering</span><span>.equal;</span></span>
+<span class="giallo-l"><span>    }</span></span>
+<span class="giallo-l"><span>  }</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><h2 id="libraries">libraries
+  <a class="anchor-link" aria-label="anchor link" href="#libraries">
+    &num;
+  </a>
+
+</h2>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #65737E;">// dart-core packages are prefixed with &quot;dart:&quot;</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// like: `use std::collect::*;`</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;dart:collection&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// external packages are prefixed with &quot;package:&quot;</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// like: `use serde::de::*;`</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;package:lib1/lib1.dart&quot;</span><span>;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// namespace import</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// like: `use std::collection as std_collection;`</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;dart:collection&quot;</span><span style="color: #B48EAD;"> as</span><span> stdCollection;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// only import parts of library</span></span>
+<span class="giallo-l"><span style="color: #65737E;">// like: `use std::collection::{VecDeque, BTreeMap};`</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;dart:collection&quot;</span><span style="color: #B48EAD;"> show</span><span> Queue, Set;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #65737E;">// import all but hide some things</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &quot;dart::collection&quot;</span><span style="color: #B48EAD;"> hide</span><span> Queue, Set;</span></span></code></pre><h2 id="async-await">async/await
+  <a class="anchor-link" aria-label="anchor link" href="#async-await">
+    &num;
+  </a>
+
+</h2>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #EBCB8B;">Future</span><span>&lt;</span><span style="color: #EBCB8B;">String</span><span>&gt;</span><span style="color: #8FA1B3;"> lookup</span><span>() </span><span style="color: #B48EAD;">async</span><span> =&gt;</span><span style="color: #A3BE8C;"> &quot;123&quot;</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">Future</span><span>&lt;</span><span style="color: #EBCB8B;">String</span><span>&gt;</span><span style="color: #8FA1B3;"> lookup</span><span>() </span><span style="color: #B48EAD;">async</span><span> =&gt;</span><span style="color: #B48EAD;"> await</span><span> http.</span><span style="color: #8FA1B3;">fetch</span><span>(</span><span style="color: #A3BE8C;">&quot;google.com&quot;</span><span>);</span></span></code></pre>
+<p>Dart uses a single-threaded async runtime, though you can spawn background workers with no shared state that communicate <em>solely</em> through message passing.</p>
+<h3 id="enable-the-unawaited-futures-lint">enable the <code>unawaited_futures</code> lint
+  <a class="anchor-link" aria-label="anchor link" href="#enable-the-unawaited-futures-lint">
+    &num;
+  </a>
+
+</h3>
+<p>In stock dart, you can call async methods <em>without awaiting</em> them, which is super suprising to me. Enabling the <code>unawaited_futures</code> lint will tell the compiler to yell at you if you accidentally call an async method without awaiting it. This is like the <code>#[must_use]</code> attribute in Rust but only for dart's <code>Future</code>s.</p>
+<p>Be sure to enable this lint early on in a project, since a lot of standard flutter code likes to play fast and loose with ignoring futures.</p>
+<p>Note that there are some occasions where you want to call an async function but not await the returned future, like <code>Navigator.push()</code>, which actually returns a <code>Future&lt;T?&gt;</code> for the value the new route eventually yields when it <code>Navigator.pop()</code>s. In this particular case, the method synchronously pushes the new route onto the navigation stack and just returns a future for the popped value. If you don't care about the value, use the <code>dart:async</code> <code>unawaited()</code> function, which ignores the returned future:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #8FA1B3;">unawaited</span><span>(</span><span style="color: #EBCB8B;">Navigator</span><span>.</span><span style="color: #8FA1B3;">push</span><span>(context, route));</span></span></code></pre>
+<p>You should only use <code>unawaited</code> on a future if you're sure it won't return an error. If you don't care about the result regardless, you can use <code>FutureExtensions.ignore</code> like:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="dart"><span class="giallo-l"><span style="color: #B48EAD;">import</span><span style="color: #A3BE8C;"> &#39;dart:async&#39;</span><span style="color: #B48EAD;"> show</span><span> FutureExtensions;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EBCB8B;">Navigator</span><span>.</span><span style="color: #8FA1B3;">push</span><span>(context, route).</span><span style="color: #8FA1B3;">ignore</span><span>();</span></span></code></pre>
+<p>Unfortunately, this lint only tells you about unawaited futures... in async code. Which is why you should also...</p>
+<h3 id="enable-the-discarded-futures-lint">enable the <code>discarded_futures</code> lint
+  <a class="anchor-link" aria-label="anchor link" href="#enable-the-discarded-futures-lint">
+    &num;
+  </a>
+
+</h3>
+<p>This is like <code>unawaited_futures</code> but also works in sync code. It should be renamed to <code>unawaited_futures_sync</code> IMO. Or <code>unawaited_futures</code> should just work in both contexts...</p>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>
