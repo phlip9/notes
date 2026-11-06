@@ -1,0 +1,4877 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+
+
+<link rel="stylesheet" href="https://phlip9.com/notes/main.css">
+
+
+
+  
+
+  
+  
+
+  
+    
+      
+    
+  
+
+  
+    
+  
+  
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+  
+
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>refactoring ui | philip's notes</title>
+<meta name="description" content="a collection of my notes">
+<link rel="canonical" href="https://phlip9.com/notes/design/refactoring ui/">
+
+
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="refactoring ui">
+  
+  <meta name="twitter:site" content="@phlip9">
+  <meta name="twitter:creator" content="@phlip9">
+  
+  <meta property="og:title" content="refactoring ui">
+  <meta property="og:description" content="a collection of my notes">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://phlip9.com/notes/design/refactoring ui/">
+
+  
+
+  <meta property="og:updated_time" content="2022-04-02">
+  <meta property="og:site_name" content="philip&#x27;s notes">
+
+  
+
+  
+
+  
+  
+  
+  <meta property="og:locale" content="en_US">
+
+
+
+
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "/design/refactoring ui/"
+    },
+    "headline": "refactoring ui",
+    "image": ,
+    "datePublished": "2022-12-12",
+    "dateModified": "2022-04-02",
+    "author": {
+      "@type": "Person",
+      "name": "Philip Hayes"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Philip Hayes",
+      
+    },
+    "description": "a collection of my notes"
+  }
+  </script>
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://phlip9.com/notes/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Design",
+            "item": "https://phlip9.com/notes/design/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Refactoring Ui",
+            "item": "https://phlip9.com/notes/design/refactoring ui/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+
+
+  <meta name="theme-color" content="#383866">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://phlip9.com/notes/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://phlip9.com/notes/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://phlip9.com/notes/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://phlip9.com/notes/site.webmanifest">
+  
+
+
+  
+    
+      
+      <script>
+        // https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        window.MathJax = {
+          tex: {
+            inlineMath: [
+              ['$', '$']
+            ],
+            displayMath: [
+              ['$$', '$$'],
+              ['\\[', '\\]']
+            ],
+            processEscapes: true,
+            processEnvironments: true,
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          }
+        };
+      </script>
+      <script async defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-chtml.js" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" crossorigin="anonymous" id="MathJax-script"></script>
+    
+  
+
+</head>
+
+  
+
+<body class="notes single dark">
+  
+  
+  
+  
+
+
+  
+
+
+
+<div class="container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 notes-sidebar">
+	<nav class="notes-links" aria-label="Main navigation">
+    <a class="navbar-brand link-internal" href="https://phlip9.com/notes/">
+      philip's notes
+    </a>
+
+    
+      
+        <a class="notes-link sidebar-social" href="https://twitter.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          <span class="visually-hidden">Twitter</span>
+        </a>
+      
+        <a class="notes-link sidebar-social" href="https://github.com/phlip9">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          <span class="visually-hidden">GitHub</span>
+        </a>
+      
+
+      
+        <a id="sidebar-open-search" class="notes-link sidebar-social" href="#">
+          <svg width="20" height="20" fill="none" tabindex="0" id="search-icon"
+            aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <g class="search-path"><path d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle>
+            </g>
+          </svg>
+        </a>
+      
+    
+
+    <hr>
+
+    
+    
+    
+    
+  
+  
+
+  
+    <ol id="sidebar-tree-root">
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ai-ml"  />
+    <label class="h3" for="sidebar-input-ai-ml">
+      AI ML
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Expectimax Search/">
+          Expectimax Search
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/AI ML/Markov Decision Process (MDP)/">
+          Markov Decision Process (MDP)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-wsl"  />
+    <label class="h3" for="sidebar-input-wsl">
+      WSL
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/WSL/WSL2 custom kernel/">
+          WSL2 custom kernel
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-android"  />
+    <label class="h3" for="sidebar-input-android">
+      android
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/ADB over TCP inside WSL2/">
+          ADB over TCP inside WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/OTA updates for rooted android phone/">
+          OTA updates for rooted android phone
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/android cli setup/">
+          android cli setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/building signal-android in WSL2/">
+          building signal-android in WSL2
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/linux ADB udev setup/">
+          linux ADB udev setup
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/android/root phone with magisk/">
+          root phone with magisk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n"  />
+    <label class="h3" for="sidebar-input-b-i-g-m-o-n-e-y-l-a-w-r-e-g-u-l-a-t-i-o-n">
+      b i g m o n e y l a w r e g u l a t i o n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/financial instituion/">
+          financial instituion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/foreign bank account report (FBAR)/">
+          foreign bank account report (FBAR)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/monetary instruments/">
+          monetary instruments
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b i g m o n e y l a w r e g u l a t i o n/money services business (MSB)/">
+          money services business (MSB)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-b-l-o-c-k-c-h-a-i-n"  />
+    <label class="h3" for="sidebar-input-b-l-o-c-k-c-h-a-i-n">
+      b l o c k c h a i n
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/aptos/">
+          aptos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/bip158 - compact block filters/">
+          bip158 - compact block filters
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/btc utreexo - utxo accumulator/">
+          btc utreexo - utxo accumulator
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/fastpay/">
+          fastpay
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/oasis/">
+          oasis
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/b l o c k c h a i n/sui/">
+          sui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-btc-ln"  />
+    <label class="h3" for="sidebar-input-btc-ln">
+      btc-ln
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 11 - invoices/">
+          BOLT 11 - invoices
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 2 - channel management protocol/">
+          BOLT 2 - channel management protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 4 - onion routing protocol/">
+          BOLT 4 - onion routing protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 7 - p2p node and channel discovery/">
+          BOLT 7 - p2p node and channel discovery
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/BOLT 8 - secure noise transport/">
+          BOLT 8 - secure noise transport
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/atomic multipath payments (AMP)/">
+          atomic multipath payments (AMP)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/breez lightning service providers/">
+          breez lightning service providers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/hosted channels/">
+          hosted channels
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning address/">
+          lightning address
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning libs/">
+          lightning libs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning network notes/">
+          lightning network notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightning rod/">
+          lightning rod
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/lightningdevkit - rust-lightning/">
+          lightningdevkit - rust-lightning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/nwc - nostr wallet connect/">
+          nwc - nostr wallet connect
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/submarine swaps/">
+          submarine swaps
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/btc-ln/zero-conf channels/">
+          zero-conf channels
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-combinatorics"  />
+    <label class="h3" for="sidebar-input-combinatorics">
+      combinatorics
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/combinatorics/k-combinations of a multiset/">
+          k-combinations of a multiset
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing"  />
+    <label class="h3" for="sidebar-input-confidential-computing">
+      confidential computing
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-confidential-computing-intel-sgx"  />
+    <label class="h3" for="sidebar-input-confidential-computing-intel-sgx">
+      intel SGX
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/SGX lingo/">
+          SGX lingo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/overview/">
+          overview
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/remote attestation/">
+          remote attestation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/sealing/">
+          sealing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel SGX/secure time/">
+          secure time
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/enarx (WASM TEE)/">
+          enarx (WASM TEE)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/fortanix rust tutorial/">
+          fortanix rust tutorial
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/gramine/">
+          gramine
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/intel TDX/">
+          intel TDX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/marblerun/">
+          marblerun
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/mystikos/">
+          mystikos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/confidential computing/remote attestation protocols/">
+          remote attestation protocols
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-crypto"  />
+    <label class="h3" for="sidebar-input-crypto">
+      crypto
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/(talk) authenticated data structures for stateless validation/">
+          (talk) authenticated data structures for stateless validation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/TLS self-signed pubkey-only certs/">
+          TLS self-signed pubkey-only certs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/acme protocol/">
+          acme protocol
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/biscuit authz/">
+          biscuit authz
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/dex - open-source OIDC & OAuth 2.0 provider/">
+          dex - open-source OIDC & OAuth 2.0 provider
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/hkdf-sha256/">
+          hkdf-sha256
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/smallstep - private online CA & ACME server/">
+          smallstep - private online CA & ACME server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/tls exported keying material/">
+          tls exported keying material
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/crypto/zkdocs/">
+          zkdocs
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-design" checked />
+    <label class="h3" for="sidebar-input-design">
+      design
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/design/form design/">
+          form design
+        </a>
+      </li>
+    
+      
+      
+        
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal active" href="https://phlip9.com/notes/design/refactoring ui/">
+          refactoring ui
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops"  />
+    <label class="h3" for="sidebar-input-devops">
+      devops
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-o11y"  />
+    <label class="h3" for="sidebar-input-devops-o11y">
+      o11y
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/o11y/jaeger oss e2e tracing/">
+          jaeger oss e2e tracing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-devops-secrets"  />
+    <label class="h3" for="sidebar-input-devops-secrets">
+      secrets
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/1password - secrets automation/">
+          1password - secrets automation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/doppler/">
+          doppler
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson (Shopify)/">
+          ejson (Shopify)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/ejson-kms (AWS)/">
+          ejson-kms (AWS)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/envkey/">
+          envkey
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/fortanix DSM/">
+          fortanix DSM
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/mozilla SOPS/">
+          mozilla SOPS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sops-nix/">
+          sops-nix
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/secrets/sy - share secrets safely/">
+          sy - share secrets safely
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/AKS - azure kubernetes service/">
+          AKS - azure kubernetes service
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/algo wireguard VPN server/">
+          algo wireguard VPN server
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/azure CLI/">
+          azure CLI
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/consul/">
+          consul
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/deployment strategies/">
+          deployment strategies
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/docker compose/">
+          docker compose
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/k3s/">
+          k3s
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kind (kubernetes in docker)/">
+          kind (kubernetes in docker)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/kubernetes/">
+          kubernetes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/linkerd/">
+          linkerd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/minikube/">
+          minikube
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/nomad/">
+          nomad
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/devops/service mesh/">
+          service mesh
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems"  />
+    <label class="h3" for="sidebar-input-distributed-systems">
+      distributed systems
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-distributed-systems-papers"  />
+    <label class="h3" for="sidebar-input-distributed-systems-papers">
+      papers
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast/">
+          (2020) Semi-Fast Byzantine-tolerant Shared Register without Reliable Broadcast
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/papers/(2021) Leaderless Consensus/">
+          (2021) Leaderless Consensus
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/distributed systems/the siren song of backpressure/">
+          the siren song of backpressure
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-fuzzing"  />
+    <label class="h3" for="sidebar-input-fuzzing">
+      fuzzing
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/bolero - fuzzing + property testing/">
+          bolero - fuzzing + property testing
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzcheck-rs/">
+          fuzzcheck-rs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/fuzzing/fuzzing/">
+          fuzzing
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-ios"  />
+    <label class="h3" for="sidebar-input-ios">
+      ios
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/ios/ios setup/">
+          ios setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-keyboards"  />
+    <label class="h3" for="sidebar-input-keyboards">
+      keyboards
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/keyboards/moergo glove80/">
+          moergo glove80
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang"  />
+    <label class="h3" for="sidebar-input-lang">
+      lang
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-ats"  />
+    <label class="h3" for="sidebar-input-lang-ats">
+      ATS
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/ATS2 Notes/">
+          ATS2 Notes
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/ATS/Install ATS2/">
+          Install ATS2
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-flutter"  />
+    <label class="h3" for="sidebar-input-lang-flutter">
+      flutter
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/dart lang/">
+          dart lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/flutter/flutter setup/">
+          flutter setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-lang-rust"  />
+    <label class="h3" for="sidebar-input-lang-rust">
+      rust
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/optimizing binary size/">
+          optimizing binary size
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rr with rust/">
+          rr with rust
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust verification tools/">
+          rust verification tools
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/rust x SGX/">
+          rust x SGX
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/self-referencing structs/">
+          self-referencing structs
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/sycamore x futures/">
+          sycamore x futures
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/rust/understanding sycamore reactivity/">
+          understanding sycamore reactivity
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/gdb ref/">
+          gdb ref
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/koka-lang/">
+          koka-lang
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/lua/">
+          lua
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/lang/operator fixity and precedence/">
+          operator fixity and precedence
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-management"  />
+    <label class="h3" for="sidebar-input-management">
+      management
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/management/relieve often - why generals were more successful in WWII/">
+          relieve often - why generals were more successful in WWII
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-misc"  />
+    <label class="h3" for="sidebar-input-misc">
+      misc
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/arm target triples/">
+          arm target triples
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/envsubst/">
+          envsubst
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/git multirepo to monorepo/">
+          git multirepo to monorepo
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/kintsugi/">
+          kintsugi
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/optimization solvers/">
+          optimization solvers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/pop_OS! tweaks/">
+          pop_OS! tweaks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/prepping RPI for embedded dev/">
+          prepping RPI for embedded dev
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/rgbxmas/">
+          rgbxmas
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/scanning QR codes on desktop/">
+          scanning QR codes on desktop
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/setting up a headless raspbian boot image/">
+          setting up a headless raspbian boot image
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/uptime to downtime conversion/">
+          uptime to downtime conversion
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/wallpapers/">
+          wallpapers
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/misc/water distillation setup/">
+          water distillation setup
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-networking"  />
+    <label class="h3" for="sidebar-input-networking">
+      networking
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/CIDR/">
+          CIDR
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/ipv6 address space/">
+          ipv6 address space
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interface card (NIC)/">
+          network interface card (NIC)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/networking/network interfaces/">
+          network interfaces
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nix"  />
+    <label class="h3" for="sidebar-input-nix">
+      nix
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/hetzner nixos/">
+          hetzner nixos
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/links/">
+          links
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/manual nix upgrade/">
+          manual nix upgrade
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix auto-allocate-uids -> nixbld users/">
+          nix auto-allocate-uids -> nixbld users
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug broken package build/">
+          nix debug broken package build
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/nix debug spurrious rebuilds/">
+          nix debug spurrious rebuilds
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nix/one weird trick to make your nixos desktop butter smooth/">
+          one weird trick to make your nixos desktop butter smooth
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-nvim"  />
+    <label class="h3" for="sidebar-input-nvim">
+      nvim
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/nvim/universal-ctags Notes/">
+          universal-ctags Notes
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-performance"  />
+    <label class="h3" for="sidebar-input-performance">
+      performance
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/bit hacks/">
+          bit hacks
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/dtrace on macOS/">
+          dtrace on macOS
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/profiling/">
+          profiling
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/performance/simdjson talk/">
+          simdjson talk
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-postgres"  />
+    <label class="h3" for="sidebar-input-postgres">
+      postgres
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/postgres performance tuning/">
+          postgres performance tuning
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/snippets/">
+          snippets
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/postgres/types of scans/">
+          types of scans
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-reproducible-builds"  />
+    <label class="h3" for="sidebar-input-reproducible-builds">
+      reproducible builds
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/earthly/">
+          earthly
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/rebuilderd/">
+          rebuilderd
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/reproducible builds/reproducible-builds.org/">
+          reproducible-builds.org
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router"  />
+    <label class="h3" for="sidebar-input-router">
+      router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router"  />
+    <label class="h3" for="sidebar-input-router-lightning-router">
+      lightning router
+    </label>
+
+    <ol>
+  
+
+  
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-router-lightning-router-captive-portal"  />
+    <label class="h3" for="sidebar-input-router-lightning-router-captive-portal">
+      captive portal
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/RFC 6585 (Additional HTTP Status Codes)/">
+          RFC 6585 (Additional HTTP Status Codes)
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/arubanetworks captive portal/">
+          arubanetworks captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal/">
+          captive portal
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/captive portal/captive portal (wikipedia)/">
+          captive portal (wikipedia)
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/router/lightning router/lightning router overview/">
+          lightning router overview
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+      <li>
+        
+  
+  
+
+  
+    
+    
+      
+    
+    <input type="checkbox" id="sidebar-input-statistics-probability"  />
+    <label class="h3" for="sidebar-input-statistics-probability">
+      statistics probability
+    </label>
+
+    <ol>
+  
+
+  
+
+  
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/CDF confidence bands - DKW inequality/">
+          CDF confidence bands - DKW inequality
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/G-test - multinomial goodness-of-fit/">
+          G-test - multinomial goodness-of-fit
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/MAD - median absolute deviation/">
+          MAD - median absolute deviation
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/cheat sheet/">
+          cheat sheet
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/herbie - float error fixer/">
+          herbie - float error fixer
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/kelly criterion + ELO/">
+          kelly criterion + ELO
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/multinomial distribution/">
+          multinomial distribution
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/p-value/">
+          p-value
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/standard error/">
+          standard error
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/testing whether a coin is fair/">
+          testing whether a coin is fair
+        </a>
+      </li>
+    
+      
+      
+      <li class="sidebar-note">
+        <a class="notes-link link-internal " href="https://phlip9.com/notes/statistics probability/winsorize/">
+          winsorize
+        </a>
+      </li>
+    
+  
+
+  
+    </ol>
+  
+
+      </li>
+    
+  
+
+  
+
+  
+    </ol>
+  
+
+	</nav>
+</div>
+
+	  
+  <nav class="notes-toc d-none d-xl-block col-xl-4" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3 class="text-muted">on this page</h3>
+  			<nav id="table-of-contents">
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#refactoring-ui">refactoring ui</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#example-systems">example systems</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#font-size">font size</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#paddings-margins-sizes">paddings, margins, sizes</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#shadows">shadows</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#fonts">fonts</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#headlines">headlines</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#application-ui">application UI</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#articles">articles</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#starting-from-scratch">starting from scratch</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#start-with-a-feature-not-a-layout">start with a feature, not a layout</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#detail-comes-later">detail comes later</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-design-too-much">don&#x27;t design too much</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#work-in-cycles">work in cycles</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#be-a-pessimist">be a pessimist</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#choose-a-personality">choose a personality</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#limit-your-choices">limit your choices</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#hierarchy-is-everything">hierarchy is everything</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#not-all-elements-are-equal">not all elements are equal</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#size-isn-t-everything">size isn&#x27;t everything</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-use-grey-text-on-colored-backgrounds">don&#x27;t use grey text on colored backgrounds</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#emphasize-by-de-emphasizing">emphasize by de-emphasizing</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#labels-are-a-last-resort">labels are a last resort</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#sometimes-the-format-is-enough">sometimes the format is enough</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-clarifying-text">use clarifying text</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#labels-are-secondary">labels are secondary</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#when-to-emphasize-a-label">when to emphasize a label</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#separate-visual-hierarchy-from-document-hierarchy">separate visual hierarchy from document hierarchy</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#balance-weight-and-contrast">balance weight and contrast</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-contrast-to-compensate-for-weight">use contrast to compensate for weight</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-weight-to-compensate-for-contrast">use weight to compensate for contrast</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#semantics-are-secondary">semantics are secondary</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#layout-and-spacing">layout and spacing</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#start-with-too-much-whitespace">start with too much whitespace</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#whitespace-should-be-removed-not-added">whitespace should be removed, not added</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#desnse-uis-have-their-place">desnse UIs have their place</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#establish-a-spacing-and-sizing-system">establish a spacing and sizing system</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#a-linear-scale-won-t-work">a linear scale won&#x27;t work</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#example-system">example system</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#you-don-t-have-to-fill-the-whole-screen">you don&#x27;t have to fill the whole screen</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#shrink-the-canvas">shrink the canvas</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#thinking-in-columns">thinking in columns</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#grids-are-overrated">grids are overrated</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#not-all-elements-should-be-fluid">not all elements should be fluid</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-shrink-an-element-unless-you-need-to">don&#x27;t shrink an element unless you need to</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#relative-sizing-doesn-t-scale">relative sizing doesn&#x27;t scale</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#relationships-within-elements">relationships within elements</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#avoid-ambiguous-spacing">avoid ambiguous spacing</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#designing-text">designing text</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#establish-a-type-scale">establish a type scale</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#choosing-a-scale">choosing a scale</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-good-fonts">use good fonts</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#play-it-safe">play it safe</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#ignore-typefaces-with-less-than-five-weights">ignore typefaces with less than five weights</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#optimize-for-legibility">optimize for legibility</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#trust-the-wisdom-of-the-crowds">trust the wisdom of the crowds</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#keep-your-line-length-in-check">keep your line length in check</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#baseline-not-center">baseline not center</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#line-height-is-proportional">line-height is proportional</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#line-height-vs-text-width">line-height vs text width</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#line-height-vs-font-size">line-height vs font size</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#not-every-link-needs-a-color">not every link needs a color</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#align-with-readability-in-mind">align with readability in mind</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-letter-spacing-effectively">use letter-spacing effectively</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#tightening-headlines">tightening headlines</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#improving-all-caps-legibility">improving all-caps legibility</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#working-with-color">working with color</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#ditch-hex-for-hsl">ditch hex for HSL</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#you-need-more-colors-than-you-think">you need more colors than you think</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#greys">greys</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#primaries">primaries</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#accent-colors">accent colors</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#define-your-shades-up-front">define your shades up front</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#building-the-shades-for-a-color">building the shades for a color</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#what-about-greys">what about greys?</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#it-s-not-a-science">it&#x27;s not a science</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-let-lightness-kill-your-saturation">don&#x27;t let lightness kill your saturation</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-perceived-brightness-to-your-advantage">use perceived brightness to your advantage</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#changing-brightness-by-rotating-hue">changing brightness by rotating hue</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#greys-don-t-have-to-be-grey">greys don&#x27;t have to be grey</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#accessible-doesn-t-have-to-mean-ugly">accessible doesn&#x27;t have to mean ugly</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#flipping-the-contrast">flipping the contrast</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#rotating-the-hue">rotating the hue</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-rely-on-color-alone">don&#x27;t rely on color alone</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#creating-depth">creating depth</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#emulate-a-light-source">emulate a light source</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#light-comes-from-above">light comes from above</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#simulate-light-in-a-user-interface">simulate light in a user interface</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-shadows-to-convey-elevation">use shadows to convey elevation</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#establish-an-elevation-system">establish an elevation system</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#combining-shadows-with-interaction">combining shadows with interaction</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#shadows-can-have-two-parts">shadows can have two parts</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#accounting-for-elevation">accounting for elevation</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#even-flat-designs-can-have-depth">even flat designs can have depth</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#creating-depth-with-color">creating depth with color</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#using-solid-shadows">using solid shadows</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#overlap-elements-to-create-layers">overlap elements to create layers</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#working-with-images">working with images</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-good-photos">use good photos</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#text-needs-consistent-contrast">text needs consistent contrast</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#everything-has-an-intended-size">everything has an intended size</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-scale-up-icons">don&#x27;t scale up icons</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-scale-down-icons-either">don&#x27;t scale down icons either</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-scale-down-screenshots">don&#x27;t scale down screenshots</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#beware-user-uploaded-content">beware user-uploaded content</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#control-the-shape-and-size">control the shape and size</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#prevent-background-bleed">prevent background bleed</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#finishing-touches">finishing touches</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#supercharge-the-defaults">supercharge the defaults</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#add-color-with-accent-borders">add color with accent borders</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#change-the-background-color">change the background color</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-a-repeating-pattern">use a repeating pattern</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#add-a-simple-shape-or-illustration">add a simple shape or illustration</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#don-t-overlook-the-initial-state">don&#x27;t overlook the initial state</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#use-fewer-borders">use fewer borders</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#think-outside-the-box">think outside the box</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#leveling-up">leveling up</a>
+          
+  
+    <ul>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#look-for-decisions-you-wouldn-t-have-made">look for decisions you wouldn&#x27;t have made</a>
+          
+  
+
+        </li>
+      
+        <li>
+          <a class="link-internal" href="https://phlip9.com/notes/design/refactoring ui/#reproduce-a-design-from-scratch">reproduce a design from scratch</a>
+          
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+        </li>
+      
+    </ul>
+  
+
+  			</nav>
+  	</div>
+  </nav>
+
+      <main class="notes-content tags-content col-lg-11 col-xl-8">
+        
+  
+    
+    
+    
+  <h1 id="refactoring-ui">refactoring ui
+</h1>
+
+        
+        
+<p class="text-muted ">
+2022-12-12 &middot; 34 min read
+</p>
+
+
+        <ul class="tags">
+          
+            
+            <li><a class="btn btn-outline-primary btn-sm link-internal" href="https://phlip9.com/notes/tags/design/">&num;design</a></li>
+          
+        </ul>
+
+        
+  
+    
+    
+    
+  
+<p>a minimal summary.</p>
+<h2 id="example-systems">example systems
+  <a class="anchor-link" aria-label="anchor link" href="#example-systems">
+    &num;
+  </a>
+
+</h2>
+<h3 id="font-size">font size
+  <a class="anchor-link" aria-label="anchor link" href="#font-size">
+    &num;
+  </a>
+
+</h3>
+<ol>
+<li>12px</li>
+<li>14px</li>
+<li>16px</li>
+<li>18px</li>
+<li>20px</li>
+<li>24px</li>
+<li>30px</li>
+<li>36px</li>
+<li>48px</li>
+<li>60px</li>
+<li>72px</li>
+</ol>
+<h3 id="paddings-margins-sizes">paddings, margins, sizes
+  <a class="anchor-link" aria-label="anchor link" href="#paddings-margins-sizes">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>4px</li>
+<li>8px</li>
+<li>12px</li>
+<li>16px</li>
+<li>24px</li>
+<li>32px</li>
+<li>48px</li>
+<li>64px</li>
+<li>96px</li>
+<li>128px</li>
+<li>192px</li>
+<li>256px</li>
+<li>384px</li>
+<li>512px</li>
+<li>640px</li>
+<li>768px</li>
+</ul>
+<h3 id="shadows">shadows
+  <a class="anchor-link" aria-label="anchor link" href="#shadows">
+    &num;
+  </a>
+
+</h3>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="css"><span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0  1px  3px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">12</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">1</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  1px  2px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">24</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0  3px  6px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">2</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  2px  4px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">12</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 10px 20px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">3</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  3px  6px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">10</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 15px 25px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">4</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  5px 10px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">10</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 20px 40px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">20</span><span>); // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">5</span></span></code></pre><h3 id="fonts">fonts
+  <a class="anchor-link" aria-label="anchor link" href="#fonts">
+    &num;
+  </a>
+
+</h3>
+<h4 id="headlines">headlines
+  <a class="anchor-link" aria-label="anchor link" href="#headlines">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li><strong>proxima nova</strong> (head: bold 48px, sub: regular 24px, button: bold 20px)</li>
+<li><strong>freight sans</strong> (head: bold 48px, sub: proxmia nova 24px, button: proxima nova bold 20px)</li>
+<li><strong>futura</strong> (head: bold 36px, sub: trade gothic next regular 24px, button: trade gothic next bold 20px)</li>
+<li><strong>harmonia sans</strong> (head: black 48px, sub: graphik regular 24px, button: graphik semibold 20px)</li>
+<li><strong>graphik</strong> (head: black 48px, sub: regular 24px, button: semibold 18px)</li>
+<li><strong>ff meta serif</strong> (head: serif bold 48px, sub: myriad pro regular 24px, button: myriad pro semibold 20px)</li>
+<li><strong>roboto</strong> (head: black 48px, sub: regular 24px, button: bold 20px)</li>
+<li><strong>jubilat</strong> (head: semibold 48px, sub: proxima nova 24px, button: proxima nova bold 20px)</li>
+<li><strong>interstate</strong> (head: bold 48px, sub: light 24px, button: regular 20px)</li>
+<li><strong>neue plak</strong> (head: extra black 48px, sub: regular 24px, button: bold 20px)</li>
+<li><strong>adelle</strong> (head: extra bold 48px, sub: proxima nova regular 24px, button: proxima nova bold 20pxhttps://fonts.google.com/specimen/Lexend)</li>
+</ul>
+<h4 id="application-ui">application UI
+  <a class="anchor-link" aria-label="anchor link" href="#application-ui">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>proxima nova</li>
+<li>inter UI</li>
+<li>roboto</li>
+<li>graphik</li>
+<li>source sans</li>
+<li>lato</li>
+<li>avenir next</li>
+<li>open sans</li>
+<li>aktiv grotesk</li>
+<li>benton sans</li>
+<li>soleil</li>
+<li>camphor</li>
+<li>neue plak text</li>
+<li>effra</li>
+</ul>
+<h4 id="articles">articles
+  <a class="anchor-link" aria-label="anchor link" href="#articles">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li><strong>freight text</strong> (title: sans book 48px, body: text book 18px, meta: sans book 16px)</li>
+<li><strong>source sans</strong> (title: sans light 48px, body: sans regular 18px, meta: sans regular 16px)</li>
+<li><strong>open sans</strong> (title: sans light 48px, body: sans regular 18px, meta: sans regular 16px)</li>
+<li><strong>merriweather</strong> (title: sans 16px, body: serif light 16px, meta: sans 14px)</li>
+<li><strong>proxima nova</strong> (title: freight sans bold 48px, body: regular 18px, meta: regular 16px)</li>
+<li><strong>franklin gothic</strong> (title: demi 48px, body: book 18px, meta: book 16px)</li>
+<li><strong>camphor</strong> (title: light 48px, body: regular 18px, meta: regular 16px)</li>
+</ul>
+<h2 id="starting-from-scratch">starting from scratch
+  <a class="anchor-link" aria-label="anchor link" href="#starting-from-scratch">
+    &num;
+  </a>
+
+</h2>
+<h3 id="start-with-a-feature-not-a-layout">start with a feature, not a layout
+  <a class="anchor-link" aria-label="anchor link" href="#start-with-a-feature-not-a-layout">
+    &num;
+  </a>
+
+</h3>
+<p>don't start by designing the sidebar. don't start with the <em>shell</em>.</p>
+<p>start with an actual piece of functionality. start with a feature like "first start up", "recovery flow", "outbound payment", "new inbound payment notification".</p>
+<h3 id="detail-comes-later">detail comes later
+  <a class="anchor-link" aria-label="anchor link" href="#detail-comes-later">
+    &num;
+  </a>
+
+</h3>
+<p>don't get hung up on low-level decisions like typefaces, shadows, icons, ...</p>
+<p>one trick: <em>design on a paper using a thick sharpie.</em> you can quickly cover many layouts without getting lost in the weeds.</p>
+<p>start by designing in grayscale. this forces spacing, contrast, and size to do all the heavy lifting.</p>
+<p>avoid over-investing early on so you can move fast and explore the design space fast.</p>
+<h3 id="don-t-design-too-much">don't design too much
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-design-too-much">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>don't worry about how every feature interacts. design one or two features and then try implementing them.</li>
+</ul>
+<h3 id="work-in-cycles">work in cycles
+  <a class="anchor-link" aria-label="anchor link" href="#work-in-cycles">
+    &num;
+  </a>
+
+</h3>
+<p>once you're happy with the basic design, <em>make it real</em>.</p>
+<p>iterate on the implementation until there are no big problems left, then jump back into design mode and work on the next feature.</p>
+<h3 id="be-a-pessimist">be a pessimist
+  <a class="anchor-link" aria-label="anchor link" href="#be-a-pessimist">
+    &num;
+  </a>
+
+</h3>
+<p>don't imply functionality you aren't ready to build yet.</p>
+<p>design the <em>smallest useful version</em> you can feasibly ship <em>right now</em>.</p>
+<p>if a feature is "nice-to-have", <em>design it later</em>.</p>
+<h3 id="choose-a-personality">choose a personality
+  <a class="anchor-link" aria-label="anchor link" href="#choose-a-personality">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>if you don't have a gut feeling on what personality you're going for, just <del>steal</del> improve on what your competitors are doing : )</li>
+<li>ex: bank: <em>secure</em>, <em>professional</em>, <em>trustworthy</em></li>
+<li>ex: trendy startup: <em>fun</em>, <em>playful</em></li>
+<li>font choice plays a huge role in determining personality.
+<ul>
+<li>serif: <em>elegant</em> and <em>classy</em>
+<ul>
+<li>ex: Freight Text</li>
+</ul>
+</li>
+<li>rounded sans: <em>playful</em>
+<ul>
+<li>ex: Proxima Soft</li>
+</ul>
+</li>
+<li>neutral sans: <em>plain</em> (rely on other elts for personality)
+<ul>
+<li>ex: Freight Sans</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>color:
+<ul>
+<li>blue: <em>safe</em> and <em>familiar</em>; no one complains about blue</li>
+<li>gold: <em>expensive</em> and <em>sophisticated</em></li>
+<li>pink: <em>fun</em> and <em>not serious</em></li>
+</ul>
+</li>
+<li>border radius: (avoid mixing different border radii)
+<ul>
+<li>none: <em>serious</em> and <em>formal</em></li>
+<li>small: <em>neutral</em></li>
+<li>large: <em>playful</em></li>
+</ul>
+</li>
+<li>language:
+<ul>
+<li>impersonal tone: <em>official</em> and <em>professional</em></li>
+<li>casual or friendly tone: ... <em>friendly</em></li>
+</ul>
+</li>
+</ul>
+<h3 id="limit-your-choices">limit your choices
+  <a class="anchor-link" aria-label="anchor link" href="#limit-your-choices">
+    &num;
+  </a>
+
+</h3>
+<p>avoid wasting time over minor design choices, like 12px vs 13px, 10% vs 15% opacity, bold vs semibold, etc...</p>
+<p>define systems in advance: choose 8-10 primary shades ahead of time. choose a few standard font sizes (12px, 16px, 24px, 32px).</p>
+<p>this trick lets you "design by elimination" since there far fewer correct choices with a well-constrained design system.</p>
+<p>the more systems you have in place, the faster you can work. choose systems for:</p>
+<ul>
+<li>font size</li>
+<li>font weight</li>
+<li>line height</li>
+<li>color</li>
+<li>margin</li>
+<li>padding</li>
+<li>width</li>
+<li>height</li>
+<li>box shadows</li>
+<li>border radius</li>
+<li>border width</li>
+<li>opacity</li>
+</ul>
+<p>you also don't need to define all this ahead of time. have a systems-focused mindset <em>while you're designing</em>. look for opportunities to systematize.</p>
+<h2 id="hierarchy-is-everything">hierarchy is everything
+  <a class="anchor-link" aria-label="anchor link" href="#hierarchy-is-everything">
+    &num;
+  </a>
+
+</h2>
+<h3 id="not-all-elements-are-equal">not all elements are equal
+  <a class="anchor-link" aria-label="anchor link" href="#not-all-elements-are-equal">
+    &num;
+  </a>
+
+</h3>
+<p><em>visual hierarchy</em> is how important each interface element is, relative to each other.</p>
+<p>a UI will feel <em>noisy</em> and <em>cluttered</em> when there is poor <em>visual hierarchy</em>; if everything is competing for attention, it's not clear what actually matters.</p>
+<p>deliberatley de-emphasize secondary information. intentionally highlight elements that are most important.</p>
+<h3 id="size-isn-t-everything">size isn't everything
+  <a class="anchor-link" aria-label="anchor link" href="#size-isn-t-everything">
+    &num;
+  </a>
+
+</h3>
+<p>don't over-rely on font size to control your hierarchy. this leads to primary content that is <em>too large</em> and secondary content that is <em>too small</em>.</p>
+<p>look to leverage font weight or font color in addition to font size to communicate hierarchy.</p>
+<p>stick to around three colors: (1) a dark color for primary content, (2) a grey for secondary content, (3) a lighter grey for teriary content.</p>
+<p>and two font weights: (1) a normal font weight 400-500 and (2) a heavier font weight 600-700.</p>
+<p>font weights under 400 are usually too hard to read for UI work.</p>
+<h3 id="don-t-use-grey-text-on-colored-backgrounds">don't use grey text on colored backgrounds
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-use-grey-text-on-colored-backgrounds">
+    &num;
+  </a>
+
+</h3>
+<p>grey on colored backgrounds doesn't look great. what grey text on white backgrounds actually accomplishes is <em>reduced contrast</em>.</p>
+<p>neither should you just reduce the opacity; the font will still look dull.</p>
+<p>instead, choose a <em>new color</em> specifically for this background. just choose the same hue and adjust the saturation and lightness until it looks right.</p>
+<h3 id="emphasize-by-de-emphasizing">emphasize by de-emphasizing
+  <a class="anchor-link" aria-label="anchor link" href="#emphasize-by-de-emphasizing">
+    &num;
+  </a>
+
+</h3>
+<p>sometimes the main element just isn't standing out. everything you do to emphasize just doesn't give it enough "pop".</p>
+<p>in this situation, instead of further emphasizing the main element, figure out how to <em>de-emphasize</em> the elements around it.</p>
+<p>example: if a sidebar feels like it's competing with the main content, let it sit directly on the background.</p>
+<h3 id="labels-are-a-last-resort">labels are a last resort
+  <a class="anchor-link" aria-label="anchor link" href="#labels-are-a-last-resort">
+    &num;
+  </a>
+
+</h3>
+<p>when <em>displaying data</em>, avoid falling into the trap of displaying it in a naive <em>label: value</em> format. these blocks often lack hierarchy since every piece of data is given equal emphasis.</p>
+<h4 id="sometimes-the-format-is-enough">sometimes the format is enough
+  <a class="anchor-link" aria-label="anchor link" href="#sometimes-the-format-is-enough">
+    &num;
+  </a>
+
+</h4>
+<p>often the format and context is enough, like <em>guy@bigcorp.com</em> is an email, or <em>(555) 412-4566</em> is a phone number, or <em>$19.99</em> is a price.</p>
+<p>when you avoid unnecessary labels, it's much easier to establish hierarchy, making the interface feel more <em>designed</em>.</p>
+<h4 id="use-clarifying-text">use clarifying text
+  <a class="anchor-link" aria-label="anchor link" href="#use-clarifying-text">
+    &num;
+  </a>
+
+</h4>
+<p>one trick: instead of using a label like "in stock: 12", try adding <em>clarifying text</em> like "12 left in stock". another example: avoid "bedrooms: 12", use "12 bedrooms".</p>
+<h4 id="labels-are-secondary">labels are secondary
+  <a class="anchor-link" aria-label="anchor link" href="#labels-are-secondary">
+    &num;
+  </a>
+
+</h4>
+<p>on a dashboard, you might have multiple pieces of similar data that need to be easily scannable.</p>
+<p>in these situations, add a label but treat it as <em>supporting content</em> and <em>de-emphasize</em> it relative to the actual data content.</p>
+<h4 id="when-to-emphasize-a-label">when to emphasize a label
+  <a class="anchor-link" aria-label="anchor link" href="#when-to-emphasize-a-label">
+    &num;
+  </a>
+
+</h4>
+<p>in a situation like an information dense tech-specs page, where a user will be actively scanning for the label, the reverse should apply: emphasize the label instead of the data.</p>
+<h3 id="separate-visual-hierarchy-from-document-hierarchy">separate visual hierarchy from document hierarchy
+  <a class="anchor-link" aria-label="anchor link" href="#separate-visual-hierarchy-from-document-hierarchy">
+    &num;
+  </a>
+
+</h3>
+<p>when designing for the web, it's necessary to assign semantic tags like <code>h1</code>, <code>h2</code>, ... to programmaticly communicate hierarchy to search engines and indexers.</p>
+<p>however, avoid this trap: don't couple the <em>visual</em> hierarchy with the semantic <em>document</em> hierarchy.</p>
+<p>usually it's the content that should be in focus, not the title. give the title an <code>h1</code> tag, but change the styling so it's actually de-emphasized.</p>
+<p>in the extreme, add section titles to the markup but <em>completely hide</em> them visually because the content stands for itself.</p>
+<h3 id="balance-weight-and-contrast">balance weight and contrast
+  <a class="anchor-link" aria-label="anchor link" href="#balance-weight-and-contrast">
+    &num;
+  </a>
+
+</h3>
+<p>bold text feels emphasized because it <em>covers more surface area</em>.</p>
+<p>this applies to other UI elements as well.</p>
+<h4 id="use-contrast-to-compensate-for-weight">use contrast to compensate for weight
+  <a class="anchor-link" aria-label="anchor link" href="#use-contrast-to-compensate-for-weight">
+    &num;
+  </a>
+
+</h4>
+<p>assume you have two elements with different weights. how do you get them "balanced", so they feel they have the importance? we do this by <em>reducing the contrast</em> of the heavier element.</p>
+<p>this principle is especially applicable to icons, as it's not possible to increase the weight of an icon. instead, we de-emphasize an icon by <em>lowering its contrast</em> and giving it a softer color.</p>
+<h4 id="use-weight-to-compensate-for-contrast">use weight to compensate for contrast
+  <a class="anchor-link" aria-label="anchor link" href="#use-weight-to-compensate-for-contrast">
+    &num;
+  </a>
+
+</h4>
+<p>in the reverse, increasing weight is a good way to emphasize low contrast elements.</p>
+<p>this is especially useful for things like 1px borders that are too subtle with a soft color but make the design feel cluttered when darkening the color. instead of changing the color, <em>increase the weight</em>. make it a 2px border instead of a 1px border.</p>
+<h3 id="semantics-are-secondary">semantics are secondary
+  <a class="anchor-link" aria-label="anchor link" href="#semantics-are-secondary">
+    &num;
+  </a>
+
+</h3>
+<p>when there are multiple actions on a page (e.g., add, edit, delete), don't design those actions based purely on semantics (e.g., green add, red delete).</p>
+<p>don't make all your buttons the same size and only vary the color. they are <em>NOT all the same importance!</em>.</p>
+<p>always remember the <em>visual hierarchy</em>; more important actions should be more prominent.</p>
+<p>most pages only have one or two <em>primary actions</em>, a couple less important secondary actions, and a few seldom-used tertiary actions.</p>
+<ul>
+<li><strong>primary actions should be obivous.</strong> try solid high contrast background colors here.</li>
+<li><strong>secondary actions should be clear but not prominent.</strong> try outline styles or lower contrast background colors with these.</li>
+<li><strong>tertiary actions should be discoverable but not unobtrusive.</strong> styling these like links works well.</li>
+</ul>
+<p>just because an action is destructive doesn't mean it needs a big red all-up-in-your-face button. if it isn't the primary action, then don't style it as such.</p>
+<h2 id="layout-and-spacing">layout and spacing
+  <a class="anchor-link" aria-label="anchor link" href="#layout-and-spacing">
+    &num;
+  </a>
+
+</h2>
+<h3 id="start-with-too-much-whitespace">start with too much whitespace
+  <a class="anchor-link" aria-label="anchor link" href="#start-with-too-much-whitespace">
+    &num;
+  </a>
+
+</h3>
+<p>an easy way to clean up a design is to just give every element a little more room to breath.</p>
+<h4 id="whitespace-should-be-removed-not-added">whitespace should be removed, not added
+  <a class="anchor-link" aria-label="anchor link" href="#whitespace-should-be-removed-not-added">
+    &num;
+  </a>
+
+</h4>
+<p>it's much easier to get a good look if you <em>remove</em> whitespace from a design that has too much than if you  <em>add</em> whitespace to something that has too little.</p>
+<p>usually <em>adding</em> whitespace ends up with something that has the bare minimum to not look <em>actively</em> bad.</p>
+<p>usually a design that feels like it has "a little too much" whitespace, when focused on designing a specific component, actually has "just enough" whitespace when placed into a complete UI.</p>
+<h4 id="desnse-uis-have-their-place">desnse UIs have their place
+  <a class="anchor-link" aria-label="anchor link" href="#desnse-uis-have-their-place">
+    &num;
+  </a>
+
+</h4>
+<p>UIs with lots of space usually look cleaner and simpler, but there are absolutely situations where you need a lot of information on screen at once.</p>
+<p>be deliberate about density. it's much more obvious when you need to remove space than when you need to add it.</p>
+<h3 id="establish-a-spacing-and-sizing-system">establish a spacing and sizing system
+  <a class="anchor-link" aria-label="anchor link" href="#establish-a-spacing-and-sizing-system">
+    &num;
+  </a>
+
+</h3>
+<p>don't nitpick about 120px vs 125px for each element in your UI.</p>
+<p>be systematic; choose a limited set of values in advance and use them consistently.</p>
+<p>you'll notice that you can design much, much faster. your layouts will also <em>look</em> much more consistent.</p>
+<h4 id="a-linear-scale-won-t-work">a linear scale won't work
+  <a class="anchor-link" aria-label="anchor link" href="#a-linear-scale-won-t-work">
+    &num;
+  </a>
+
+</h4>
+<p>don't use something like "make sure everything is a multiple of 4px".</p>
+<p>small size deltas at small scales can have a huge impact, like for icons or paddings inside a button.</p>
+<p>but an extra 4px vs 8px width is imperceptible for a big 500px wide card.</p>
+<p>make sure no two values in your scale are ever closer than ~25%.</p>
+<h4 id="example-system">example system
+  <a class="anchor-link" aria-label="anchor link" href="#example-system">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>4px</li>
+<li>8px</li>
+<li>12px</li>
+<li>16px</li>
+<li>24px</li>
+<li>32px</li>
+<li>48px</li>
+<li>64px</li>
+<li>96px</li>
+<li>128px</li>
+<li>192px</li>
+<li>256px</li>
+<li>384px</li>
+<li>512px</li>
+<li>640px</li>
+<li>768px</li>
+</ul>
+<h3 id="you-don-t-have-to-fill-the-whole-screen">you don't have to fill the whole screen
+  <a class="anchor-link" aria-label="anchor link" href="#you-don-t-have-to-fill-the-whole-screen">
+    &num;
+  </a>
+
+</h3>
+<p>if you only need 600px, use 600px. don't make things unnecessarily wide.</p>
+<h4 id="shrink-the-canvas">shrink the canvas
+  <a class="anchor-link" aria-label="anchor link" href="#shrink-the-canvas">
+    &num;
+  </a>
+
+</h4>
+<p>if you're building a responsive mobile web app, try starting with a ~400px canvas.</p>
+<p>once you have something decent, try bringing it onto a larger screen and add anything that felt like a compromise for the smaller screen.</p>
+<h4 id="thinking-in-columns">thinking in columns
+  <a class="anchor-link" aria-label="anchor link" href="#thinking-in-columns">
+    &num;
+  </a>
+
+</h4>
+<p>if you've designed something that works well for a narrower screen, but feels unbalanced in a wider UI, try splitting it into columns instead of making it wider.</p>
+<h3 id="grids-are-overrated">grids are overrated
+  <a class="anchor-link" aria-label="anchor link" href="#grids-are-overrated">
+    &num;
+  </a>
+
+</h3>
+<p>using a 12-column grid is a great way to simplify layout decisions, but outsourcing <em>all</em> of your layout to the grid can do more harm than good.</p>
+<h4 id="not-all-elements-should-be-fluid">not all elements should be fluid
+  <a class="anchor-link" aria-label="anchor link" href="#not-all-elements-should-be-fluid">
+    &num;
+  </a>
+
+</h4>
+<p>a grid is about giving elements fluid, %-age based widths. usually each column is about 8.33% wide.</p>
+<p>however, there are a lot of situations where it makes more sense for an element to have a <em>fixed width</em>.</p>
+<p>for example, if you try to use a grid system with a typical sidebar + main content screen, things will break down when you try to resize the screen; the sidebar will end up looking squished or too wide.</p>
+<p>instead, give the sidebar a <em>fixed width</em>. the main content can use its own internal grid if it needs.</p>
+<p>don't use percentages unless you actually want it to scale.</p>
+<h4 id="don-t-shrink-an-element-unless-you-need-to">don't shrink an element unless you need to
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-shrink-an-element-unless-you-need-to">
+    &num;
+  </a>
+
+</h4>
+<p>don't: give a login form 6 cols for small screens, 8 cols for medium screens, 10 cols for big screens.</p>
+<p>do: if you know 500px is the optimal size for the card, then just set the <code>max-width</code> to 500px and only force the elements to shrink below that width.</p>
+<p>don't be a slave to the grid; give components the space they need and don't make compromises until it's actually necessary.</p>
+<h3 id="relative-sizing-doesn-t-scale">relative sizing doesn't scale
+  <a class="anchor-link" aria-label="anchor link" href="#relative-sizing-doesn-t-scale">
+    &num;
+  </a>
+
+</h3>
+<p>it might be tempting to describe sizes in subcomponents relative to their parent component, however this doesn't actually work that well for different screen sizes.</p>
+<p>ex: an article might use an 18px body font size and then try to define the heading as 2.5 em (relative to the article body font size), so about 46px. however, this will look <em>too large</em> on a mobile screen. a better mobile screen would use 14px body font size and then 24 px heading font size; only a 1.5-1.7x difference!</p>
+<p>in general: elements that are large on large screens will shrink <em>faster</em> than elements that are already fairly small. the difference in size b/w elements on smaller screens should be smaller.</p>
+<h4 id="relationships-within-elements">relationships within elements
+  <a class="anchor-link" aria-label="anchor link" href="#relationships-within-elements">
+    &num;
+  </a>
+
+</h4>
+<p>this principle, that sizing should happen independently for different screen sizes, also applies to properties within a single component.</p>
+<p>ex: you have a button with 16px font size, 16px horizontal padding, and 12px of vertical padding.</p>
+<p>just like before, it's tempting to define the two paddings as (linear) dependent variables on the font size; however, this doesn't actually look that good in practice.</p>
+<p>instead, the button's padding needs to get <em>tighter</em> as the font size decreases.</p>
+<p>give yourself the freedom to fine-tune things independently for different contexts.</p>
+<h3 id="avoid-ambiguous-spacing">avoid ambiguous spacing
+  <a class="anchor-link" aria-label="anchor link" href="#avoid-ambiguous-spacing">
+    &num;
+  </a>
+
+</h3>
+<p>one reason why visible separators (border lines, horizontal bars, etc...) are so easy to fallback on, is that they make it obvious <em>which elements belong to which groups</em>.</p>
+<p>however, visible separators also contribute greatly to visiual clutter. but, without a visible separator, it's not always obvious.</p>
+<p>especially avoid e.g. equal margin above and below a label. increase the margin above and decrease the margin below to more clearly "group" the label with the field.</p>
+<p>another ex: avoid bulleted lists where each line has equal vertical space; it can be confusing when skimming which line belongs to which bullet point. instead, increase spacing between bullet groups to give unambiguous visual separation.</p>
+<p>whenever you're relying on spacing to connect a group of elements, always make sure there's more spacing <em>around</em> the group that there is <em>within</em> it.</p>
+<h2 id="designing-text">designing text
+  <a class="anchor-link" aria-label="anchor link" href="#designing-text">
+    &num;
+  </a>
+
+</h2>
+<h3 id="establish-a-type-scale">establish a type scale
+  <a class="anchor-link" aria-label="anchor link" href="#establish-a-type-scale">
+    &num;
+  </a>
+
+</h3>
+<p>most interfaces use too many font sizes.</p>
+<p>for teams without a rigid design system, it's not uncommon for the UI to use every font size pixel value between 10px and 24px <em>somewhere</em>.</p>
+<p>not using a type system is a bad idea because (1) the design usually looks inconsistent and (2) it slows you down.</p>
+<h4 id="choosing-a-scale">choosing a scale
+  <a class="anchor-link" aria-label="anchor link" href="#choosing-a-scale">
+    &num;
+  </a>
+
+</h4>
+<p>just like <a href="https://phlip9.com/notes/design/refactoring%20ui/#layout-and-spacing">layout and spacing</a>, using <a href="https://phlip9.com/notes/design/refactoring%20ui/#a-linear-scale-won-t-work">a linear scale won't work</a>.</p>
+<p>avoid some mathematical system and instead use something like:</p>
+<ol>
+<li>12px</li>
+<li>14px</li>
+<li>16px</li>
+<li>18px</li>
+<li>20px</li>
+<li>24px</li>
+<li>30px</li>
+<li>36px</li>
+<li>48px</li>
+<li>60px</li>
+<li>72px</li>
+</ol>
+<p>don't use <code>em</code> (relative to parent element font size) to define the sizes. stick to <code>px</code> or <code>rem</code> (relative to global document font size).</p>
+<h3 id="use-good-fonts">use good fonts
+  <a class="anchor-link" aria-label="anchor link" href="#use-good-fonts">
+    &num;
+  </a>
+
+</h3>
+<p>understanding which details make a good or bad font takes years. without years,</p>
+<h4 id="play-it-safe">play it safe
+  <a class="anchor-link" aria-label="anchor link" href="#play-it-safe">
+    &num;
+  </a>
+
+</h4>
+<p>for UI design, the safest bet is a fairly neutral sans-serif like Helvetica.</p>
+<p>if you don't trust your taste, use the system font stack: <code>-apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;</code>.</p>
+<h4 id="ignore-typefaces-with-less-than-five-weights">ignore typefaces with less than five weights
+  <a class="anchor-link" aria-label="anchor link" href="#ignore-typefaces-with-less-than-five-weights">
+    &num;
+  </a>
+
+</h4>
+<p>a good <em>heuristic</em> is to ignore typefaces with only a few weights. typefaces with more weights <em>tend</em> to be more carefully crafted.</p>
+<p>an easy trick is to search on e.g. Google Fonts and filter out all fonts with less than 10 weights.</p>
+<h4 id="optimize-for-legibility">optimize for legibility
+  <a class="anchor-link" aria-label="anchor link" href="#optimize-for-legibility">
+    &num;
+  </a>
+
+</h4>
+<p>fonts are usually designed for a specific purpose.</p>
+<p>fonts for headlines usually have tighter letter spacing and shorter x-heights.</p>
+<p>fonts for smaller sizes usually have wider letter spacing and taller x-heights.</p>
+<p>avoid choosing a headline font for your main UI text.</p>
+<h4 id="trust-the-wisdom-of-the-crowds">trust the wisdom of the crowds
+  <a class="anchor-link" aria-label="anchor link" href="#trust-the-wisdom-of-the-crowds">
+    &num;
+  </a>
+
+</h4>
+<p>when starting out, pick popular fonts.</p>
+<p>steal fonts from sites and apps you admire.</p>
+<h3 id="keep-your-line-length-in-check">keep your line length in check
+  <a class="anchor-link" aria-label="anchor link" href="#keep-your-line-length-in-check">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>line length should be 45-75 characters or 20-35 em</li>
+</ul>
+<p>paragraphs: don't fit your text to your layout. strive to create the best reading experience.</p>
+<p>make your paragraphs wide enough to fit 45-75 characters per line. usually about 20-35 em.</p>
+<h3 id="baseline-not-center">baseline not center
+  <a class="anchor-link" aria-label="anchor link" href="#baseline-not-center">
+    &num;
+  </a>
+
+</h3>
+<ul>
+<li>align text by font baseline</li>
+</ul>
+<p>when you have multiple font sizes in the same "row", align by the font baseline, not the center.</p>
+<h3 id="line-height-is-proportional">line-height is proportional
+  <a class="anchor-link" aria-label="anchor link" href="#line-height-is-proportional">
+    &num;
+  </a>
+
+</h3>
+<p>first: why do we even have space b/w lines? so it's easier for readers to find the start of the next line when the text wraps.</p>
+<p>if you ever find yourself skipping a line or re-reading the same line, the line-height is probably too short.</p>
+<h4 id="line-height-vs-text-width">line-height vs text width
+  <a class="anchor-link" aria-label="anchor link" href="#line-height-vs-text-width">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>narrower lines =&gt; less line-height</li>
+<li>longer lines =&gt; greater line-height</li>
+</ul>
+<p>longer lines need greater line-height.</p>
+<p>ex: narrow, short paragraphs can get away with 1.5 line-height, while wider content might need 2.0 line-height.</p>
+<h4 id="line-height-vs-font-size">line-height vs font size
+  <a class="anchor-link" aria-label="anchor link" href="#line-height-vs-font-size">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>smaller font =&gt; greater line-height</li>
+<li>larger font =&gt; less line-height</li>
+</ul>
+<p>larger fonts need less line-height.</p>
+<p>ex: small body text uses 1.75 line-height vs article heading uses 1.0 line-height.</p>
+<h3 id="not-every-link-needs-a-color">not every link needs a color
+  <a class="anchor-link" aria-label="anchor link" href="#not-every-link-needs-a-color">
+    &num;
+  </a>
+
+</h3>
+<p>when links are included in a block of normal text, it's important that they stand out as links and look clickable.</p>
+<p>but if almost every element on the screen is a link, then the extra "pop" from link-styling can be overbearing.</p>
+<p>instead emphasize links more subtly, like with a darker color or heavier font.</p>
+<p>some links might not even need emphasis, like for tertiary elements. these can be styled <em>only on hover</em>.</p>
+<h3 id="align-with-readability-in-mind">align with readability in mind
+  <a class="anchor-link" aria-label="anchor link" href="#align-with-readability-in-mind">
+    &num;
+  </a>
+
+</h3>
+<p>for nearly all languages (except right-to-left like Arabic), text should be left-aligned, since you read left-to-right.</p>
+<p>short independent blocks of text, like headlines or marketing boxes, can often look good center aligned. however, don't center align if text is longer than 2-3 lines.</p>
+<p>numbers and prices in tables should be right aligned so the decimal is always in the same place.</p>
+<p>justified text often looks good in print and may work on the web when you want a more formal look. when using justified text remember to hyphenate text to avoid awkward gaps b/w words.</p>
+<h3 id="use-letter-spacing-effectively">use letter-spacing effectively
+  <a class="anchor-link" aria-label="anchor link" href="#use-letter-spacing-effectively">
+    &num;
+  </a>
+
+</h3>
+<p>as a general rule, you should usually leave letter-spacing to the font typeface designer.</p>
+<p>some specific cases where tweaking the letter-spacing works well:</p>
+<h4 id="tightening-headlines">tightening headlines
+  <a class="anchor-link" aria-label="anchor link" href="#tightening-headlines">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>body typeface for headline =&gt; tighten letter-spacing</li>
+<li>avoid headline typefaces for body text</li>
+</ul>
+<p>different fonts are usually designed for different purposes. ex: Open Sans is designed for body text while Oswald is designed for headings.</p>
+<p>if you use a body text typeface for a headline, probably tighten the letter-spacing.</p>
+<h4 id="improving-all-caps-legibility">improving all-caps legibility
+  <a class="anchor-link" aria-label="anchor link" href="#improving-all-caps-legibility">
+    &num;
+  </a>
+
+</h4>
+<ul>
+<li>all-caps =&gt; widen the letter-spacing</li>
+</ul>
+<p>typefaces are usually optimized for normal sentences. when using all-caps, probably widen the letter-spacing.</p>
+<h2 id="working-with-color">working with color
+  <a class="anchor-link" aria-label="anchor link" href="#working-with-color">
+    &num;
+  </a>
+
+</h2>
+<h3 id="ditch-hex-for-hsl">ditch hex for HSL
+  <a class="anchor-link" aria-label="anchor link" href="#ditch-hex-for-hsl">
+    &num;
+  </a>
+
+</h3>
+<p>hex colors that have a lot in common look nothing alike in code.</p>
+<p>Lightness in HSL slides from 0% (black) to 100% (white). 50% is "full" saturation.</p>
+<p>HSL is not the same as HSB. in HSB, 0% brightness is always black (like HSL), but 100% is not always white; only if the saturation is also 0%.</p>
+<p>HSB is more common in design software, but browsers only understand HSL.</p>
+<h3 id="you-need-more-colors-than-you-think">you need more colors than you think
+  <a class="anchor-link" aria-label="anchor link" href="#you-need-more-colors-than-you-think">
+    &num;
+  </a>
+
+</h3>
+<p>palette generators that spit out 5 colors are not super useful. a site designed with <em>just</em> those 5 colors will look awful and over-saturated.</p>
+<p>a good color palette has three main components: <strong>greys</strong>, <strong>primaries</strong>, and <strong>accents</strong>.</p>
+<h4 id="greys">greys
+  <a class="anchor-link" aria-label="anchor link" href="#greys">
+    &num;
+  </a>
+
+</h4>
+<p>text, backgrounds, panels, form controls -- almost everything is grey. you'll want lots of greys too; between 8-10 shades.</p>
+<p>true blacks also tend to look unnatural; start with a really dark grey.</p>
+<h4 id="primaries">primaries
+  <a class="anchor-link" aria-label="anchor link" href="#primaries">
+    &num;
+  </a>
+
+</h4>
+<p>most sites need just one, <em>maybe</em> two colors used for primary actions, active navs. these colors determine the overall look of a site. like how FB is "blue".</p>
+<p>just like greys, you'll want 5-10 primary shades.</p>
+<h4 id="accent-colors">accent colors
+  <a class="anchor-link" aria-label="anchor link" href="#accent-colors">
+    &num;
+  </a>
+
+</h4>
+<p>every site needs a few accent colors for communicating different things. new features might use an eye-popping yellow, pink, or teal. destructive actions might use reds. warnings might use yellows. positive trends might use greens.</p>
+<p>it's not uncommon to need as many as 10 different colors, with 5-10 shades each for a complex UI.</p>
+<h3 id="define-your-shades-up-front">define your shades up front
+  <a class="anchor-link" aria-label="anchor link" href="#define-your-shades-up-front">
+    &num;
+  </a>
+
+</h3>
+<p>avoid: css functions like <code>lighten</code> or <code>darken</code>. you'll end up with 35 <em>slightly</em> different blues that all look the same.</p>
+<p>you'll be a lot faster if there are only a few shades to choose from.</p>
+<h4 id="building-the-shades-for-a-color">building the shades for a color
+  <a class="anchor-link" aria-label="anchor link" href="#building-the-shades-for-a-color">
+    &num;
+  </a>
+
+</h4>
+<ol>
+<li><strong>choose the base color first.</strong> this is the color in the "middle" that the lighter and darker shades are based on. rule of thumb: choose a color that would make a good button background.</li>
+<li><strong>find the darkest and lightest shades.</strong> the darkest shade is usually reserved for text while the lightest is often a background shade. these will usually have the same or similar hue as the base color. rule of thumb: build a simple alert box w/ lightest shade as background and darkest shade as text.</li>
+<li>fill the gaps. start your scale with 100 -&gt; 500 -&gt; 900 for lightest -&gt; base -&gt; darkest. fill the gaps with 300 and 700, which should feel like perfect middle grounds between their neighbors. if you need more colors, do the same with 200, 400, 600, and 800.</li>
+</ol>
+<h4 id="what-about-greys">what about greys?
+  <a class="anchor-link" aria-label="anchor link" href="#what-about-greys">
+    &num;
+  </a>
+
+</h4>
+<p>for greys, the base color isn't as important. regardless, the process isn't the same.</p>
+<h4 id="it-s-not-a-science">it's not a science
+  <a class="anchor-link" aria-label="anchor link" href="#it-s-not-a-science">
+    &num;
+  </a>
+
+</h4>
+<p>trust your eyes.</p>
+<p>unfortunately you can't <em>just</em> lerp between 10 and 90 lightness to build the scale. the systematic approach is a good place to get started, but you'll probably have to make tweaks to get the perceived scale correct.</p>
+<h3 id="don-t-let-lightness-kill-your-saturation">don't let lightness kill your saturation
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-let-lightness-kill-your-saturation">
+    &num;
+  </a>
+
+</h3>
+<p>in HSL color space, saturation has a diminishing impact as lightness approaches 0 or 100. if you don't want the lighter and darker shades to look washed out, you'll need to increase the saturation as you get further away from 50.</p>
+<p>but what if your base color is already heavily saturated? how do you increase the saturation if it's already at 100?</p>
+<h4 id="use-perceived-brightness-to-your-advantage">use perceived brightness to your advantage
+  <a class="anchor-link" aria-label="anchor link" href="#use-perceived-brightness-to-your-advantage">
+    &num;
+  </a>
+
+</h4>
+<p>if you put two max-saturation colors side by side, a yellow H=60 and a blue H=240 with S=100 and L=50, you'll notice the yellow <em>looks</em> much brighter than the blue. this is because certain hues have a greater <em>perceived brightness</em> than others.</p>
+<p>there's a handy formula that takes an RGB color and outputs the perceived brightness.</p>
+<p>$$
+p(r, g, b) := \frac{\sqrt{0.299 , r^2 + 0.587 , g^2 + 0.114 , b^2}}{255}
+$$</p>
+<p>in the above, note that $r, g, b \in [0,255]$.</p>
+<p>plugging in some simple cases, we can see that all black has the lowest brightness, $p(0, 0, 0) = 0$; and all white has the highest, $p(255, 255, 255) = 1$.</p>
+<p>in some sense, the formula is telling us that pure blue and pure red have low perceived brightness; while colors like yellow (r+g), cyan (g+b), and magenta (r+b) have high perceived brightness.</p>
+<p>these high perceived brightness peaks are located at 60 (yellow), 180 (cyan), and 300 (magenta).</p>
+<h4 id="changing-brightness-by-rotating-hue">changing brightness by rotating hue
+  <a class="anchor-link" aria-label="anchor link" href="#changing-brightness-by-rotating-hue">
+    &num;
+  </a>
+
+</h4>
+<p>instead of increasing the lightness to increase the brightness, which often loses some of the color's <em>intensity</em>, you can also rotate its hue towards the nearest brightness peak (60, 180, 300).</p>
+<p>if you want to make it darker, rotate it towards the nearest dark hue: 0 (red), 120 (green), 240 (blue).</p>
+<p>this technique is especially useful when creating a palette for a light color like yellow. instead of just decreasing the lightness (and turning into a muddy and dull brown), gradually rotate the hue towards more of an orange as you decrease the brightness.</p>
+<p>best in small doses: avoid rotating the hue more than 20-30 deg or it'll look like a totally different color.</p>
+<h4 id="greys-don-t-have-to-be-grey">greys don't have to be grey
+  <a class="anchor-link" aria-label="anchor link" href="#greys-don-t-have-to-be-grey">
+    &num;
+  </a>
+
+</h4>
+<p>true grey has no saturation (rather 0 or 100 doesn't make a different).</p>
+<p>in practice however, we often use "cool" or "warm" greys. these have a bit of saturation with some yellow or orange for "warm" and blue for "cool".</p>
+<p>remember to increase the saturation for your greys as they get darker/lighter.</p>
+<h3 id="accessible-doesn-t-have-to-mean-ugly">accessible doesn't have to mean ugly
+  <a class="anchor-link" aria-label="anchor link" href="#accessible-doesn-t-have-to-mean-ugly">
+    &num;
+  </a>
+
+</h3>
+<p>design guidelines recommend a contrast ratio of 4.5 : 1 for &lt;18px body text and 3 : 1 for larger text.</p>
+<p>this is fairly easy to achieve for standard dark text on light background, but significantly more complicated when working with color.</p>
+<h4 id="flipping-the-contrast">flipping the contrast
+  <a class="anchor-link" aria-label="anchor link" href="#flipping-the-contrast">
+    &num;
+  </a>
+
+</h4>
+<p>when using <em>white text</em> on a <em>colored background</em>, you'll need surprisingly dark background colors to meet the 4.5 : 1 ratio. so dark that it'll interfere with the visual hierarchy.</p>
+<p>instead, try <em>flipping the contrast</em>. rather than light text on dark colored background, try dark text on light colored background. this way the color is way less in-your-face.</p>
+<h4 id="rotating-the-hue">rotating the hue
+  <a class="anchor-link" aria-label="anchor link" href="#rotating-the-hue">
+    &num;
+  </a>
+
+</h4>
+<p>even harder than white text on a colored background is <em>colored text</em> on a <em>colored background</em>, especially for secondary text that needs to be de-emphasized.</p>
+<p>you'll find that it's very hard to avoid pure white while meeting accessibility requirements if you just change the lightness and saturation.</p>
+<p>instead, rotate the hue towards a brighter color (yellow, cyan, magenta) while also ramping up the saturation and lightness.</p>
+<h3 id="don-t-rely-on-color-alone">don't rely on color alone
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-rely-on-color-alone">
+    &num;
+  </a>
+
+</h3>
+<p>color should supplement and enhance information, but it shouldn't be the only source.</p>
+<p>in the extreme case, near-blind or color blind users will have a hard time interpreting your UI.</p>
+<p>consider also users with low screen brightness, users using a red-shift application like f.lux, or users with their phone set to greyscale for power saving or late-night reading.</p>
+<p>for a top-level metric graph, don't just use red or green to indicate the trend. also add an up- or down-arrow.</p>
+<p>for a pie-graph where each color corresponds to a different category, consider using just different <em>contrasts</em> for each category.</p>
+<h2 id="creating-depth">creating depth
+  <a class="anchor-link" aria-label="anchor link" href="#creating-depth">
+    &num;
+  </a>
+
+</h2>
+<h3 id="emulate-a-light-source">emulate a light source
+  <a class="anchor-link" aria-label="anchor link" href="#emulate-a-light-source">
+    &num;
+  </a>
+
+</h3>
+<p>notice how some elements feel like they're raised off the page while others feel inset into the background.</p>
+<p>creating this effect requires understanding just one simple rule:</p>
+<h4 id="light-comes-from-above">light comes from above
+  <a class="anchor-link" aria-label="anchor link" href="#light-comes-from-above">
+    &num;
+  </a>
+
+</h4>
+<p>when you shine light down from above (coming from a light source like the sun or a room's ceiling lamp), things look raised or inset depending on the shadows they create.</p>
+<p>for raised elements, the top edge gets the most light while the bottom edge gets the least light.</p>
+<p>in contrast, for inset elements, the top edge gets the least light while the bottom edge gets the most light.</p>
+<h4 id="simulate-light-in-a-user-interface">simulate light in a user interface
+  <a class="anchor-link" aria-label="anchor link" href="#simulate-light-in-a-user-interface">
+    &num;
+  </a>
+
+</h4>
+<p>if you want an element to appear raised or inset, first figure out what profile you want the element to have on the page, as if it were a piece of cardboard resting on the page itself.</p>
+<ol>
+<li>how high is the block?</li>
+<li>what is it resting on?</li>
+<li>what do the edges look like? are the straight square edges or are they beveled?</li>
+</ol>
+<p>since most people look slightly down at their screens, the most natural look reveals a bit of the top edge and hides the bottom edge.</p>
+<p>add a top edge with an inset box shadow of maybe 1-2px and a lighter color. choose the lighter color by hand instead of just using <code>lighten</code>, which will suck out all the saturation.</p>
+<p>then give it a small dark box shadow with a slight vertical offset (you only want the shadow below the element). the offset should only be a few pixels.</p>
+<p>finally: don't get carried away. too many shadows and insets can make the UI look busy and cluttered.</p>
+<h3 id="use-shadows-to-convey-elevation">use shadows to convey elevation
+  <a class="anchor-link" aria-label="anchor link" href="#use-shadows-to-convey-elevation">
+    &num;
+  </a>
+
+</h3>
+<p>shadows can be more than just a flashy visual effect -- use them thoughtfully to convey <em>visual hierarchy</em> by placing elements on a virtual Z-axis, with more important elements <em>closer</em> to the user.</p>
+<p>small shadows with a tight blur radius feel only slightly raised while large shadows with a higher blur radius feel closer.</p>
+<p>you might use a small shadow for a button, where you want it to be noticable but not dominant. ex: <code>box-shadow: 0 1px 3px hsla(0,0%,0%,0.2)</code>.</p>
+<p>medium shadows are useful for dropdowns or other elements that need to sit "on top" of the rest of the UI. ex: <code>box-shadow: 0 4px 6px hsla(0,0%,0%,0.1)</code></p>
+<p>large shadows are great for modal dialogs, where you really want to capture the user's attention. ex: <code>box-shadow: 0 15px 35px hsla(0,0%,0%,0.2)</code>.</p>
+<h4 id="establish-an-elevation-system">establish an elevation system
+  <a class="anchor-link" aria-label="anchor link" href="#establish-an-elevation-system">
+    &num;
+  </a>
+
+</h4>
+<p>just like typography, color, spacing, and sizing; define a fixed set of shadows / z-levels ahead of time to speed up your workflow and maintain consistency.</p>
+<p>start with the smallest and largest shadows, then fill in linearly. you probably only need 5 shadows max.</p>
+<ol>
+<li>z-level +1: <code>box-shadow: 0 1px 3px hsla(0,0%,0%,.2)</code></li>
+<li>z-level +2: <code>box-shadow: 0 4px 6px hsla(0,0%,0%,.2)</code></li>
+<li>z-level +3: <code>box-shadow: 0 5px 15px hsla(0,0%,0%,.2)</code></li>
+<li>z-level +4: <code>box-shadow: 0 10px 24px hsla(0,0%,0%,.2)</code></li>
+<li>z-level +5: <code>box-shadow: 0 15px 35px hsla(0,0%,0%,.2)</code></li>
+</ol>
+<h4 id="combining-shadows-with-interaction">combining shadows with interaction
+  <a class="anchor-link" aria-label="anchor link" href="#combining-shadows-with-interaction">
+    &num;
+  </a>
+
+</h4>
+<p>shadows work great in combination with user interaction: make a table entry hover up a bit when the mouse hovers. have a button move down a z-level on click.</p>
+<p>think about items moving up or down a z-level on interaction rather than nitpicking about precise shadow values.</p>
+<h3 id="shadows-can-have-two-parts">shadows can have two parts
+  <a class="anchor-link" aria-label="anchor link" href="#shadows-can-have-two-parts">
+    &num;
+  </a>
+
+</h3>
+<p>you'll often need <em>two</em> shadows: one cast by <em>direct</em> light and one cast by <em>ambient</em> light.</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="css"><span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 4px  6px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">7</span><span>), // </span><span style="color: #B48EAD;">ambient </span><span style="color: #BF616A;">shadow</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">			0 5px 15px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">1</span><span>); // </span><span style="color: #B48EAD;">direct </span><span style="color: #BF616A;">shadow</span></span></code></pre>
+<p>the first shadow is larger and softer, with considerable vertical offset and large blur radius. it simulates the shadow cast behind an object by a direct light source.</p>
+<p>the second shadow looks tighter and darker, with a smaller vertical offset and blur radius. it simulates the dark areas immediately underneath a lit object where ambient light has trouble reaching.</p>
+<p>that second, ambient light shadow helps make the element's edges nice and defined, while letting the overall shadow stay nice and subtle.</p>
+<h4 id="accounting-for-elevation">accounting for elevation
+  <a class="anchor-link" aria-label="anchor link" href="#accounting-for-elevation">
+    &num;
+  </a>
+
+</h4>
+<p>as an object gets farther from the surface, the small dark ambient shadow slowly disappears.</p>
+<p>make sure to account for this and make the ambient shadow more and more subtle as the z-level increases.</p>
+<p>try these:</p>
+<pre class="giallo" style="color: #C0C5CE; background-color: #2B303B;"><code data-lang="css"><span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0  1px  3px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">12</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">1</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  1px  2px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">24</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0  3px  6px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">2</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  2px  4px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">12</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 10px 20px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">3</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  3px  6px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">10</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 15px 25px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">15</span><span>), // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">4</span></span>
+<span class="giallo-l"><span style="color: #B48EAD;">            0  5px 10px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">10</span><span>);</span></span>
+<span class="giallo-l"><span>            </span></span>
+<span class="giallo-l"><span style="color: #BF616A;">box-shadow</span><span style="color: #B48EAD;">: 0 20px 40px hsla(0,0%,0%,</span><span style="color: #8FA1B3;background-color: #BF616A;">.</span><span style="color: #2B303B;background-color: #BF616A;">20</span><span>); // </span><span style="color: #BF616A;">z-level</span><span> +</span><span style="color: #B48EAD;">5</span></span></code></pre><h3 id="even-flat-designs-can-have-depth">even flat designs can have depth
+  <a class="anchor-link" aria-label="anchor link" href="#even-flat-designs-can-have-depth">
+    &num;
+  </a>
+
+</h3>
+<p>"flat design" avoids shadows, gradients, or other effects that try to mimic how light interacts with things irl.</p>
+<p>but the most effective flat designs <em>still convey depth</em>, just in a different way.</p>
+<h4 id="creating-depth-with-color">creating depth with color
+  <a class="anchor-link" aria-label="anchor link" href="#creating-depth-with-color">
+    &num;
+  </a>
+
+</h4>
+<p>in general (esp. w/ shades of the same color), lighter objects <em>feel closer</em> and darker objects <em>feel farther away</em>.</p>
+<p>make an element lighter than its background color to make it feel like it's raised off the page.  likewise, make an element darker if you want it to feel inset like a well.</p>
+<h4 id="using-solid-shadows">using solid shadows
+  <a class="anchor-link" aria-label="anchor link" href="#using-solid-shadows">
+    &num;
+  </a>
+
+</h4>
+<p>with a flat design, you can also use a short <em>solid</em> shadow with no blur radius. this can help a card or button stand out without losing the flat aesthetic.</p>
+<h3 id="overlap-elements-to-create-layers">overlap elements to create layers
+  <a class="anchor-link" aria-label="anchor link" href="#overlap-elements-to-create-layers">
+    &num;
+  </a>
+
+</h3>
+<p>an effective tool at creating depth: overlap different elements. this makes the design feel like it has multiple <em>layers</em>.</p>
+<p>ex: instead of a card fully encompassed by a bg, followed by the next section, consider placing the card on the boundary between the two sections.</p>
+<p>ex: make an element taller than its parent so it overlaps boths sides.</p>
+<p>ex: overlap the &lt;- and -&gt; buttons on the edges of a carousel.</p>
+<p>overlapping images (like profile pic on bg pic) can also work great, but requires a little care to avoid overlapping images clashing.</p>
+<p>one simple trick is to add an "invisible border" that matches the card's background color, so there's always a gap between images.</p>
+<h2 id="working-with-images">working with images
+  <a class="anchor-link" aria-label="anchor link" href="#working-with-images">
+    &num;
+  </a>
+
+</h2>
+<h3 id="use-good-photos">use good photos
+  <a class="anchor-link" aria-label="anchor link" href="#use-good-photos">
+    &num;
+  </a>
+
+</h3>
+<p>bad photos will ruin a design, even if the UI is great.</p>
+<p>if you need photos, either: (1) hire a professional, or (2) use high quality stock photos.</p>
+<p>don't expect to design with placeholders and then just use some shit photos you took on your phone.</p>
+<h3 id="text-needs-consistent-contrast">text needs consistent contrast
+  <a class="anchor-link" aria-label="anchor link" href="#text-needs-consistent-contrast">
+    &num;
+  </a>
+
+</h3>
+<p>text on top of an image rarely works well without changes. you might find that regardless of the text color the text is still unreadable.</p>
+<p>try adding a semi-transparent overlay, maybe 50% black, to make the contrast more consistent.</p>
+<p>try lowering the contrast or increasing the brightness of the image itself.</p>
+<p>try colorizing the image (lower the contrast, desaturate to grayscale, then add a solid fill color in "multiply" blend mode). this can also make the image pair well with your existing brand colors.</p>
+<p>try adding text shadow, probably in combination with one of the previous tricks.</p>
+<h3 id="everything-has-an-intended-size">everything has an intended size
+  <a class="anchor-link" aria-label="anchor link" href="#everything-has-an-intended-size">
+    &num;
+  </a>
+
+</h3>
+<p>broadly: almost all assets (icons, fonts, photos) are intended to be <em>at a specific size</em>. straying from the intended size often looks bad.</p>
+<p>ex: obviously rasterized images don't scale well at all and just look blurry and pixelated.</p>
+<h4 id="don-t-scale-up-icons">don't scale up icons
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-scale-up-icons">
+    &num;
+  </a>
+
+</h4>
+<p>while vector icons won't look blurry and pixelated, they always feel disproportionately "chunky" when you scale them up. you'll likely have to find a version <em>drawn specifically for larger proportions</em>.</p>
+<p>if you've only got small icons, try enclosing them in a larger shape and giving the shape a background color.</p>
+<h4 id="don-t-scale-down-icons-either">don't scale down icons either
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-scale-down-icons-either">
+    &num;
+  </a>
+
+</h4>
+<p>icons meant for larger sizes look choppy and fuzzy when you squish them down.</p>
+<p>instead draw a super simplified version of the logo at the target size.</p>
+<h4 id="don-t-scale-down-screenshots">don't scale down screenshots
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-scale-down-screenshots">
+    &num;
+  </a>
+
+</h4>
+<p>if you take a full-size screenshot and shrink it 70% to make it fit, you'll end up with something busy and illegible.</p>
+<p>instead try taking a screenshot at your phone or tablet layout and save space in the design so you don't have to squish the image as much.</p>
+<p>try also a partial screenshot so you can display it more consistently without needing to scale down.</p>
+<p>try also redrawing a heavily simplified version of the UI, with details removed and small text replaced with simple lines.</p>
+<h3 id="beware-user-uploaded-content">beware user-uploaded content
+  <a class="anchor-link" aria-label="anchor link" href="#beware-user-uploaded-content">
+    &num;
+  </a>
+
+</h3>
+<p>when using user-uploaded images you don't have the luxury of fine-tuning the contrast, colors, and crop.</p>
+<p>to recover some control and keep the design clean:</p>
+<h4 id="control-the-shape-and-size">control the shape and size
+  <a class="anchor-link" aria-label="anchor link" href="#control-the-shape-and-size">
+    &num;
+  </a>
+
+</h4>
+<p>avoid showing user images at their original shape and size. lots of different sizes can really throw off a layout.</p>
+<p>to do this use <code>background-size: cover</code> to keep images at a predefined shape.</p>
+<h4 id="prevent-background-bleed">prevent background bleed
+  <a class="anchor-link" aria-label="anchor link" href="#prevent-background-bleed">
+    &num;
+  </a>
+
+</h4>
+<p>when a user uploads an image with a background color the same as the UI background, the elements bleed together and lose shape.</p>
+<p>try using a subtle inner shadow. hard borders will often clash with colors in the image.</p>
+<h2 id="finishing-touches">finishing touches
+  <a class="anchor-link" aria-label="anchor link" href="#finishing-touches">
+    &num;
+  </a>
+
+</h2>
+<h3 id="supercharge-the-defaults">supercharge the defaults
+  <a class="anchor-link" aria-label="anchor link" href="#supercharge-the-defaults">
+    &num;
+  </a>
+
+</h3>
+<p>you don't always have to add new elements to add flare, supercharge what is already there.</p>
+<p>ex: if you have a bulleted list, replace the bullets with icons.</p>
+<p>ex: if you have a testimonial, "promote" the quotes to visual elements by increasing the size and changing the color.</p>
+<p>ex: use custom checkboxes and radio bottons with your brand colors</p>
+<h3 id="add-color-with-accent-borders">add color with accent borders
+  <a class="anchor-link" aria-label="anchor link" href="#add-color-with-accent-borders">
+    &num;
+  </a>
+
+</h3>
+<p>if you're not a graphic designer who can make illustrations or take photos, you can add a quick dash of visual flair by just adding some colorful accent borders to bland parts of your UI.</p>
+<p>ex: top of a card, under/over active navigation items, alongside an alert message, underneath a headline, or across the whole layout.</p>
+<h4 id="change-the-background-color">change the background color
+  <a class="anchor-link" aria-label="anchor link" href="#change-the-background-color">
+    &num;
+  </a>
+
+</h4>
+<p>one easy way to upgrade a design is to change the background color of an element, or for whole sections.</p>
+<p>you can even use a slight gradient, though take care the two hues are no more than 30deg apart.</p>
+<h4 id="use-a-repeating-pattern">use a repeating pattern
+  <a class="anchor-link" aria-label="anchor link" href="#use-a-repeating-pattern">
+    &num;
+  </a>
+
+</h4>
+<p>try adding a subtle repeating background to the background, or just across one edge.</p>
+<p>keep contrast low so it doesn't interfere with the content.</p>
+<p>ex: <a rel="external" href="https://heropatterns.com/">https://heropatterns.com/</a></p>
+<h4 id="add-a-simple-shape-or-illustration">add a simple shape or illustration
+  <a class="anchor-link" aria-label="anchor link" href="#add-a-simple-shape-or-illustration">
+    &num;
+  </a>
+
+</h4>
+<p>instead of decorating an entire background, try adding a simple shape or illustration in one or two specific positions. simple geometric shapes work well.</p>
+<h3 id="don-t-overlook-the-initial-state">don't overlook the initial state
+  <a class="anchor-link" aria-label="anchor link" href="#don-t-overlook-the-initial-state">
+    &num;
+  </a>
+
+</h3>
+<p>you've finished designing a feature and it looks great when filled out with content. but what does it look like when a new user opens it? if it's completely barren and empty, that's not a great look.</p>
+<p>empty states are a user's first interaction with a new product or feature. use them as an opportunity to be interesting and exciting; not plain or boring.</p>
+<p>if you're designing something that depends on user content, the empty state should be a priority, not an after thought.</p>
+<p>try: adding an illustration or call-to-action on the empty page to encourage the user to take the next step.</p>
+<p>if there are a bunch of other supporting UI like tabs or filters, consider completely hiding them. all the extra stuff has no point if there's no content.</p>
+<h3 id="use-fewer-borders">use fewer borders
+  <a class="anchor-link" aria-label="anchor link" href="#use-fewer-borders">
+    &num;
+  </a>
+
+</h3>
+<p>when you need to create separation b/w elements, resist the temptation to immediately reach for a border.</p>
+<p>using too many can make your design busy and cluttered.</p>
+<p>try: using a box shadow to outline an element like a border, but more subtly.</p>
+<p>try: using two different background colors b/w adjacent elements to create distinction.</p>
+<p>try: adding extra spacing between elements.</p>
+<h3 id="think-outside-the-box">think outside the box
+  <a class="anchor-link" aria-label="anchor link" href="#think-outside-the-box">
+    &num;
+  </a>
+
+</h3>
+<p>get creative. reconsider preconceived notions you have about different elements.</p>
+<p>ex: instead of a boring white-background dropdown of vertical links, add some columns, add some images, add supporting text. keep it interesting!</p>
+<p>ex: there's nothing more boring than a stack of radio buttons. try making a row of selectable cards instead.</p>
+<h2 id="leveling-up">leveling up
+  <a class="anchor-link" aria-label="anchor link" href="#leveling-up">
+    &num;
+  </a>
+
+</h2>
+<h3 id="look-for-decisions-you-wouldn-t-have-made">look for decisions you wouldn't have made
+  <a class="anchor-link" aria-label="anchor link" href="#look-for-decisions-you-wouldn-t-have-made">
+    &num;
+  </a>
+
+</h3>
+<p>whenever you come across a design you really like, ask yourself: "did the designer do anything here I would never have thought to do?"</p>
+<p>"why did they use an inverted background color on the date picker?"</p>
+<p>"why did they place the button inside the text input instead of on the outside?"</p>
+<p>"why did they use two font colors in the headline?"</p>
+<h3 id="reproduce-a-design-from-scratch">reproduce a design from scratch
+  <a class="anchor-link" aria-label="anchor link" href="#reproduce-a-design-from-scratch">
+    &num;
+  </a>
+
+</h3>
+<p>the best way to notice the little details is to reproduce a design from scratch, without looking at the developer tools. you'll pick up all the little details and hidden tricks that you wouldn't have otherwise noticed.</p>
+
+
+        
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+    
+    
+      <form id="search-bar" class="d-none">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div id="search-container" class="col col-lg-11 col-xl-9">
+              <input id="userinput" class="form-control is-search" type="search" placeholder="Search notes..."
+                aria-label="Search notes..." autocomplete="off">
+              <div id="suggestions" class="shadow rounded"></div>
+            </div>
+          </div>
+        </div>
+      </form>
+    
+
+  
+
+  
+
+
+  <script src="https://phlip9.com/notes/js/elasticlunr.min.js" defer></script>
+  <script src="https://phlip9.com/notes/search_index.en.js" defer></script>
+  <script src="https://phlip9.com/notes/js/search.js" defer></script>
+
+
+  
+</body>
+</html>
